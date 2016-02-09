@@ -53,7 +53,6 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Submit";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             // 
             // dateTimePicker1
             // 
@@ -75,7 +74,6 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(372, 21);
             this.comboBox1.TabIndex = 2;
-            this.comboBox1.Visible = false;
             // 
             // pictureBox1
             // 
@@ -146,6 +144,7 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(187, 21);
             this.comboBox2.TabIndex = 9;
+            this.comboBox2.Visible = false;
             // 
             // comboBox3
             // 
@@ -159,6 +158,7 @@
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(187, 21);
             this.comboBox3.TabIndex = 9;
+            this.comboBox3.Visible = false;
             // 
             // button2
             // 
@@ -168,6 +168,7 @@
             this.button2.TabIndex = 10;
             this.button2.Text = "Submit";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             // 
             // Form1
             // 

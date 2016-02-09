@@ -7,3 +7,12 @@ C:\Users\Jessie Millican\Documents\Visual Studio 2013\Projects\CSCI490\SoftwareE
 C:\Users\Jessie Millican\Documents\Visual Studio 2013\Projects\CSCI490\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.csproj.GenerateResource.Cache
 C:\Users\Jessie Millican\Documents\Visual Studio 2013\Projects\CSCI490\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.exe
 C:\Users\Jessie Millican\Documents\Visual Studio 2013\Projects\CSCI490\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.pdb
+F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.exe.config
+F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.exe
+F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.pdb
+F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.exe
+F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.pdb
+F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.csprojResolveAssemblyReference.cache
+F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Form1.resources
+F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Properties.Resources.resources
+F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.csproj.GenerateResource.Cache
