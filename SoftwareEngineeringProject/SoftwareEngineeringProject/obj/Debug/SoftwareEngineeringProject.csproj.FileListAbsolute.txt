@@ -16,3 +16,14 @@ F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\ob
 F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Form1.resources
 F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Properties.Resources.resources
 F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.csproj.GenerateResource.Cache
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.exe.config
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.exe
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.pdb
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\Data.mdf
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\Data_log.ldf
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.exe
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.pdb
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.csprojResolveAssemblyReference.cache
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Form1.resources
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Properties.Resources.resources
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.csproj.GenerateResource.Cache
