@@ -61,6 +61,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(232, 20);
             this.dateTimePicker1.TabIndex = 1;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // comboBox1
             // 
@@ -68,8 +69,8 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "(Select)",
-            "Finals",
-            "MFT",
+            "Finals-CBT",
+            "Finals-PBT",
             "Montrose"});
             this.comboBox1.Location = new System.Drawing.Point(32, 61);
             this.comboBox1.Name = "comboBox1";

@@ -81,31 +81,65 @@ namespace SoftwareEngineeringProject
             string[] arr = new string[10];
             ListViewItem itm;
 
-            if(comboBox1.SelectedIndex.ToString()!="0")
-            { 
-                if(radioButton1.Checked)
-            for (int i = 0; i < 31; i++)
+            if (comboBox1.SelectedIndex.ToString() != "0" && comboBox1.SelectedIndex.ToString() == "1" || comboBox1.SelectedIndex.ToString() == "2")
             {
-                //adding items so that they can be populated
-                //this needs to be updated so that it will add stuff from DB
-                arr[0] = comboBox1.SelectedIndex.ToString()+i;
-                arr[1] = "12/"+(i+1)+"/2016";
-                arr[2] = "12:00 PM";
-                arr[3] = "123";
-                itm = new ListViewItem(arr);
-                listView1.Items.Add(itm);
-            }
-                else if(radioButton2.Checked)
-                    for (int i = 0; i < 31; i++)
+                int j = 8;
+                int k = 660;
+                string AP = "";
+                if (radioButton1.Checked)
+                for (int i = 0; i <=k; i+=30)
+                {
+                    //adding items so that they can be populated
+                    //this needs to be updated so that it will add stuff from DB
+                    arr[0] = ""+25;
+                    arr[1] = "" + dateTimePicker1.Value.ToString("MM/dd/yyyy");
+                    if (i == 60)
                     {
-                        arr[0] = comboBox1.SelectedIndex.ToString() + i;
-                        arr[1] = "12/" + (i + 1) + "/2016";
-                        arr[2] = "12:00 PM";
-                        arr[3] = "123";
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
+                        j += 1;
+                        i -= 60;
+                        k -= 60;
                     }
+                    if (j > 12)
+                    {
+                        j -= 12;
+                    }
+                    if(j<8||j==12)
+                        AP = " PM";
+                    else
+                        AP = " AM";
+                    if (i == 0)
+                    {
+                        arr[2] = j + ":00"+AP;
+                    }
+                    else
+                        arr[2] = j+":"+i+AP;
+                    
+                    arr[3] = "123";
+                    itm = new ListViewItem(arr);
+                    listView1.Items.Add(itm);
                 }
+            }
+            if (comboBox1.SelectedIndex.ToString() != "0" && comboBox1.SelectedIndex.ToString() == "2")
+            {
+                if (radioButton1.Checked)
+                { }
+            }
+            if (comboBox1.SelectedIndex.ToString() == "3" && comboBox1.SelectedIndex.ToString() != "0")
+            {
+                int j = 0;
+                if (radioButton1.Checked) 
+                for (int i = 0; i < 31; i++)
+                {
+                    //adding items so that they can be populated
+                    //this needs to be updated so that it will add stuff from DB
+                    arr[0] = ""+18;
+                    arr[1] = "12/" + (i + 1) + "/2016";
+                    arr[2] = "12:00 PM - 2:00 PM";
+                    arr[3] = "Montrose";
+                    itm = new ListViewItem(arr);
+                    listView1.Items.Add(itm);
+                }
+            }
 
         }
 
@@ -185,6 +219,72 @@ namespace SoftwareEngineeringProject
                         itm = new ListViewItem(arr);
                         listView1.Items.Add(itm);
                     }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            listView1.Items.Clear();
+
+            string[] arr = new string[10];
+            ListViewItem itm;
+
+            if (comboBox1.SelectedIndex.ToString() != "0" && comboBox1.SelectedIndex.ToString() == "1" || comboBox1.SelectedIndex.ToString() == "2")
+            {
+                int j = 8;
+                int k = 660;
+                string AP = "";
+                if (radioButton1.Checked)
+                    for (int i = 0; i <= k; i += 30)
+                    {
+                        //adding items so that they can be populated
+                        //this needs to be updated so that it will add stuff from DB
+                        arr[0] = "" + 25;
+                        arr[1] = "" + dateTimePicker1.Value.ToString("MM/dd/yyyy");
+                        if (i == 60)
+                        {
+                            j += 1;
+                            i -= 60;
+                            k -= 60;
+                        }
+                        if (j > 12)
+                        {
+                            j -= 12;
+                        }
+                        if (j < 8 || j == 12)
+                            AP = " PM";
+                        else
+                            AP = " AM";
+                        if (i == 0)
+                        {
+                            arr[2] = j + ":00" + AP;
+                        }
+                        else
+                            arr[2] = j + ":" + i + AP;
+
+                        arr[3] = "123";
+                        itm = new ListViewItem(arr);
+                        listView1.Items.Add(itm);
+                    }
+            }
+            if (comboBox1.SelectedIndex.ToString() == "3" && comboBox1.SelectedIndex.ToString() != "0")
+            {//Montrose
+                int j = 0;
+                string dates;
+                if (radioButton1.Checked)
+                    for (int i = 0; i < 31; i++)
+                    {
+                        //adding items so that they can be populated
+                        //this needs to be updated so that it will add stuff from DB
+                        dateTimePicker1.Value = dateTimePicker1.Value.AddDays(i);
+                        arr[0] = "" + 18;
+                        arr[1] = "" + dateTimePicker1.Value.ToString("MM/dd/yyyy");
+                        arr[2] = "12:00 PM - 2:00 PM";
+                        arr[3] = "Montrose";
+                        itm = new ListViewItem(arr);
+                        listView1.Items.Add(itm);
+                    }
+            }
+
         }
     }
 }
