@@ -70,12 +70,11 @@ namespace SoftwareEngineeringProject
                         itm = new ListViewItem(arr);
                         listView1.Items.Add(itm);
                     }
-
             }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {//First View
             listView1.Items.Clear();
 
             string[] arr = new string[10];
@@ -128,17 +127,15 @@ namespace SoftwareEngineeringProject
             {
                 int j = 0;
                 if (radioButton1.Checked) 
-                for (int i = 0; i < 31; i++)
-                {
-                    //adding items so that they can be populated
-                    //this needs to be updated so that it will add stuff from DB
-                    arr[0] = ""+18;
-                    arr[1] = "12/" + (i + 1) + "/2016";
-                    arr[2] = "12:00 PM - 2:00 PM";
-                    arr[3] = "Montrose";
-                    itm = new ListViewItem(arr);
-                    listView1.Items.Add(itm);
-                }
+                        //adding items so that they can be populated
+                        //this needs to be updated so that it will add stuff from DB
+                        dateTimePicker1.Value = dateTimePicker1.Value.AddDays(1);
+                        arr[0] = "" + 18;
+                        arr[1] = "" + dateTimePicker1.Value.ToString("MM/dd/yyyy");
+                        arr[2] = "12:00 PM - 2:00 PM";
+                        arr[3] = "Montrose";
+                        itm = new ListViewItem(arr);
+                        listView1.Items.Add(itm);
             }
 
         }
@@ -222,7 +219,7 @@ namespace SoftwareEngineeringProject
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
+        {//Date Change
             listView1.Items.Clear();
 
             string[] arr = new string[10];
@@ -268,21 +265,16 @@ namespace SoftwareEngineeringProject
             }
             if (comboBox1.SelectedIndex.ToString() == "3" && comboBox1.SelectedIndex.ToString() != "0")
             {//Montrose
-                int j = 0;
-                string dates;
                 if (radioButton1.Checked)
-                    for (int i = 0; i < 31; i++)
-                    {
                         //adding items so that they can be populated
                         //this needs to be updated so that it will add stuff from DB
-                        dateTimePicker1.Value = dateTimePicker1.Value.AddDays(i);
+                        dateTimePicker1.Value = dateTimePicker1.Value.AddDays(1);
                         arr[0] = "" + 18;
                         arr[1] = "" + dateTimePicker1.Value.ToString("MM/dd/yyyy");
                         arr[2] = "12:00 PM - 2:00 PM";
                         arr[3] = "Montrose";
                         itm = new ListViewItem(arr);
                         listView1.Items.Add(itm);
-                    }
             }
 
         }
