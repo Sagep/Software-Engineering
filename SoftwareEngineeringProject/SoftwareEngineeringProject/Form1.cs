@@ -92,6 +92,8 @@ namespace SoftwareEngineeringProject
                     //this needs to be updated so that it will add stuff from DB
                     arr[0] = ""+25;
                     arr[1] = "" + dateTimePicker1.Value.ToString("MM/dd/yyyy");
+
+
                     if (i == 60)
                     {
                         j += 1;
@@ -126,16 +128,18 @@ namespace SoftwareEngineeringProject
             if (comboBox1.SelectedIndex.ToString() == "3" && comboBox1.SelectedIndex.ToString() != "0")
             {
                 int j = 0;
-                if (radioButton1.Checked) 
-                        //adding items so that they can be populated
-                        //this needs to be updated so that it will add stuff from DB
-                        dateTimePicker1.Value = dateTimePicker1.Value.AddDays(1);
+                if (radioButton1.Checked)
+                    //adding items so that they can be populated
+                    //this needs to be updated so that it will add stuff from DB
+                    for (j = 0; j < 30; j++)
+                    {
                         arr[0] = "" + 18;
-                        arr[1] = "" + dateTimePicker1.Value.ToString("MM/dd/yyyy");
+                        arr[1] = "" + dateTimePicker1.Value.AddDays(j).ToString("MM/dd/yyyy");
                         arr[2] = "12:00 PM - 2:00 PM";
                         arr[3] = "Montrose";
                         itm = new ListViewItem(arr);
                         listView1.Items.Add(itm);
+                    }
             }
 
         }
