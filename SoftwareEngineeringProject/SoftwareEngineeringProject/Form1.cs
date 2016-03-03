@@ -162,7 +162,6 @@ namespace SoftwareEngineeringProject
             listView1.Columns.Add("Seats", 100);
             listView1.Columns.Add("Date", 70);
             listView1.Columns.Add("Time", 70);
-            listView1.Columns.Add("Room", 70);
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -182,10 +181,10 @@ namespace SoftwareEngineeringProject
             //Add column header
             listView1.Columns.Add("Name", 70);
             listView1.Columns.Add("Class", 70);
-            listView1.Columns.Add("Teacher", 70);
+            listView1.Columns.Add("Instructor", 70);
             listView1.Columns.Add("Date", 100);
             listView1.Columns.Add("Time", 70);
-            listView1.Columns.Add("Room", 70);
+            listView1.Columns.Add("CBT-PBT-Montrose", 125);
             listView1.Columns.Add("Reporter", 70);
             listView1.Columns.Add("Date Created", 100);
         }
