@@ -54,6 +54,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Submit";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dateTimePicker1
             // 
@@ -155,7 +156,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(92, 62);
+            this.button3.Location = new System.Drawing.Point(63, 99);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(99, 23);
             this.button3.TabIndex = 11;
@@ -164,7 +165,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(273, 62);
+            this.button4.Location = new System.Drawing.Point(244, 99);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(92, 23);
             this.button4.TabIndex = 12;
@@ -179,6 +180,7 @@
             this.button5.TabIndex = 13;
             this.button5.Text = "Edit";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
