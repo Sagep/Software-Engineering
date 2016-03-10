@@ -19,6 +19,7 @@ namespace SoftwareEngineeringProject
             InitializeComponent();
         }
 
+        //start page
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -28,6 +29,8 @@ namespace SoftwareEngineeringProject
             button4.Visible = false;
             button5.Visible = false;
             button6.Visible = false;
+            button7.Visible = false;
+            button8.Visible = false;
             listView1.View = View.Details;
             listView1.GridLines = true;
             listView1.FullRowSelect = true;
@@ -35,7 +38,7 @@ namespace SoftwareEngineeringProject
 
             radioButton1.Checked = true;
         }
-
+        //drop down
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {//First View
             listView1.Items.Clear();
@@ -85,6 +88,7 @@ namespace SoftwareEngineeringProject
             }
             if (comboBox1.SelectedIndex.ToString() == "0")
             {
+                listView1.Visible = true;
                 if (radioButton3.Checked)
                 {
                     listView1.Items.Clear();
@@ -101,10 +105,31 @@ namespace SoftwareEngineeringProject
                         listView1.Items.Add(itm);
                     }
                 }
-                button1.Enabled = false;
+                button1.Visible = false;
+                button3.Visible = true;
+                button4.Visible = true;
+                button5.Visible = false;
+                button6.Visible = false;
+                button7.Visible = false;
+                button8.Visible = true;
+                button8.Visible = false;
+            }
+            else if ((comboBox1.SelectedIndex.ToString() == "1" || comboBox1.SelectedIndex.ToString() == "2") && radioButton3.Checked)
+            {
+                listView1.Visible = false;
+                button1.Visible = true;
+                button3.Visible = false;
+                button4.Visible = false;
+                button5.Visible = false;
+                button6.Visible = false;
+                button7.Visible = false;
+                button8.Visible = false;
             }
             else
+            {
                 button1.Enabled = true;
+                listView1.Visible = true;
+            }
             if (comboBox1.SelectedIndex.ToString() == "3" && comboBox1.SelectedIndex.ToString() != "0")
             {
                 int j = 0;
@@ -123,7 +148,7 @@ namespace SoftwareEngineeringProject
             }
 
         }
-
+        //Add page
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             comboBox1.Items.Clear();
@@ -140,6 +165,8 @@ namespace SoftwareEngineeringProject
                 button4.Visible = false;
                 button5.Visible = false;
                 button6.Visible = false;
+                button7.Visible = false;
+                button8.Visible = false;
             }
             comboBox1.SelectedIndex = 0;
             listView1.Columns.Clear();
@@ -148,7 +175,7 @@ namespace SoftwareEngineeringProject
             listView1.Columns.Add("Date", 70);
             listView1.Columns.Add("Time", 70);
         }
-
+        //Edit-View Page
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             comboBox1.Items.Clear();
@@ -164,6 +191,8 @@ namespace SoftwareEngineeringProject
                 button4.Visible = false;
                 button5.Visible = true;
                 button6.Visible = true;
+                button7.Visible = true;
+                button8.Visible = false;
             }
             comboBox1.SelectedIndex = 0;
             listView1.Columns.Clear();
@@ -178,40 +207,49 @@ namespace SoftwareEngineeringProject
             listView1.Columns.Add("CBT-PBT-Montrose", 125);
             listView1.Columns.Add("Reporter", 70);
             listView1.Columns.Add("Date Created", 100);
+            listView1.Columns.Add("Status", 100);
         }
-
+        //admin page
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             comboBox1.Items.Clear();
+
             comboBox1.Items.Add("Users");
-            comboBox1.Items.Add("Finals Dates");
+            comboBox1.Items.Add("Finals");
+            comboBox1.Items.Add("Montrose");
             if (!button3.Visible || !button4.Visible || button5.Visible || button6.Visible)
             {
                 button3.Visible = true;
                 button4.Visible = true;
                 button5.Visible = false;
                 button6.Visible = false;
+                button7.Visible = false;
+                button8.Visible = true;
             }
             listView1.Columns.Clear();
             button1.Visible = false;
+            comboBox1.SelectedIndex = comboBox1.Items.IndexOf("Users");
 
-            listView1.Columns.Add("Name:", 70);
-            listView1.Columns.Add("Username:", 70);
-            listView1.Columns.Add("Date Added", 70);
-            listView1.Columns.Add("Admin", 70);
-            listView1.Items.Clear();
-                    for (int i = 0; i < 10; i++)
-                    {
-                        //adding items so that they can be populated
-                        //this needs to be updated so that it will add stuff from DB
-                        arr[0] = "Porter, Sage";
-                        arr[1] = "sporter";
-                        arr[2] = DateTime.Now.ToString();
-                        arr[3] = "Y";
+            if (comboBox1.SelectedIndex.ToString() == "0")
+            { 
+                listView1.Columns.Add("Name:", 70);
+                listView1.Columns.Add("Username:", 70);
+                listView1.Columns.Add("Date Added", 70);
+                listView1.Columns.Add("Admin", 70);
+                listView1.Items.Clear();
+                for (int i = 0; i < 10; i++)
+                {
+                    //adding items so that they can be populated
+                    //this needs to be updated so that it will add stuff from DB
+                    arr[0] = "Porter, Sage";
+                    arr[1] = "sporter";
+                    arr[2] = DateTime.Now.ToString();
+                    arr[3] = "Y";
 
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
-                    }
+                    itm = new ListViewItem(arr);
+                    listView1.Items.Add(itm);
+                }
+            }
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -276,7 +314,7 @@ namespace SoftwareEngineeringProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (dateTimePicker1.Value < DateTime.Now && (radioButton1.Checked||radioButton3.Checked))
+            if (dateTimePicker1.Value < DateTime.Today && (radioButton1.Checked||radioButton3.Checked))
             {
                 System.Windows.Forms.MessageBox.Show("Please select another date.");
             }
