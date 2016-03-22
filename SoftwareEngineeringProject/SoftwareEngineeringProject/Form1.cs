@@ -59,7 +59,8 @@ namespace SoftwareEngineeringProject
             checkBox4.Visible = false;
             checkBox5.Visible = false;
             checkBox6.Visible = false;
-            checkBox7.Visible = false;
+            checkBox7.Visible = false; 
+            checkBox8.Visible = false;
 
             radioButton1.Checked = true;
         }
@@ -154,7 +155,8 @@ namespace SoftwareEngineeringProject
                 checkBox4.Visible = false;
                 checkBox5.Visible = false;
                 checkBox6.Visible = false;
-                checkBox7.Visible = false;
+                checkBox7.Visible = false; 
+                checkBox8.Visible = false;
 
             }
             else if (comboBox1.SelectedIndex.ToString() == "0")
@@ -194,7 +196,8 @@ namespace SoftwareEngineeringProject
                 checkBox4.Visible = true;
                 checkBox5.Visible = true;
                 checkBox6.Visible = true;
-                checkBox7.Visible = true;
+                checkBox7.Visible = true; 
+                checkBox8.Visible = true;
             }
             else
             {
@@ -321,7 +324,8 @@ namespace SoftwareEngineeringProject
                 checkBox4.Visible = false;
                 checkBox5.Visible = false;
                 checkBox6.Visible = false;
-                checkBox7.Visible = false;
+                checkBox7.Visible = false; 
+                checkBox8.Visible = false;
             }
             listView1.Columns.Clear();
             button1.Visible = false;
@@ -411,11 +415,11 @@ namespace SoftwareEngineeringProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (dateTimePicker1.Value < DateTime.Today && (radioButton1.Checked || radioButton3.Checked))
+            if (dateTimePicker1.Value < DateTime.Today && radioButton1.Checked)
             {
                 System.Windows.Forms.MessageBox.Show("Please select another date.");
             }
-            else
+            else if(!radioButton3.Checked)
             {
                 Form2 frm = new Form2(this);
                 frm.Show();

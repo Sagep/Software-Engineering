@@ -61,6 +61,7 @@
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -399,12 +400,25 @@
             this.label5.TabIndex = 33;
             this.label5.Text = "CBT/PBT";
             // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox8.ForeColor = System.Drawing.Color.Gold;
+            this.checkBox8.Location = new System.Drawing.Point(577, 297);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(96, 21);
+            this.checkBox8.TabIndex = 34;
+            this.checkBox8.Text = "ALL TIME?";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1273, 680);
+            this.Controls.Add(this.checkBox8);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBox7);
             this.Controls.Add(this.checkBox6);
@@ -481,6 +495,7 @@
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox checkBox8;
     }
 }
 
