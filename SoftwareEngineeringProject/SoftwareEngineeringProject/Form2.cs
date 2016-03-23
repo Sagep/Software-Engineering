@@ -19,6 +19,12 @@ namespace SoftwareEngineeringProject
             InitializeComponent();
             opener = parentForm;
         }
+        public string from;
+        public string until;
+        public string first;
+        public string last;
+        public string classs;
+        public string instructor;
 
         private void Form2_Load(object sender, EventArgs e)
         {
@@ -33,8 +39,19 @@ namespace SoftwareEngineeringProject
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            from = dateTimePicker4.Value.Hour.ToString();
+            from += ":";
+            from += dateTimePicker4.Value.Minute.ToString();
+
+
+            until = dateTimePicker5.Value.Hour.ToString();
+            until += ":";
+            until += dateTimePicker5.Value.Minute.ToString();
+
+            this.DialogResult = DialogResult.OK;
             Information frm = new Information(this);
-            frm.Show();
+            frm.ShowDialog();
+
             this.Close();
         }
     }

@@ -18,5 +18,14 @@ namespace SoftwareEngineeringProject
             InitializeComponent();
             opener = parentForm;
         }
+        public string first;
+        public string last;
+        public string classs;
+        public string instructor;
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

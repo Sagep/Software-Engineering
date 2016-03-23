@@ -190,6 +190,7 @@
             this.button4.TabIndex = 12;
             this.button4.Text = "Delete User";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -209,6 +210,7 @@
             this.button6.TabIndex = 14;
             this.button6.Text = "Delete";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 

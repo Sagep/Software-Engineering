@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Linq;
 
 
 namespace SoftwareEngineeringProject
@@ -19,12 +20,11 @@ namespace SoftwareEngineeringProject
         {
             InitializeComponent();
         }
+        DatabaseQuerieDataContext db = new DatabaseQuerieDataContext();
 
         //start page
         private void Form1_Load(object sender, EventArgs e)
         {
-
-
             comboBox1.SelectedIndex = 0;
             button3.Visible = false;
             button4.Visible = false;
@@ -65,6 +65,7 @@ namespace SoftwareEngineeringProject
 
             radioButton1.Checked = true;
         }
+   
         //drop down
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {//First View
@@ -117,15 +118,16 @@ namespace SoftwareEngineeringProject
             {
                 listView1.Visible = true;
                 listView1.Items.Clear();
-                for (int i = 0; i < 10; i++)
-                {
-                    //adding items so that they can be populated
-                    //this needs to be updated so that it will add stuff from DB
-                    arr[0] = "Porter, Sage";
-                    arr[1] = "sporter";
-                    arr[2] = DateTime.Now.ToString();
-                    arr[3] = "Y";
+                var query = from c in db.Users
+                            select c;
 
+                foreach (var q in query)
+                {
+                    arr[0] = q.Id.ToString();
+                    arr[1] = q.name.ToString();
+                    arr[2] = q.username.ToString();
+                    arr[3] = q.dateadded.ToString();
+                    arr[4] = q.admin.ToString();
                     itm = new ListViewItem(arr);
                     listView1.Items.Add(itm);
                 }
@@ -222,8 +224,108 @@ namespace SoftwareEngineeringProject
                         listView1.Items.Add(itm);
                     }
             }
+            if(comboBox1.SelectedIndex.ToString()=="1" && radioButton2.Checked)
+            {
+                var query = from c in db.Saveds
+                            where c.CBT_PBT=="CBT"
+                            select c;
+
+                foreach (var q in query)
+                {
+                    arr[0] = q.StudentName.ToString();
+                    arr[1] = q.Class.ToString();
+                    arr[2] = q.Instructor.ToString();
+                    arr[3] = q.TestDate.ToString();
+                    arr[4] = q.TestTime.ToString();
+                    arr[5] = q.CBT_PBT.ToString();
+                    arr[6] = q.Reporter.ToString();
+                    arr[7] = q.DateCreated.ToString();
+                    arr[8] = q.Status.ToString();
+                    arr[9] = q.Id.ToString();
+
+
+                    itm = new ListViewItem(arr);
+                    listView1.Items.Add(itm);
+                    //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
+                }
+            }
+            if (comboBox1.SelectedIndex.ToString() == "0" && radioButton2.Checked)
+            {
+                var query = from c in db.Saveds
+                            select c;
+
+                foreach (var q in query)
+                {
+                    arr[0] = q.StudentName.ToString();
+                    arr[1] = q.Class.ToString();
+                    arr[2] = q.Instructor.ToString();
+                    arr[3] = q.TestDate.ToString();
+                    arr[4] = q.TestTime.ToString();
+                    arr[5] = q.CBT_PBT.ToString();
+                    arr[6] = q.Reporter.ToString();
+                    arr[7] = q.DateCreated.ToString();
+                    arr[8] = q.Status.ToString();
+                    arr[9] = q.Id.ToString();
+
+
+                    itm = new ListViewItem(arr);
+                    listView1.Items.Add(itm);
+                    //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
+                }
+            }
+            if (comboBox1.SelectedIndex.ToString() == "2" && radioButton2.Checked)
+            {
+                var query = from c in db.Saveds
+                            where c.CBT_PBT == "PBT"
+                            select c;
+
+                foreach (var q in query)
+                {
+                    arr[0] = q.StudentName.ToString();
+                    arr[1] = q.Class.ToString();
+                    arr[2] = q.Instructor.ToString();
+                    arr[3] = q.TestDate.ToString();
+                    arr[4] = q.TestTime.ToString();
+                    arr[5] = q.CBT_PBT.ToString();
+                    arr[6] = q.Reporter.ToString();
+                    arr[7] = q.DateCreated.ToString();
+                    arr[8] = q.Status.ToString();
+                    arr[9] = q.Id.ToString();
+
+
+                    itm = new ListViewItem(arr);
+                    listView1.Items.Add(itm);
+                    //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
+                }
+            }
+            if (comboBox1.SelectedIndex.ToString() == "3" && radioButton2.Checked)
+            {
+                var query = from c in db.Saveds
+                            where c.CBT_PBT == "Montrose"
+                            select c;
+
+                foreach (var q in query)
+                {
+                    arr[0] = q.StudentName.ToString();
+                    arr[1] = q.Class.ToString();
+                    arr[2] = q.Instructor.ToString();
+                    arr[3] = q.TestDate.ToString();
+                    arr[4] = q.TestTime.ToString();
+                    arr[5] = q.CBT_PBT.ToString();
+                    arr[6] = q.Reporter.ToString();
+                    arr[7] = q.DateCreated.ToString();
+                    arr[8] = q.Status.ToString();
+                    arr[9] = q.Id.ToString();
+
+
+                    itm = new ListViewItem(arr);
+                    listView1.Items.Add(itm);
+                    //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
+                }
+            }
 
         }
+      
         //Add page
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
@@ -255,6 +357,7 @@ namespace SoftwareEngineeringProject
             listView1.Columns.Add("Date", 70);
             listView1.Columns.Add("Time", 70);
         }
+      
         //Edit-View Page
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
@@ -268,7 +371,7 @@ namespace SoftwareEngineeringProject
                 dateTimePicker1.Visible = true;
                 listView1.Visible = true;
                 comboBox1.Visible = true;
-                button1.Visible = true;
+                button1.Visible = false;
                 button3.Visible = false;
                 button4.Visible = false;
                 button5.Visible = true;
@@ -282,17 +385,41 @@ namespace SoftwareEngineeringProject
             listView1.Columns.Clear();
             listView1.Items.Clear();
             //Add column header
-            listView1.Columns.Add("Name", 70);
+            listView1.Columns.Add("Name", 150);
             listView1.Columns.Add("Class", 70);
             listView1.Columns.Add("Instructor", 70);
             listView1.Columns.Add("Date", 100);
-            listView1.Columns.Add("Time", 70);
+            listView1.Columns.Add("Time", 125);
             //subject to change
-            listView1.Columns.Add("CBT-PBT-Montrose", 125);
+            listView1.Columns.Add("CBT-PBT-M", 70);
             listView1.Columns.Add("Reporter", 70);
             listView1.Columns.Add("Date Created", 100);
-            listView1.Columns.Add("Status", 100);
+            listView1.Columns.Add("Status", 75);
+            listView1.Columns.Add("ID", 75);
+
+            var query = from c in db.Saveds
+                        select c;
+
+            foreach (var q in query)
+            {
+                arr[0] = q.StudentName.ToString();
+                arr[1] = q.Class.ToString();
+                arr[2] = q.Instructor.ToString();
+                arr[3] = q.TestDate.ToString();
+                arr[4] = q.TestTime.ToString();
+                arr[5] = q.CBT_PBT.ToString();
+                arr[6] = q.Reporter.ToString();
+                arr[7] = q.DateCreated.ToString();
+                arr[8] = q.Status.ToString();
+                arr[9] = q.Id.ToString();
+
+
+                itm = new ListViewItem(arr);
+                listView1.Items.Add(itm);
+                //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
+            }
         }
+       
         //admin page
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
@@ -308,7 +435,6 @@ namespace SoftwareEngineeringProject
                 button5.Visible = false;
                 button6.Visible = false;
                 button7.Visible = false;
-                button8.Visible = true;
                 dateTimePicker4.Visible = false;
                 dateTimePicker5.Visible = false;
                 dateTimePicker2.Visible = false;
@@ -331,42 +457,45 @@ namespace SoftwareEngineeringProject
             listView1.Columns.Clear();
             button1.Visible = false;
             comboBox1.SelectedIndex = comboBox1.Items.IndexOf("Users");
-
+            button8.Visible = true;
             if (comboBox1.SelectedIndex.ToString() == "0")
-            { 
-                listView1.Columns.Add("Name:", 70);
+            {
+                listView1.Columns.Add("ID", 50);
+                listView1.Columns.Add("Name:", 150);
                 listView1.Columns.Add("Username:", 70);
-                listView1.Columns.Add("Date Added", 70);
-                listView1.Columns.Add("Admin", 70);
+                listView1.Columns.Add("Date Added", 100);
+                listView1.Columns.Add("Admin", 50);
                 listView1.Items.Clear();
-                for (int i = 0; i < 10; i++)
-                {
-                    //adding items so that they can be populated
-                    //this needs to be updated so that it will add stuff from DB
-                    arr[0] = "Porter, Sage";
-                    arr[1] = "sporter";
-                    arr[2] = DateTime.Now.ToString();
-                    arr[3] = "Y";
+            }
+            var query = from c in db.Users
+                        select c;
 
-                    itm = new ListViewItem(arr);
-                    listView1.Items.Add(itm);
-                }
+            foreach (var q in query)
+            {
+                arr[0] = q.Id.ToString();
+                arr[1] = q.name.ToString();
+                arr[2] = q.username.ToString();
+                arr[3] = q.dateadded.ToString();
+                arr[4] = q.admin.ToString();
+                itm = new ListViewItem(arr);
+                listView1.Items.Add(itm);
             }
         }
+       
         //Date Change
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            if(!radioButton3.Checked)
-            listView1.Items.Clear();
             string[] arr = new string[10];
             ListViewItem itm;
-            if (comboBox1.SelectedIndex.ToString() != "0" && comboBox1.SelectedIndex.ToString() == "1" || comboBox1.SelectedIndex.ToString() == "2")
+            if (comboBox1.SelectedIndex.ToString() != "0" && comboBox1.SelectedIndex!=3 && comboBox1.SelectedIndex.ToString() == "1" || comboBox1.SelectedIndex.ToString() == "2")
             {
+                if (!radioButton3.Checked)
+                    listView1.Items.Clear();
                 int j = 8;
                 int k = 660;
                 string AP = "";
                 if (radioButton1.Checked)
-                    for (int i = 0; i <= k; i += 30)
+                    for (int i = 30; i <= k; i += 15)
                     {
                         //adding items so that they can be populated
                         //this needs to be updated so that it will add stuff from DB
@@ -398,37 +527,116 @@ namespace SoftwareEngineeringProject
                         listView1.Items.Add(itm);
                     }
             }
-            if (comboBox1.SelectedIndex.ToString() == "3" && comboBox1.SelectedIndex.ToString() != "0")
-            {//Montrose
+            if(comboBox1.SelectedIndex==3)
+            {
+                if (!radioButton3.Checked)
+                    listView1.Items.Clear();
+                int j = 0;
                 if (radioButton1.Checked)
-                        //adding items so that they can be populated
-                        //this needs to be updated so that it will add stuff from DB
-                        dateTimePicker1.Value = dateTimePicker1.Value.AddDays(1);
+                    for (j = 0; j < 30; j++)
+                    {
                         arr[0] = "" + 18;
-                        arr[1] = "" + dateTimePicker1.Value.ToString("MM/dd/yyyy");
+                        arr[1] = "" + dateTimePicker1.Value.AddDays(j).ToString("MM/dd/yyyy");
                         arr[2] = "12:00 PM - 2:00 PM";
                         arr[3] = "Montrose";
                         itm = new ListViewItem(arr);
                         listView1.Items.Add(itm);
+                    }
             }
-
         }
 
+        //Add To DB
         private void button1_Click(object sender, EventArgs e)
         {
             if (dateTimePicker1.Value < DateTime.Today && radioButton1.Checked)
             {
-                System.Windows.Forms.MessageBox.Show("Please select another date.");
+                System.Windows.Forms.MessageBox.Show("Please select Another day");
             }
             else if(!radioButton3.Checked)
             {
                 Form2 frm = new Form2(this);
-                frm.Show();
+
+
+                var result = frm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    //System.Windows.Forms.MessageBox.Show("from " + frm.from + " until " + frm.until);
+                }
             }
         }
 
+        //edit DB information
         private void button5_Click(object sender, EventArgs e)
         {
+        }
+
+        //deleting Scheduled DB information.
+        private void button6_Click(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection breakfast =
+            this.listView1.SelectedItems;
+            string price ="";
+
+            foreach (ListViewItem item in breakfast)
+            {
+                price += Double.Parse(item.SubItems[9].Text);
+            }
+
+
+
+            var query = from c in db.Saveds
+                        where c.Id.ToString()==price.ToString()
+                        select c;
+            foreach (var q in query)
+            {
+                db.Saveds.DeleteOnSubmit(q);
+                db.SubmitChanges();
+
+            }
+
+            listView1.Items.Clear();
+
+            if (comboBox1.SelectedIndex.ToString() == "0")
+                comboBox1.SelectedIndex = 1;
+            comboBox1.SelectedIndex = 0;
+        }
+
+        //remove users
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //delete selected
+            ListView.SelectedListViewItemCollection breakfast =
+            this.listView1.SelectedItems;
+            string selecteduser = "";
+
+            foreach (ListViewItem item in breakfast)
+            {
+                selecteduser += Double.Parse(item.SubItems[0].Text);
+            }
+            var query = from c in db.Users
+                        where c.Id.ToString() == selecteduser.ToString()
+                        select c;
+            foreach (var q in query)
+            {
+                db.Users.DeleteOnSubmit(q);
+                db.SubmitChanges();
+            }
+            listView1.Items.Clear();
+
+
+            //refresh page
+            query = from c in db.Users
+                        select c;
+            foreach (var q in query)
+            {
+                arr[0] = q.Id.ToString();
+                arr[1] = q.name.ToString();
+                arr[2] = q.username.ToString();
+                arr[3] = q.dateadded.ToString();
+                arr[4] = q.admin.ToString();
+                itm = new ListViewItem(arr);
+                listView1.Items.Add(itm);
+            }
         }
     }
 }
