@@ -49,10 +49,10 @@ namespace SoftwareEngineeringProject
             dateTimePicker2.Visible = false;
             dateTimePicker3.Visible = false;
             label1.Visible = false;
-            label2.Visible =false; 
+            label2.Visible = false; 
             label3.Visible = false;
             label4.Visible = false;
-            label5.Visible=false;
+            label5.Visible = false;
 
             checkBox1.Visible = false;
             checkBox2.Visible = false;
@@ -80,11 +80,11 @@ namespace SoftwareEngineeringProject
                 int k = 660;
                 string AP = "";
                 if (radioButton1.Checked)
-                for (int i = 30; i <=k; i+=15)
+                for (int i=30; i<=k; i+=15)
                 {
                     //adding items so that they can be populated
                     //this needs to be updated so that it will add stuff from DB
-                    arr[0] = ""+25;
+                    arr[0] = "" + 25;
                     arr[1] = "" + dateTimePicker1.Value.ToString("MM/dd/yyyy");
 
 
@@ -146,10 +146,10 @@ namespace SoftwareEngineeringProject
                 dateTimePicker2.Visible = false;
                 dateTimePicker3.Visible = false;
                 label1.Visible = false;
-                label2.Visible =false; 
+                label2.Visible = false; 
                 label3.Visible = false;
                 label4.Visible = false;
-                label5.Visible=false;
+                label5.Visible = false;
 
                 checkBox1.Visible = false;
                 checkBox2.Visible = false;
@@ -186,7 +186,7 @@ namespace SoftwareEngineeringProject
                 label2.Visible = true; 
                 label3.Visible = true;
                 label4.Visible = true;
-                label5.Visible=true;
+                label5.Visible = true;
                 if (comboBox1.SelectedIndex.ToString() == "1")
                     label5.Text = "CBT/PBT";
                 else
@@ -439,10 +439,10 @@ namespace SoftwareEngineeringProject
                 dateTimePicker2.Visible = false;
                 dateTimePicker3.Visible = false;
                 label1.Visible = false;
-                label2.Visible =false; 
+                label2.Visible = false; 
                 label3.Visible = false;
                 label4.Visible = false;
-                label5.Visible=false;
+                label5.Visible = false;
 
                 checkBox1.Visible = false;
                 checkBox2.Visible = false;
@@ -554,7 +554,6 @@ namespace SoftwareEngineeringProject
             else if(!radioButton3.Checked)
             {
                 Form2 frm = new Form2(this);
-
 
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK)
