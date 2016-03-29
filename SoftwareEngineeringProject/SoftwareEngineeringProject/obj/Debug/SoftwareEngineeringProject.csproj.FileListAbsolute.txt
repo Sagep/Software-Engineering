@@ -19,8 +19,6 @@ F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\ob
 C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.exe.config
 C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.exe
 C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.pdb
-C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\Data.mdf
-C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\Data_log.ldf
 C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.exe
 C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.pdb
 C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.csprojResolveAssemblyReference.cache
@@ -44,3 +42,7 @@ C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\S
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\Scheduled_log.ldf
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Form2.resources
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Information.resources
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\Scheduled.mdf
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\Scheduled_log.ldf
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Form2.resources
+C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Information.resources

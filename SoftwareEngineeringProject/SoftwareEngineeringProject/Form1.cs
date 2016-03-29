@@ -139,7 +139,6 @@ namespace SoftwareEngineeringProject
                 button6.Visible = false;
                 button7.Visible = false;
                 button8.Visible = true;
-                button8.Visible = false;
                 dateTimePicker4.Visible = false;
                 dateTimePicker5.Visible = false;
 
