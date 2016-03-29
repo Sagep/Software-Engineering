@@ -553,12 +553,51 @@ namespace SoftwareEngineeringProject
             }
             else if(!radioButton3.Checked)
             {
-                Form2 frm = new Form2(this);
-
-                var result = frm.ShowDialog();
-                if (result == DialogResult.OK)
+                if (listView1.SelectedItems.Count>0)
                 {
-                    //System.Windows.Forms.MessageBox.Show("from " + frm.from + " until " + frm.until);
+                    Form2 frm = new Form2(this);
+
+                    var result = frm.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        ListView.SelectedListViewItemCollection selectedtimestart =this.listView1.SelectedItems;
+                        string date = "";
+                        string timestart = "";
+
+                        DateTime temp=new DateTime();
+
+                        foreach (ListViewItem item in selectedtimestart)
+                        {
+                            //temp.TimeOfDay = item.SubItems[1].Text;
+                            date += item.SubItems[1].Text;
+                            timestart += item.SubItems[2].Text;
+                        }
+                        int inc = 0;
+                        string hour="";
+                        string minute="";
+
+                        for (inc = 0; inc < timestart.Length; inc++ )
+                        {
+                            if (timestart[inc] != ':')
+                                hour += timestart[inc];
+                            else
+                                break;
+                        }
+                        for (inc += 1; inc < timestart.Length; inc++ )
+                        {
+                            if (timestart[inc] != ' ')
+                                minute += timestart[inc];
+                            else
+                                break;
+                        }
+                        TimeSpan ts = new TimeSpan(int.Parse(hour), int.Parse(minute), 0);
+                        temp = temp.Date + ts;
+                            System.Windows.Forms.MessageBox.Show(date + " " + temp.Hour + " for " + frm.time + " minutes");
+                    }
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Please select a time frame.");
                 }
             }
         }

@@ -15,11 +15,6 @@ C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\Softwar
 C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Form1.resources
 C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Properties.Resources.resources
 C:\Users\Jessie Millican\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.csproj.GenerateResource.Cache
-C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.exe.config
-C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.exe
-C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.pdb
-C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.exe
-C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\SoftwareEngineeringProject.pdb
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.csprojResolveAssemblyReference.cache
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Form1.resources
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Properties.Resources.resources
@@ -46,3 +41,8 @@ F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\ob
 F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\MavPlanner.pdb
 F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\MavPlanner.exe
 F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\MavPlanner.pdb
+C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\MavPlanner.exe.config
+C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\MavPlanner.exe
+C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\MavPlanner.pdb
+C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\MavPlanner.exe
+C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Debug\MavPlanner.pdb
