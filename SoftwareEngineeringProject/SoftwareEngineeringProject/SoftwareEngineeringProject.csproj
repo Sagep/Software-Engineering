@@ -47,7 +47,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>mp.ico</ApplicationIcon>
+    <ApplicationIcon>mp_large.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mp.ico" />
+    <Content Include="mp_large.ico" />
     <Content Include="Scheduled.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

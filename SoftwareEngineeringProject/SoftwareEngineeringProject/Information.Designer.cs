@@ -150,7 +150,7 @@
             this.Controls.Add(this.First);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Information";
-            this.Text = "Information";
+            this.Text = "MavPlanner";
             this.ResumeLayout(false);
             this.PerformLayout();
 
