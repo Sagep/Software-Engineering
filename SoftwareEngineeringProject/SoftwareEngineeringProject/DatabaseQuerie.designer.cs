@@ -30,12 +30,12 @@ namespace SoftwareEngineeringProject
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertSaved(Saved instance);
-    partial void UpdateSaved(Saved instance);
-    partial void DeleteSaved(Saved instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertSaved(Saved instance);
+    partial void UpdateSaved(Saved instance);
+    partial void DeleteSaved(Saved instance);
     #endregion
 		
 		public DatabaseQuerieDataContext() : 
@@ -68,6 +68,14 @@ namespace SoftwareEngineeringProject
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<User> Users
+		{
+			get
+			{
+				return this.GetTable<User>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Saved> Saveds
 		{
 			get
@@ -75,12 +83,162 @@ namespace SoftwareEngineeringProject
 				return this.GetTable<Saved>();
 			}
 		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Users")]
+	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
+	{
 		
-		public System.Data.Linq.Table<User> Users
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _username;
+		
+		private string _admin;
+		
+		private string _name;
+		
+		private string _dateadded;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnusernameChanging(string value);
+    partial void OnusernameChanged();
+    partial void OnadminChanging(string value);
+    partial void OnadminChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OndateaddedChanging(string value);
+    partial void OndateaddedChanged();
+    #endregion
+		
+		public User()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id
 		{
 			get
 			{
-				return this.GetTable<User>();
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(50)")]
+		public string username
+		{
+			get
+			{
+				return this._username;
+			}
+			set
+			{
+				if ((this._username != value))
+				{
+					this.OnusernameChanging(value);
+					this.SendPropertyChanging();
+					this._username = value;
+					this.SendPropertyChanged("username");
+					this.OnusernameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_admin", DbType="VarChar(50)")]
+		public string admin
+		{
+			get
+			{
+				return this._admin;
+			}
+			set
+			{
+				if ((this._admin != value))
+				{
+					this.OnadminChanging(value);
+					this.SendPropertyChanging();
+					this._admin = value;
+					this.SendPropertyChanged("admin");
+					this.OnadminChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dateadded", DbType="VarChar(50)")]
+		public string dateadded
+		{
+			get
+			{
+				return this._dateadded;
+			}
+			set
+			{
+				if ((this._dateadded != value))
+				{
+					this.OndateaddedChanging(value);
+					this.SendPropertyChanging();
+					this._dateadded = value;
+					this.SendPropertyChanged("dateadded");
+					this.OndateaddedChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -109,8 +267,6 @@ namespace SoftwareEngineeringProject
 		
 		private string _DateCreated;
 		
-		private string _Status;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -133,8 +289,6 @@ namespace SoftwareEngineeringProject
     partial void OnReporterChanged();
     partial void OnDateCreatedChanging(string value);
     partial void OnDateCreatedChanged();
-    partial void OnStatusChanging(string value);
-    partial void OnStatusChanged();
     #endregion
 		
 		public Saved()
@@ -318,184 +472,6 @@ namespace SoftwareEngineeringProject
 					this._DateCreated = value;
 					this.SendPropertyChanged("DateCreated");
 					this.OnDateCreatedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="VarChar(50)")]
-		public string Status
-		{
-			get
-			{
-				return this._Status;
-			}
-			set
-			{
-				if ((this._Status != value))
-				{
-					this.OnStatusChanging(value);
-					this.SendPropertyChanging();
-					this._Status = value;
-					this.SendPropertyChanged("Status");
-					this.OnStatusChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Users")]
-	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _username;
-		
-		private string _admin;
-		
-		private string _name;
-		
-		private string _dateadded;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnusernameChanging(string value);
-    partial void OnusernameChanged();
-    partial void OnadminChanging(string value);
-    partial void OnadminChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OndateaddedChanging(string value);
-    partial void OndateaddedChanged();
-    #endregion
-		
-		public User()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(50)")]
-		public string username
-		{
-			get
-			{
-				return this._username;
-			}
-			set
-			{
-				if ((this._username != value))
-				{
-					this.OnusernameChanging(value);
-					this.SendPropertyChanging();
-					this._username = value;
-					this.SendPropertyChanged("username");
-					this.OnusernameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_admin", DbType="VarChar(50)")]
-		public string admin
-		{
-			get
-			{
-				return this._admin;
-			}
-			set
-			{
-				if ((this._admin != value))
-				{
-					this.OnadminChanging(value);
-					this.SendPropertyChanging();
-					this._admin = value;
-					this.SendPropertyChanged("admin");
-					this.OnadminChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50)")]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dateadded", DbType="VarChar(50)")]
-		public string dateadded
-		{
-			get
-			{
-				return this._dateadded;
-			}
-			set
-			{
-				if ((this._dateadded != value))
-				{
-					this.OndateaddedChanging(value);
-					this.SendPropertyChanging();
-					this._dateadded = value;
-					this.SendPropertyChanged("dateadded");
-					this.OndateaddedChanged();
 				}
 			}
 		}

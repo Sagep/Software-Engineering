@@ -30,7 +30,6 @@ namespace SoftwareEngineeringProject
             button4.Visible = false;
             button5.Visible = false;
             button6.Visible = false;
-            button7.Visible = false;
             button8.Visible = false;
             listView1.View = View.Details;
             listView1.GridLines = true;
@@ -137,7 +136,6 @@ namespace SoftwareEngineeringProject
                 button4.Visible = true;
                 button5.Visible = false;
                 button6.Visible = false;
-                button7.Visible = false;
                 button8.Visible = true;
                 dateTimePicker4.Visible = false;
                 dateTimePicker5.Visible = false;
@@ -174,7 +172,6 @@ namespace SoftwareEngineeringProject
                 button4.Visible = false;
                 button5.Visible = false;
                 button6.Visible = false;
-                button7.Visible = false;
                 button8.Visible = false;
                 dateTimePicker4.Visible = true;
                 dateTimePicker5.Visible = true;
@@ -239,8 +236,7 @@ namespace SoftwareEngineeringProject
                     arr[5] = q.CBT_PBT.ToString();
                     arr[6] = q.Reporter.ToString();
                     arr[7] = q.DateCreated.ToString();
-                    arr[8] = q.Status.ToString();
-                    arr[9] = q.Id.ToString();
+                    arr[8] = q.Id.ToString();
 
 
                     itm = new ListViewItem(arr);
@@ -263,8 +259,7 @@ namespace SoftwareEngineeringProject
                     arr[5] = q.CBT_PBT.ToString();
                     arr[6] = q.Reporter.ToString();
                     arr[7] = q.DateCreated.ToString();
-                    arr[8] = q.Status.ToString();
-                    arr[9] = q.Id.ToString();
+                    arr[8] = q.Id.ToString();
 
 
                     itm = new ListViewItem(arr);
@@ -288,8 +283,7 @@ namespace SoftwareEngineeringProject
                     arr[5] = q.CBT_PBT.ToString();
                     arr[6] = q.Reporter.ToString();
                     arr[7] = q.DateCreated.ToString();
-                    arr[8] = q.Status.ToString();
-                    arr[9] = q.Id.ToString();
+                    arr[8] = q.Id.ToString();
 
 
                     itm = new ListViewItem(arr);
@@ -313,8 +307,7 @@ namespace SoftwareEngineeringProject
                     arr[5] = q.CBT_PBT.ToString();
                     arr[6] = q.Reporter.ToString();
                     arr[7] = q.DateCreated.ToString();
-                    arr[8] = q.Status.ToString();
-                    arr[9] = q.Id.ToString();
+                    arr[8] = q.Id.ToString();
 
 
                     itm = new ListViewItem(arr);
@@ -344,7 +337,6 @@ namespace SoftwareEngineeringProject
                 button4.Visible = false;
                 button5.Visible = false;
                 button6.Visible = false;
-                button7.Visible = false;
                 button8.Visible = false;
                 dateTimePicker4.Visible = false;
                 dateTimePicker5.Visible = false;
@@ -375,7 +367,6 @@ namespace SoftwareEngineeringProject
                 button4.Visible = false;
                 button5.Visible = true;
                 button6.Visible = true;
-                button7.Visible = true;
                 button8.Visible = false;
                 dateTimePicker4.Visible = false;
                 dateTimePicker5.Visible = false;
@@ -393,7 +384,6 @@ namespace SoftwareEngineeringProject
             listView1.Columns.Add("CBT-PBT-M", 70);
             listView1.Columns.Add("Reporter", 70);
             listView1.Columns.Add("Date Created", 100);
-            listView1.Columns.Add("Status", 75);
             listView1.Columns.Add("ID", 75);
 
             var query = from c in db.Saveds
@@ -409,8 +399,7 @@ namespace SoftwareEngineeringProject
                 arr[5] = q.CBT_PBT.ToString();
                 arr[6] = q.Reporter.ToString();
                 arr[7] = q.DateCreated.ToString();
-                arr[8] = q.Status.ToString();
-                arr[9] = q.Id.ToString();
+                arr[8] = q.Id.ToString();
 
 
                 itm = new ListViewItem(arr);
@@ -433,7 +422,6 @@ namespace SoftwareEngineeringProject
                 button4.Visible = true;
                 button5.Visible = false;
                 button6.Visible = false;
-                button7.Visible = false;
                 dateTimePicker4.Visible = false;
                 dateTimePicker5.Visible = false;
                 dateTimePicker2.Visible = false;
@@ -673,6 +661,35 @@ namespace SoftwareEngineeringProject
                 arr[4] = q.admin.ToString();
                 itm = new ListViewItem(arr);
                 listView1.Items.Add(itm);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            radioButton2.Checked = true;
+
+            listView1.Items.Clear();
+            string searchinput=textBox1.Text;
+            var query = from c in db.Saveds
+                        where c.StudentName==searchinput || c.Reporter==searchinput || c.Instructor==searchinput || c.Class==searchinput
+                            select c;
+
+            foreach (var q in query)
+            {
+                arr[0] = q.StudentName.ToString();
+                arr[1] = q.Class.ToString();
+                arr[2] = q.Instructor.ToString();
+                arr[3] = q.TestDate.ToString();
+                arr[4] = q.TestTime.ToString();
+                arr[5] = q.CBT_PBT.ToString();
+                arr[6] = q.Reporter.ToString();
+                arr[7] = q.DateCreated.ToString();
+                arr[8] = q.Id.ToString();
+
+
+                itm = new ListViewItem(arr);
+                listView1.Items.Add(itm);
+                //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
             }
         }
     }
