@@ -66,14 +66,143 @@ namespace SoftwareEngineeringProject
 
             //timer function (refresh rate)
             Timer timer = new Timer();
-            timer.Interval = (10 * 1000); // 10 secs
+            timer.Interval = (2 * 1000); // 10 secs
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
         }
+
+        //DB refresh
         private void timer_Tick(object sender, EventArgs e)
         {
-            this.Refresh();
+            int index=-1;
+            try
+            {
+                index = listView1.SelectedIndices[0];
+            };
+            if (radioButton3.Checked)
+            {
+                listView1.Items.Clear();
+                if (comboBox1.SelectedIndex == 0)
+                {
+                    var query = from c in db.Users
+                                select c;
+
+                    foreach (var q in query)
+                    {
+                        arr[0] = q.Id.ToString();
+                        arr[1] = q.name.ToString();
+                        arr[2] = q.username.ToString();
+                        arr[3] = q.dateadded.ToString();
+                        arr[4] = q.admin.ToString();
+                        itm = new ListViewItem(arr);
+                        listView1.Items.Add(itm);
+                    }
+                }
+            }
+            else if (radioButton2.Checked)
+            {
+                listView1.Items.Clear();
+                if (comboBox1.SelectedIndex == 0)
+                {
+                    var query = from c in db.Saveds
+                                select c;
+                    foreach (var q in query)
+                    {
+                        arr[0] = q.StudentName.ToString();
+                        arr[1] = q.Class.ToString();
+                        arr[2] = q.Instructor.ToString();
+                        arr[3] = q.TestDate.ToString();
+                        arr[4] = q.TestTime.ToString();
+                        arr[5] = q.CBT_PBT.ToString();
+                        arr[6] = q.Reporter.ToString();
+                        arr[7] = q.DateCreated.ToString();
+                        arr[8] = q.Id.ToString();
+
+
+                        itm = new ListViewItem(arr);
+                        listView1.Items.Add(itm);
+                    }
+                }
+                if(comboBox1.SelectedIndex==1)
+                {
+                    var query = from c in db.Saveds
+                                where c.CBT_PBT == "CBT"
+                                select c;
+
+                    foreach (var q in query)
+                    {
+                        arr[0] = q.StudentName.ToString();
+                        arr[1] = q.Class.ToString();
+                        arr[2] = q.Instructor.ToString();
+                        arr[3] = q.TestDate.ToString();
+                        arr[4] = q.TestTime.ToString();
+                        arr[5] = q.CBT_PBT.ToString();
+                        arr[6] = q.Reporter.ToString();
+                        arr[7] = q.DateCreated.ToString();
+                        arr[8] = q.Id.ToString();
+
+
+                        itm = new ListViewItem(arr);
+                        listView1.Items.Add(itm);
+                        //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
+                    }
+                }
+                if (comboBox1.SelectedIndex == 2)
+                {
+                    var query = from c in db.Saveds
+                                where c.CBT_PBT == "PBT"
+                                select c;
+
+                    foreach (var q in query)
+                    {
+                        arr[0] = q.StudentName.ToString();
+                        arr[1] = q.Class.ToString();
+                        arr[2] = q.Instructor.ToString();
+                        arr[3] = q.TestDate.ToString();
+                        arr[4] = q.TestTime.ToString();
+                        arr[5] = q.CBT_PBT.ToString();
+                        arr[6] = q.Reporter.ToString();
+                        arr[7] = q.DateCreated.ToString();
+                        arr[8] = q.Id.ToString();
+
+
+                        itm = new ListViewItem(arr);
+                        listView1.Items.Add(itm);
+                        //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
+                    }
+                }
+                if (comboBox1.SelectedIndex == 3)
+                {
+                    var query = from c in db.Saveds
+                                where c.CBT_PBT == "Montrose"
+                                select c;
+
+                    foreach (var q in query)
+                    {
+                        arr[0] = q.StudentName.ToString();
+                        arr[1] = q.Class.ToString();
+                        arr[2] = q.Instructor.ToString();
+                        arr[3] = q.TestDate.ToString();
+                        arr[4] = q.TestTime.ToString();
+                        arr[5] = q.CBT_PBT.ToString();
+                        arr[6] = q.Reporter.ToString();
+                        arr[7] = q.DateCreated.ToString();
+                        arr[8] = q.Id.ToString();
+
+
+                        itm = new ListViewItem(arr);
+                        listView1.Items.Add(itm);
+                        //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
+                    }
+                }
+                if (index!=-1)
+                {
+                    listView1.Items[index].Selected = true;
+                }
+
+            }
         }
+
         //drop down
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {//First View
@@ -615,8 +744,6 @@ namespace SoftwareEngineeringProject
             {
                 price += Double.Parse(item.SubItems[8].Text);
             }
-
-
 
             var query = from c in db.Saveds
                         where c.Id.ToString()==price.ToString()
