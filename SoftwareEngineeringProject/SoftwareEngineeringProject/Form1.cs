@@ -63,8 +63,17 @@ namespace SoftwareEngineeringProject
             checkBox8.Visible = false;
 
             radioButton1.Checked = true;
+
+            //timer function (refresh rate)
+            Timer timer = new Timer();
+            timer.Interval = (10 * 1000); // 10 secs
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
         }
-   
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            this.Refresh();
+        }
         //drop down
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {//First View
@@ -468,7 +477,7 @@ namespace SoftwareEngineeringProject
                 listView1.Items.Add(itm);
             }
         }
-       
+        
         //Date Change
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
@@ -604,7 +613,7 @@ namespace SoftwareEngineeringProject
 
             foreach (ListViewItem item in breakfast)
             {
-                price += Double.Parse(item.SubItems[9].Text);
+                price += Double.Parse(item.SubItems[8].Text);
             }
 
 
@@ -664,6 +673,7 @@ namespace SoftwareEngineeringProject
             }
         }
 
+        //search function
         private void button2_Click(object sender, EventArgs e)
         {
             radioButton2.Checked = true;
