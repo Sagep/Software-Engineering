@@ -27,5 +27,22 @@ namespace SoftwareEngineeringProject
         {
             this.Close();
         }
+
+        private void Confirm_Click(object sender, EventArgs e)
+        {
+            first = textBox1.Text;
+            last = textBox2.Text;
+            classs = textBox3.Text;
+            instructor = textBox4.Text;
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private void Information_Load(object sender, EventArgs e)
+        {
+            first = "";
+            last = "";
+            classs = "";
+            instructor = "";
+        }
     }
 }

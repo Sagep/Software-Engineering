@@ -108,6 +108,7 @@
             // 
             // listView1
             // 
+            this.listView1.AllowColumnReorder = true;
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(32, 128);
             this.listView1.MultiSelect = false;

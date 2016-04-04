@@ -15,6 +15,7 @@ namespace SoftwareEngineeringProject
     public partial class Form1 : Form
     {
         string[] arr = new string[10];
+        bool search = false;
         ListViewItem itm;
         public Form1()
         {
@@ -72,13 +73,18 @@ namespace SoftwareEngineeringProject
         }
 
         //DB refresh
-        private void timer_Tick(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e) 
         {
             int index=-1;
-            try
+            string id = "";
+            if (index != -2 && listView1.SelectedIndices.Count>0)
             {
                 index = listView1.SelectedIndices[0];
-            };
+                id = listView1.SelectedItems[0].Text;
+            }
+
+
+            //refresh users
             if (radioButton3.Checked)
             {
                 listView1.Items.Clear();
@@ -99,7 +105,7 @@ namespace SoftwareEngineeringProject
                     }
                 }
             }
-            else if (radioButton2.Checked)
+            else if (radioButton2.Checked && search == false)
             {
                 listView1.Items.Clear();
                 if (comboBox1.SelectedIndex == 0)
@@ -123,7 +129,7 @@ namespace SoftwareEngineeringProject
                         listView1.Items.Add(itm);
                     }
                 }
-                if(comboBox1.SelectedIndex==1)
+                if (comboBox1.SelectedIndex == 1)
                 {
                     var query = from c in db.Saveds
                                 where c.CBT_PBT == "CBT"
@@ -195,19 +201,42 @@ namespace SoftwareEngineeringProject
                         //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
                     }
                 }
-                if (index!=-1)
+            }
+            else if (radioButton2.Checked && search == true)
+            {
+                listView1.Items.Clear();
+                string searchinput=textBox1.Text;
+                var query = from c in db.Saveds
+                            where c.StudentName==searchinput || c.Reporter==searchinput || c.Instructor==searchinput || c.Class==searchinput
+                                select c;
+
+                foreach (var q in query)
                 {
-                    listView1.Items[index].Selected = true;
+                    arr[0] = q.StudentName.ToString();
+                    arr[1] = q.Class.ToString();
+                    arr[2] = q.Instructor.ToString();
+                    arr[3] = q.TestDate.ToString();
+                    arr[4] = q.TestTime.ToString();
+                    arr[5] = q.CBT_PBT.ToString();
+                    arr[6] = q.Reporter.ToString();
+                    arr[7] = q.DateCreated.ToString();
+                    arr[8] = q.Id.ToString();
+
+
+                    itm = new ListViewItem(arr);
+                    listView1.Items.Add(itm);
                 }
 
             }
+            if (index != -1 && listView1.Items.Count > index)
+                listView1.Items[index].Selected = true;
         }
 
         //drop down
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {//First View
             listView1.Items.Clear();
-
+            search = false;
             string[] arr = new string[10];
             ListViewItem itm;
 
@@ -459,6 +488,7 @@ namespace SoftwareEngineeringProject
         //Add page
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
+            search = false;
             listView1.Visible = true;
             comboBox1.Items.Clear();
             comboBox1.Items.Add("Select");
@@ -549,6 +579,7 @@ namespace SoftwareEngineeringProject
         //admin page
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
+            search = false;
             comboBox1.Items.Clear();
 
             comboBox1.Items.Add("Users");
@@ -701,6 +732,7 @@ namespace SoftwareEngineeringProject
                         int inc = 0;
                         string hour="";
                         string minute="";
+                        string ampm = "";
 
                         for (inc = 0; inc < timestart.Length; inc++ )
                         {
@@ -716,9 +748,51 @@ namespace SoftwareEngineeringProject
                             else
                                 break;
                         }
+                        for (inc +=1; inc < timestart.Length; inc++)
+                        {
+                            ampm+=timestart[inc];
+                        }
+
                         TimeSpan ts = new TimeSpan(int.Parse(hour), int.Parse(minute), 0);
                         temp = temp.Date + ts;
-                            System.Windows.Forms.MessageBox.Show(date + " " + temp.Hour + " for " + frm.time + " minutes");
+                        DateTime until = new DateTime();
+                        if (ampm == "PM" && hour!="12")
+                            temp=temp.AddHours(12);
+                        until = temp;
+                        until = until.AddMinutes(int.Parse(frm.time));
+                        System.Windows.Forms.MessageBox.Show("The student's name is "+frm.first+" "+frm.last+"\n"+date + temp.ToString(" hh:mm tt") + " until " + date+ until.ToString(" hh:mm tt"));
+
+                        DateTime thisDay = DateTime.Today;
+
+                        string cbtpbttest="";
+
+                        if (comboBox1.SelectedIndex == 1)
+                            cbtpbttest = "CBT";
+                        else if (comboBox1.SelectedIndex == 2)
+                            cbtpbttest = "PBT";
+                        else if (comboBox1.SelectedIndex == 3)
+                            cbtpbttest = "Montrose";
+
+                        Saved rowadd = new Saved()
+                        {
+                            StudentName=frm.first+" "+frm.last,
+                            Class=frm.classs,
+                            Instructor=frm.instructor,
+                            TestDate=date,
+                            Reporter="Test",
+                            DateCreated=thisDay.ToString("mm/dd/yyy"),
+                            CBT_PBT=cbtpbttest,
+                            TestTime=temp.ToString("hh:mm tt")+"-"+until.ToString("hh:mm tt")
+                        };
+                        try
+                        {
+                            db.SubmitChanges();
+                        }
+                        catch
+                        {
+                            System.Windows.Forms.MessageBox.Show("Sorry, there seems to be an issue. Please contact your local administrator. Error:DB add");
+                        }
+
                     }
                 }
                 else
@@ -804,7 +878,7 @@ namespace SoftwareEngineeringProject
         private void button2_Click(object sender, EventArgs e)
         {
             radioButton2.Checked = true;
-
+            search = true;
             listView1.Items.Clear();
             string searchinput=textBox1.Text;
             var query = from c in db.Saveds
@@ -826,7 +900,6 @@ namespace SoftwareEngineeringProject
 
                 itm = new ListViewItem(arr);
                 listView1.Items.Add(itm);
-                //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
             }
         }
     }
