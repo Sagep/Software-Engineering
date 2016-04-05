@@ -138,7 +138,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(368, 328);
+            this.ClientSize = new System.Drawing.Size(297, 304);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Confirm);
             this.Controls.Add(this.textBox4);
@@ -149,7 +149,10 @@
             this.Controls.Add(this.Class);
             this.Controls.Add(this.Last);
             this.Controls.Add(this.First);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Information";
             this.Text = "MavPlanner";
             this.Load += new System.EventHandler(this.Information_Load);

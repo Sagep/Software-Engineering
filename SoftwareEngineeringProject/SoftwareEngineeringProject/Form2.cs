@@ -47,18 +47,16 @@ namespace SoftwareEngineeringProject
                 }
                 else
                 {
+                    this.Close();
                     this.DialogResult = DialogResult.OK;
                     Information information = new Information(this);
                     var student=information.ShowDialog();
-
                     if (student == DialogResult.OK)
                     {
                         first=information.first;
                         last = information.last;
                         classs = information.classs;
-                        instructor = information.classs;
-
-                        System.Windows.Forms.MessageBox.Show("submit pushed");
+                        instructor = information.instructor;
                     }
                     else
                     {
@@ -70,7 +68,6 @@ namespace SoftwareEngineeringProject
             {
                 System.Windows.Forms.MessageBox.Show("Error: Please type in a number");
             }
-            this.Close();
         }
     }
 }

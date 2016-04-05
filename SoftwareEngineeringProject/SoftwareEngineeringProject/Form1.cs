@@ -760,10 +760,8 @@ namespace SoftwareEngineeringProject
                             temp=temp.AddHours(12);
                         until = temp;
                         until = until.AddMinutes(int.Parse(frm.time));
-                        System.Windows.Forms.MessageBox.Show("The student's name is "+frm.first+" "+frm.last+"\n"+date + temp.ToString(" hh:mm tt") + " until " + date+ until.ToString(" hh:mm tt"));
 
-                        DateTime thisDay = DateTime.Today;
-
+                        DateTime thisDay = DateTime.Now;
                         string cbtpbttest="";
 
                         if (comboBox1.SelectedIndex == 1)
@@ -773,6 +771,9 @@ namespace SoftwareEngineeringProject
                         else if (comboBox1.SelectedIndex == 3)
                             cbtpbttest = "Montrose";
 
+                        int tempid = int.Parse(thisDay.ToString("MMddyyy"));
+                        tempid+=int.Parse(thisDay.ToString("hhmmss"));
+
                         Saved rowadd = new Saved()
                         {
                             StudentName=frm.first+" "+frm.last,
@@ -780,13 +781,16 @@ namespace SoftwareEngineeringProject
                             Instructor=frm.instructor,
                             TestDate=date,
                             Reporter="Test",
-                            DateCreated=thisDay.ToString("mm/dd/yyy"),
+                            DateCreated=thisDay.ToString("MM/dd/yyyy"),
                             CBT_PBT=cbtpbttest,
-                            TestTime=temp.ToString("hh:mm tt")+"-"+until.ToString("hh:mm tt")
+                            TestTime=temp.ToString("hh:mm tt")+"-"+until.ToString("hh:mm tt"),
+                            Id=tempid
                         };
+                        db.Saveds.InsertOnSubmit(rowadd);
                         try
                         {
                             db.SubmitChanges();
+                            System.Windows.Forms.MessageBox.Show("Successfully Added Scheduled Test");
                         }
                         catch
                         {
@@ -900,6 +904,44 @@ namespace SoftwareEngineeringProject
 
                 itm = new ListViewItem(arr);
                 listView1.Items.Add(itm);
+            }
+        }
+
+        //add User
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form3 frm = new Form3(this);
+
+            var result = frm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string adminft = "F";
+                if (frm.admin)
+                    adminft = "T";
+                DateTime thisDay = DateTime.Now;
+                int tempid = int.Parse(thisDay.ToString("MMddyyy"));
+                tempid += int.Parse(thisDay.ToString("hhmmss"));
+
+                User addemp = new User()
+                {
+                    username=frm.username,
+                    name=frm.employee,
+                    dateadded = thisDay.ToString("MM/dd/yyyy"),
+                    Id=tempid,
+                    admin=adminft
+                };
+
+                db.Users.InsertOnSubmit(addemp);
+                try
+                {
+                    db.SubmitChanges();
+                    System.Windows.Forms.MessageBox.Show("User Added:\nUsername: " + frm.username + "\nEmployee name: " + frm.employee + "\n Admin: " + adminft);
+                }
+                catch
+                {
+                    System.Windows.Forms.MessageBox.Show("Sorry, there seems to be an issue. Please contact your local administrator. Error:DB add");
+                }
+                 
             }
         }
     }
