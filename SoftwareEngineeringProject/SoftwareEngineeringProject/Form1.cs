@@ -67,7 +67,7 @@ namespace SoftwareEngineeringProject
 
             //timer function (refresh rate)
             Timer timer = new Timer();
-            timer.Interval = (2 * 1000); // 10 secs
+            timer.Interval = (5 * 1000); // 10 secs
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
         }
@@ -814,30 +814,37 @@ namespace SoftwareEngineeringProject
         //deleting Scheduled DB information.
         private void button6_Click(object sender, EventArgs e)
         {
-            ListView.SelectedListViewItemCollection breakfast =
-            this.listView1.SelectedItems;
+            ListView.SelectedListViewItemCollection breakfast = this.listView1.SelectedItems;
             string price ="";
+            string deleted = "";
 
             foreach (ListViewItem item in breakfast)
             {
                 price += Double.Parse(item.SubItems[8].Text);
+                deleted +="ID: "+ item.SubItems[8].Text+"\n\n"+item.SubItems[0].Text + " " + item.SubItems[1].Text + " " + item.SubItems[2].Text + "\n" + item.SubItems[3].Text + " " + item.SubItems[4].Text + " " + item.SubItems[5].Text;
             }
 
             var query = from c in db.Saveds
                         where c.Id.ToString()==price.ToString()
                         select c;
-            foreach (var q in query)
+
+            DialogResult dr = MessageBox.Show("Are you sure you want to delete this?\n"+deleted, "Confirm", MessageBoxButtons.YesNo,
+MessageBoxIcon.Information);
+
+            if (dr == DialogResult.Yes)
             {
-                db.Saveds.DeleteOnSubmit(q);
-                db.SubmitChanges();
+                foreach (var q in query)
+                {
+                    db.Saveds.DeleteOnSubmit(q);
+                    db.SubmitChanges();
+                }
 
+                listView1.Items.Clear();
+
+                if (comboBox1.SelectedIndex.ToString() == "0")
+                    comboBox1.SelectedIndex = 1;
+                comboBox1.SelectedIndex = 0;
             }
-
-            listView1.Items.Clear();
-
-            if (comboBox1.SelectedIndex.ToString() == "0")
-                comboBox1.SelectedIndex = 1;
-            comboBox1.SelectedIndex = 0;
         }
 
         //remove users
