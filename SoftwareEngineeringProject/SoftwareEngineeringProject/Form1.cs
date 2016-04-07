@@ -496,6 +496,7 @@ namespace SoftwareEngineeringProject
             comboBox1.Items.Add("Finals-PBT");
             comboBox1.Items.Add("Montrose");
             //Add column header
+            this.Text = "MavPlanner - Add page";
             if (!comboBox1.Visible || !button1.Visible||button5.Visible||button6.Visible)
             {
                 dateTimePicker1.Visible = true;
@@ -525,6 +526,7 @@ namespace SoftwareEngineeringProject
             comboBox1.Items.Add("Finals-CBT");
             comboBox1.Items.Add("Finals-PBT");
             comboBox1.Items.Add("Montrose");
+            this.Text = "MavPlanner - Edit-View Page";
             if (!comboBox1.Visible||!button1.Visible||!button5.Visible||!button6.Visible)
             {
                 dateTimePicker1.Visible = true;
@@ -585,6 +587,7 @@ namespace SoftwareEngineeringProject
             comboBox1.Items.Add("Users");
             comboBox1.Items.Add("Finals");
             comboBox1.Items.Add("Montrose");
+            this.Text = "MavPlanner - Admin Page";
             if (!button3.Visible || !button4.Visible || button5.Visible || button6.Visible)
             {
                 button3.Visible = true;
@@ -809,6 +812,42 @@ namespace SoftwareEngineeringProject
         //edit DB information
         private void button5_Click(object sender, EventArgs e)
         {
+            ListView.SelectedListViewItemCollection breakfast = this.listView1.SelectedItems;
+            string price = "";
+            string deleted = "";
+
+            Edit frm = new Edit(this);
+
+            foreach (ListViewItem item in breakfast)
+            {
+                price += Double.Parse(item.SubItems[8].Text);
+                frm.sname = item.SubItems[0].Text;
+                frm.classes = item.SubItems[1].Text;
+                frm.instructor = item.SubItems[2].Text;
+                frm.datescheduled = item.SubItems[3].Text;
+                frm.starttime = item.SubItems[4].Text;
+                frm.CBTPBT = item.SubItems[5].Text;
+            }
+
+            var result = frm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+
+                var query = from c in db.Saveds
+                            where c.Id.ToString() == price.ToString()
+                            select c;
+
+                foreach (var q in query)
+                {
+                    db.Saveds.DeleteOnSubmit(q);
+                    db.SubmitChanges();
+                }
+
+                listView1.Items.Clear();
+                if (comboBox1.SelectedIndex.ToString() == "0")
+                    comboBox1.SelectedIndex = 1;
+                comboBox1.SelectedIndex = 0;
+            }
         }
 
         //deleting Scheduled DB information.
@@ -854,35 +893,42 @@ MessageBoxIcon.Information);
             ListView.SelectedListViewItemCollection breakfast =
             this.listView1.SelectedItems;
             string selecteduser = "";
+            string deleted = "";
 
             foreach (ListViewItem item in breakfast)
             {
                 selecteduser += Double.Parse(item.SubItems[0].Text);
+                deleted += "ID: " + item.SubItems[0].Text + "\n\nEmployee name: " + item.SubItems[1].Text + "\nUsername: " + item.SubItems[2].Text+" Admin: "+item.SubItems[4].Text;
             }
-            var query = from c in db.Users
-                        where c.Id.ToString() == selecteduser.ToString()
-                        select c;
-            foreach (var q in query)
-            {
-                db.Users.DeleteOnSubmit(q);
-                db.SubmitChanges();
-            }
-            listView1.Items.Clear();
+                        DialogResult dr = MessageBox.Show("Are you sure you want to delete this?\n"+deleted, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                        if (dr == DialogResult.Yes)
+                        {
+                            var query = from c in db.Users
+                                        where c.Id.ToString() == selecteduser.ToString()
+                                        select c;
+                            foreach (var q in query)
+                            {
+                                db.Users.DeleteOnSubmit(q);
+                                db.SubmitChanges();
+                            }
+                            listView1.Items.Clear();
 
 
-            //refresh page
-            query = from c in db.Users
-                        select c;
-            foreach (var q in query)
-            {
-                arr[0] = q.Id.ToString();
-                arr[1] = q.name.ToString();
-                arr[2] = q.username.ToString();
-                arr[3] = q.dateadded.ToString();
-                arr[4] = q.admin.ToString();
-                itm = new ListViewItem(arr);
-                listView1.Items.Add(itm);
-            }
+                            //refresh page
+                            query = from c in db.Users
+                                    select c;
+                            foreach (var q in query)
+                            {
+                                arr[0] = q.Id.ToString();
+                                arr[1] = q.name.ToString();
+                                arr[2] = q.username.ToString();
+                                arr[3] = q.dateadded.ToString();
+                                arr[4] = q.admin.ToString();
+                                itm = new ListViewItem(arr);
+                                listView1.Items.Add(itm);
+                            }
+                        }
         }
 
         //search function
@@ -942,7 +988,7 @@ MessageBoxIcon.Information);
                 try
                 {
                     db.SubmitChanges();
-                    System.Windows.Forms.MessageBox.Show("User Added:\nUsername: " + frm.username + "\nEmployee name: " + frm.employee + "\n Admin: " + adminft);
+                    System.Windows.Forms.MessageBox.Show("User Added:\nUsername: " + frm.username + "\nEmployee name: " + frm.employee + "\nAdmin: " + adminft);
                 }
                 catch
                 {

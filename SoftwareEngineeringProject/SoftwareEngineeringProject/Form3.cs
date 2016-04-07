@@ -28,9 +28,15 @@ namespace SoftwareEngineeringProject
             username = textBox2.Text;
             if (checkBox1.Checked)
                 admin = true;
-
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (employee != "" || username != "")
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("ERROR: Please type in the required information");
+            }
         }
 
         private void Form3_Load(object sender, EventArgs e)

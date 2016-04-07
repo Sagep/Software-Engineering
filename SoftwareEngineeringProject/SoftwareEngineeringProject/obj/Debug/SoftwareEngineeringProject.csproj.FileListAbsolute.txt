@@ -47,3 +47,4 @@ F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\ob
 F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\MavPlanner.pdb
 F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.csprojResolveAssemblyReference.cache
 F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Form3.resources
+F:\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\SoftwareEngineeringProject.Edit.resources

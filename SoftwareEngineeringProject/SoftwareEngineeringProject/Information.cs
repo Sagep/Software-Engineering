@@ -34,7 +34,15 @@ namespace SoftwareEngineeringProject
             last = textBox2.Text;
             classs = textBox3.Text;
             instructor = textBox4.Text;
-            this.DialogResult = DialogResult.OK;
+            if (first != "" || last != "" || classs != "" || instructor != "")
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("ERROR: Please type in the required information");
+            }
         }
 
         private void Information_Load(object sender, EventArgs e)
