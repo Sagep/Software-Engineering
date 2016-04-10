@@ -171,6 +171,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DBlocation.txt" />
     <Content Include="mp.ico" />
     <Content Include="mp_large.ico" />
     <Content Include="Scheduled.mdf">
