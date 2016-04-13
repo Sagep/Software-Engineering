@@ -61,6 +61,13 @@
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,7 +117,7 @@
             // 
             this.listView1.AllowColumnReorder = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(32, 128);
+            this.listView1.Location = new System.Drawing.Point(33, 128);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(1207, 500);
@@ -291,7 +298,7 @@
             this.dateTimePicker4.Name = "dateTimePicker4";
             this.dateTimePicker4.Size = new System.Drawing.Size(72, 20);
             this.dateTimePicker4.TabIndex = 24;
-            this.dateTimePicker4.Value = new System.DateTime(2016, 3, 10, 9, 41, 0, 0);
+            this.dateTimePicker4.Value = new System.DateTime(2016, 3, 10, 8, 0, 0, 0);
             // 
             // dateTimePicker5
             // 
@@ -300,13 +307,14 @@
             this.dateTimePicker5.Name = "dateTimePicker5";
             this.dateTimePicker5.Size = new System.Drawing.Size(72, 20);
             this.dateTimePicker5.TabIndex = 25;
+            this.dateTimePicker5.Value = new System.DateTime(2016, 4, 12, 17, 0, 0, 0);
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox1.ForeColor = System.Drawing.Color.Gold;
-            this.checkBox1.Location = new System.Drawing.Point(458, 351);
+            this.checkBox1.Location = new System.Drawing.Point(424, 351);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(75, 21);
             this.checkBox1.TabIndex = 26;
@@ -318,7 +326,7 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox2.ForeColor = System.Drawing.Color.Gold;
-            this.checkBox2.Location = new System.Drawing.Point(764, 400);
+            this.checkBox2.Location = new System.Drawing.Point(805, 400);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(84, 21);
             this.checkBox2.TabIndex = 27;
@@ -330,7 +338,7 @@
             this.checkBox3.AutoSize = true;
             this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox3.ForeColor = System.Drawing.Color.Gold;
-            this.checkBox3.Location = new System.Drawing.Point(659, 400);
+            this.checkBox3.Location = new System.Drawing.Point(672, 400);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(66, 21);
             this.checkBox3.TabIndex = 28;
@@ -342,7 +350,7 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox4.ForeColor = System.Drawing.Color.Gold;
-            this.checkBox4.Location = new System.Drawing.Point(537, 400);
+            this.checkBox4.Location = new System.Drawing.Point(518, 400);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(87, 21);
             this.checkBox4.TabIndex = 29;
@@ -354,7 +362,7 @@
             this.checkBox5.AutoSize = true;
             this.checkBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox5.ForeColor = System.Drawing.Color.Gold;
-            this.checkBox5.Location = new System.Drawing.Point(703, 351);
+            this.checkBox5.Location = new System.Drawing.Point(716, 351);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(82, 21);
             this.checkBox5.TabIndex = 30;
@@ -378,7 +386,7 @@
             this.checkBox7.AutoSize = true;
             this.checkBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox7.ForeColor = System.Drawing.Color.Gold;
-            this.checkBox7.Location = new System.Drawing.Point(404, 400);
+            this.checkBox7.Location = new System.Drawing.Point(370, 400);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(102, 21);
             this.checkBox7.TabIndex = 32;
@@ -407,6 +415,77 @@
             this.checkBox8.TabIndex = 34;
             this.checkBox8.Text = "ALL TIME?";
             this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Gold;
+            this.label6.Location = new System.Drawing.Point(421, 375);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(102, 13);
+            this.label6.TabIndex = 35;
+            this.label6.Text = "12:00 AM - 2:00 AM";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Gold;
+            this.label7.Location = new System.Drawing.Point(574, 375);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(102, 13);
+            this.label7.TabIndex = 36;
+            this.label7.Text = "12:00 AM - 2:00 AM";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Gold;
+            this.label8.Location = new System.Drawing.Point(713, 375);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(102, 13);
+            this.label8.TabIndex = 37;
+            this.label8.Text = "12:00 AM - 2:00 AM";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.Gold;
+            this.label9.Location = new System.Drawing.Point(367, 424);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(102, 13);
+            this.label9.TabIndex = 38;
+            this.label9.Text = "12:00 AM - 2:00 AM";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.Color.Gold;
+            this.label10.Location = new System.Drawing.Point(515, 424);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(102, 13);
+            this.label10.TabIndex = 39;
+            this.label10.Text = "12:00 AM - 2:00 AM";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.Gold;
+            this.label11.Location = new System.Drawing.Point(669, 424);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(102, 13);
+            this.label11.TabIndex = 40;
+            this.label11.Text = "12:00 AM - 2:00 AM";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.Gold;
+            this.label12.Location = new System.Drawing.Point(802, 424);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(102, 13);
+            this.label12.TabIndex = 41;
+            this.label12.Text = "12:00 AM - 2:00 AM";
             // 
             // Form1
             // 
@@ -414,6 +493,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1273, 680);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.checkBox8);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBox7);
@@ -492,6 +578,13 @@
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }
 

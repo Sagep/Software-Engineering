@@ -20,6 +20,57 @@
       <Column Name="[CBT-PBT]" Member="CBT_PBT" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Reporter" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="DateCreated" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AllTimeMain" Member="AllTimeMains">
+    <Type Name="AllTimeMain">
+      <Column Name="Sunday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Monday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Tuesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Wednesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Thursday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Friday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Saturday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AllTimeMontrose" Member="AllTimeMontroses">
+    <Type Name="AllTimeMontrose">
+      <Column Name="Sunday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Monday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Tuesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Wednesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Thursday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Friday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Saturday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FinalsMain" Member="FinalsMains">
+    <Type Name="FinalsMain">
+      <Column Name="Dates" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Sunday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Monday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Tuesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Wednesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Thursday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Friday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Saturday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FinalsMontrose" Member="FinalsMontroses">
+    <Type Name="FinalsMontrose">
+      <Column Name="Dates" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Sunday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Monday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Tuesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Wednesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Thursday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Friday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Saturday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
     </Type>
   </Table>
 </Database>
