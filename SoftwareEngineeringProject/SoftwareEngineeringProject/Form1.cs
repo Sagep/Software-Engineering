@@ -255,7 +255,6 @@ namespace SoftwareEngineeringProject
             search = false;
             string[] arr = new string[10];
             ListViewItem itm;
-
             if (comboBox1.SelectedIndex.ToString() != "0" && comboBox1.SelectedIndex.ToString() == "1" || comboBox1.SelectedIndex.ToString() == "2")
             {
                 if (radioButton1.Checked)
@@ -606,7 +605,6 @@ namespace SoftwareEngineeringProject
                 {
                     var query = from c in db.AllTimeMontroses
                                 select c;
-
                     int start = 0;
                     int stop = 0;
                     foreach (var c in query)
@@ -810,23 +808,23 @@ namespace SoftwareEngineeringProject
                     }
                     stop = stop - start;
                     DateTime testing123 = new DateTime();
-                    if(stop!=0)
-                    for (int i = 0; i <= stop; i += 15)
-                    {
-                        if(i==0)
+                    if (stop != 0)
+                        for (int i = 0; i <= stop; i += 15)
                         {
-                            testing123 = testing123.AddMinutes(start);
+                            if (i == 0)
+                            {
+                                testing123 = testing123.AddMinutes(start);
+                            }
+                            else
+                            {
+                                testing123 = testing123.AddMinutes(15);
+                            }
+                            arr[0] = "25";
+                            arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
+                            arr[2] = testing123.ToString("hh:mm tt");
+                            itm = new ListViewItem(arr);
+                            listView1.Items.Add(itm);
                         }
-                        else
-                        {
-                            testing123 = testing123.AddMinutes(15);
-                        }
-                        arr[0] = "25";
-                        arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
-                        arr[2] = testing123.ToString("hh:mm tt");
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
-                    }
                 }
 
             }
@@ -1587,9 +1585,126 @@ namespace SoftwareEngineeringProject
             }
         }
 
+        //get selected dates times and compair them to scheduled
+        private void checkschedule()
+        {
+            var query1 = from c in db.AllTimeMains
+                        select c;
+            var query2 = from c in db.Saveds
+                         where c.TestDate.ToString()==dateTimePicker1.Value.ToString("MM/dd/yyy")
+                         select c;
+
+            foreach(var c in query1)
+            {
+                foreach(var d in query2)
+                {
+                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
+                    {
+                        System.Windows.Forms.MessageBox.Show("" + c.Sunday.ToString() + "=Available time " + d.TestTime + "=todays scheduled.");
+                    }
+                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
+                    {
+                        System.Windows.Forms.MessageBox.Show("" + c.Monday.ToString() + "=Available time " + d.TestTime + "=todays scheduled");
+                    }
+                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
+                    {
+                        string hh = "";
+                        string mm = "";
+                        string tt = "";
+                        string hh2 = "";
+                        string mm2 = "";
+                        string tt2 = "";
+                        int save = 0;
+                        int h = 0;
+                        int m = 0;
+                        int m2 = 0;
+                        for (int i = save; i < d.TestTime.Length; i++)
+                            if (d.TestTime[i] != ':')
+                                hh += d.TestTime[i];
+                            else
+                            {
+                                save = i+1;
+                                break;
+                            }
+                        for (int i = save; i < d.TestTime.Length; i++)
+                            if (d.TestTime[i] != ' ')
+                                mm += d.TestTime[i];
+                            else
+                            {
+                                save = i + 1;
+                                break;
+                            }
+                        for (int i = save; i < d.TestTime.Length; i++)
+                            if (d.TestTime[i] != '-')
+                                tt += d.TestTime[i];
+                            else
+                            {
+                                save = i + 1;
+                                break;
+                            }
+                        for (int i = save; i < d.TestTime.Length; i++)
+                            if (d.TestTime[i] != ':')
+                                hh2 += d.TestTime[i];
+                            else
+                            {
+                                save = i + 1;
+                                break;
+                            }
+                        for (int i = save; i < d.TestTime.Length; i++)
+                            if (d.TestTime[i] != ' ')
+                                mm2 += d.TestTime[i];
+                            else
+                            {
+                                save = i + 1;
+                                break;
+                            }
+                        for (int i = save; i < d.TestTime.Length; i++)
+                            tt2+=d.TestTime[i];
+                        
+                        h = int.Parse(hh);
+                        if (tt == "PM")
+                            h += 12;
+                        h *= 60;
+                        m = int.Parse(mm);
+                        m += h;
+
+                        h = 0;
+                        h = int.Parse(hh2);
+                        if (tt2 == "PM")
+                            h += 12;
+                        h *= 60;
+                        m2 = int.Parse(mm2);
+                        m2 += h;
+
+                        System.Windows.Forms.MessageBox.Show("" + c.Tuesday.ToString() + "=Available time " + m+"-"+m2 + "=todays scheduled. Alternative: " + m);
+                    }
+                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
+                    {
+                        System.Windows.Forms.MessageBox.Show("" + c.Wednesday.ToString() + "=Available time " + d.TestTime + "=todays scheduled");
+                    }
+                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
+                    {
+                        System.Windows.Forms.MessageBox.Show("" + c.Thursday.ToString() + "=Available time " + d.TestTime + "=todays scheduled");
+                    }
+                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
+                    {
+                        System.Windows.Forms.MessageBox.Show("" + c.Friday.ToString() + "=Available time " + d.TestTime + "=todays scheduled");
+                    }
+                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
+                    {
+                        System.Windows.Forms.MessageBox.Show("" + c.Saturday.ToString() + "=Available time " + d.TestTime + "=todays scheduled");
+                    }
+                }
+            }
+
+
+        }
+
         //Add page
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
+            //if(radioButton1.Checked)
+            //checkschedule();
             search = false;
             listView1.Visible = true;
             comboBox1.Items.Clear();
@@ -2434,7 +2549,7 @@ namespace SoftwareEngineeringProject
             {
                 int hours2min = 0;
                 hours2min = int.Parse(dateTimePicker4.Value.ToString("hh"));
-                if(dateTimePicker4.Value.ToString("tt")=="PM")
+                if (dateTimePicker4.Value.ToString("tt") == "PM" && hours2min != 12)
                 {
                     hours2min += 12;
                 }
@@ -2447,7 +2562,7 @@ namespace SoftwareEngineeringProject
 
                 hours2min = 0;
                 hours2min = int.Parse(dateTimePicker5.Value.ToString("hh"));
-                if (dateTimePicker5.Value.ToString("tt") == "PM")
+                if (dateTimePicker5.Value.ToString("tt") == "PM" && hours2min != 12)
                 {
                     hours2min += 12;
                 }
@@ -2510,7 +2625,7 @@ namespace SoftwareEngineeringProject
             {
                 int hours2min = 0;
                 hours2min = int.Parse(dateTimePicker4.Value.ToString("hh"));
-                if (dateTimePicker4.Value.ToString("tt") == "PM")
+                if (dateTimePicker4.Value.ToString("tt") == "PM" && hours2min!=12)
                 {
                     hours2min += 12;
                 }
@@ -2523,7 +2638,7 @@ namespace SoftwareEngineeringProject
 
                 hours2min = 0;
                 hours2min = int.Parse(dateTimePicker5.Value.ToString("hh"));
-                if (dateTimePicker5.Value.ToString("tt") == "PM")
+                if (dateTimePicker5.Value.ToString("tt") == "PM" && hours2min != 12)
                 {
                     hours2min += 12;
                 }
@@ -2723,47 +2838,6 @@ namespace SoftwareEngineeringProject
                 {
                     System.Windows.Forms.MessageBox.Show("Please select a date equal or greater than today.");
                 }
-            }
-        }
-
-        //edit DB information
-        private void button5_Click(object sender, EventArgs e)
-        {
-            ListView.SelectedListViewItemCollection breakfast = this.listView1.SelectedItems;
-            string price = "";
-            string deleted = "";
-
-            Edit frm = new Edit(this);
-
-            foreach (ListViewItem item in breakfast)
-            {
-                price += Double.Parse(item.SubItems[8].Text);
-                frm.sname = item.SubItems[0].Text;
-                frm.classes = item.SubItems[1].Text;
-                frm.instructor = item.SubItems[2].Text;
-                frm.datescheduled = item.SubItems[3].Text;
-                frm.starttime = item.SubItems[4].Text;
-                frm.CBTPBT = item.SubItems[5].Text;
-            }
-
-            var result = frm.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                System.Windows.Forms.MessageBox.Show(frm.sname + " " + frm.classes + " " + frm.instructor);
-                //var query = from c in db.Saveds
-                //            where c.Id.ToString() == price.ToString()
-                //            select c;
-
-                //foreach (var q in query)
-                //{
-                //    db.Saveds.DeleteOnSubmit(q);
-                //    db.SubmitChanges();
-                //}
-
-                //listView1.Items.Clear();
-                //if (comboBox1.SelectedIndex.ToString() == "0")
-                //    comboBox1.SelectedIndex = 1;
-                //comboBox1.SelectedIndex = 0;
             }
         }
 

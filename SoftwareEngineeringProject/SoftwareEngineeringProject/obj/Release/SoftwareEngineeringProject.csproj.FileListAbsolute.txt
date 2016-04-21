@@ -20,7 +20,6 @@ C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\S
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Release\MavPlanner.exe
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Release\MavPlanner.pdb
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\SoftwareEngineeringProject.csprojResolveAssemblyReference.cache
-C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\SoftwareEngineeringProject.Edit.resources
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\SoftwareEngineeringProject.Form1.resources
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\SoftwareEngineeringProject.Form2.resources
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\SoftwareEngineeringProject.Form3.resources
