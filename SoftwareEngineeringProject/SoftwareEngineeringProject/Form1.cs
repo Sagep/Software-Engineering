@@ -29,7 +29,6 @@ namespace SoftwareEngineeringProject
             comboBox1.SelectedIndex = 0;
             button3.Visible = false;
             button4.Visible = false;
-            button5.Visible = false;
             button6.Visible = false;
             button8.Visible = false;
             listView1.View = View.Details;
@@ -504,7 +503,6 @@ namespace SoftwareEngineeringProject
                 button1.Visible = false;
                 button3.Visible = true;
                 button4.Visible = true;
-                button5.Visible = false;
                 button6.Visible = false;
                 button8.Visible = true;
                 dateTimePicker4.Visible = false;
@@ -548,7 +546,6 @@ namespace SoftwareEngineeringProject
                 button1.Visible = true;
                 button3.Visible = false;
                 button4.Visible = false;
-                button5.Visible = false;
                 button6.Visible = false;
                 button8.Visible = false;
                 if (comboBox1.SelectedIndex.ToString() == "1")
@@ -600,7 +597,6 @@ namespace SoftwareEngineeringProject
             }
             if (comboBox1.SelectedIndex.ToString() == "3" && comboBox1.SelectedIndex.ToString() != "0")
             {
-                int j = 0;
                 if (radioButton1.Checked)
                 {
                     var query = from c in db.AllTimeMontroses
@@ -1714,14 +1710,13 @@ namespace SoftwareEngineeringProject
             comboBox1.Items.Add("Montrose");
             //Add column header
             this.Text = "MavPlanner - Add page";
-            if (!comboBox1.Visible || !button1.Visible||button5.Visible||button6.Visible)
+            if (!comboBox1.Visible || !button1.Visible||button6.Visible)
             {
                 dateTimePicker1.Visible = true;
                 comboBox1.Visible = true;
                 button1.Visible = true;
                 button3.Visible = false;
                 button4.Visible = false;
-                button5.Visible = false;
                 button6.Visible = false;
                 button8.Visible = false;
                 dateTimePicker4.Visible = false;
@@ -1744,7 +1739,7 @@ namespace SoftwareEngineeringProject
             comboBox1.Items.Add("Finals-PBT");
             comboBox1.Items.Add("Montrose");
             this.Text = "MavPlanner - Edit-View Page";
-            if (!comboBox1.Visible||!button1.Visible||!button5.Visible||!button6.Visible)
+            if (!comboBox1.Visible||!button1.Visible||!button6.Visible)
             {
                 dateTimePicker1.Visible = true;
                 listView1.Visible = true;
@@ -1752,7 +1747,6 @@ namespace SoftwareEngineeringProject
                 button1.Visible = false;
                 button3.Visible = false;
                 button4.Visible = false;
-                button5.Visible = true;
                 button6.Visible = true;
                 button8.Visible = false;
                 dateTimePicker4.Visible = false;
@@ -1808,11 +1802,10 @@ namespace SoftwareEngineeringProject
             comboBox1.Items.Add("Finals");
             comboBox1.Items.Add("Montrose");
             this.Text = "MavPlanner - Admin Page";
-            if (!button3.Visible || !button4.Visible || button5.Visible || button6.Visible)
+            if (!button3.Visible || !button4.Visible || button6.Visible)
             {
                 button3.Visible = true;
                 button4.Visible = true;
-                button5.Visible = false;
                 button6.Visible = false;
                 dateTimePicker4.Visible = false;
                 dateTimePicker5.Visible = false;
