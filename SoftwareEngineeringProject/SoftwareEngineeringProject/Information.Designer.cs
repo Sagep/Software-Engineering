@@ -45,77 +45,77 @@
             // 
             this.First.AutoSize = true;
             this.First.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.First.ForeColor = System.Drawing.Color.Gold;
-            this.First.Location = new System.Drawing.Point(36, 47);
+            this.First.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(0)))), ((int)(((byte)(31)))));
+            this.First.Location = new System.Drawing.Point(62, 19);
             this.First.Name = "First";
-            this.First.Size = new System.Drawing.Size(55, 25);
+            this.First.Size = new System.Drawing.Size(49, 25);
             this.First.TabIndex = 0;
-            this.First.Text = "First:";
+            this.First.Text = "First";
             // 
             // Last
             // 
             this.Last.AutoSize = true;
             this.Last.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Last.ForeColor = System.Drawing.Color.Gold;
-            this.Last.Location = new System.Drawing.Point(36, 95);
+            this.Last.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(0)))), ((int)(((byte)(31)))));
+            this.Last.Location = new System.Drawing.Point(62, 52);
             this.Last.Name = "Last";
-            this.Last.Size = new System.Drawing.Size(55, 25);
+            this.Last.Size = new System.Drawing.Size(49, 25);
             this.Last.TabIndex = 1;
-            this.Last.Text = "Last:";
+            this.Last.Text = "Last";
             // 
             // Class
             // 
             this.Class.AutoSize = true;
             this.Class.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Class.ForeColor = System.Drawing.Color.Gold;
-            this.Class.Location = new System.Drawing.Point(36, 142);
+            this.Class.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(0)))), ((int)(((byte)(31)))));
+            this.Class.Location = new System.Drawing.Point(49, 85);
             this.Class.Name = "Class";
-            this.Class.Size = new System.Drawing.Size(68, 25);
+            this.Class.Size = new System.Drawing.Size(62, 25);
             this.Class.TabIndex = 2;
-            this.Class.Text = "Class:";
+            this.Class.Text = "Class";
             // 
             // Instructor
             // 
             this.Instructor.AutoSize = true;
             this.Instructor.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Instructor.ForeColor = System.Drawing.Color.Gold;
-            this.Instructor.Location = new System.Drawing.Point(36, 189);
+            this.Instructor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(0)))), ((int)(((byte)(31)))));
+            this.Instructor.Location = new System.Drawing.Point(19, 118);
             this.Instructor.Name = "Instructor";
-            this.Instructor.Size = new System.Drawing.Size(98, 25);
+            this.Instructor.Size = new System.Drawing.Size(92, 25);
             this.Instructor.TabIndex = 3;
-            this.Instructor.Text = "Instructor:";
+            this.Instructor.Text = "Instructor";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(152, 52);
+            this.textBox1.Location = new System.Drawing.Point(126, 21);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 4;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(152, 95);
+            this.textBox2.Location = new System.Drawing.Point(126, 54);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 5;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(152, 142);
+            this.textBox3.Location = new System.Drawing.Point(126, 87);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
             this.textBox3.TabIndex = 6;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(152, 195);
+            this.textBox4.Location = new System.Drawing.Point(126, 120);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 7;
             // 
             // Confirm
             // 
-            this.Confirm.Location = new System.Drawing.Point(59, 259);
+            this.Confirm.Location = new System.Drawing.Point(40, 165);
             this.Confirm.Name = "Confirm";
             this.Confirm.Size = new System.Drawing.Size(75, 23);
             this.Confirm.TabIndex = 8;
@@ -125,7 +125,7 @@
             // 
             // Cancel
             // 
-            this.Cancel.Location = new System.Drawing.Point(177, 259);
+            this.Cancel.Location = new System.Drawing.Point(130, 165);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(75, 23);
             this.Cancel.TabIndex = 9;
@@ -137,8 +137,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(297, 304);
+            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.ClientSize = new System.Drawing.Size(245, 195);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Confirm);
             this.Controls.Add(this.textBox4);
@@ -154,6 +154,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Information";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MavPlanner";
             this.Load += new System.EventHandler(this.Information_Load);
             this.ResumeLayout(false);

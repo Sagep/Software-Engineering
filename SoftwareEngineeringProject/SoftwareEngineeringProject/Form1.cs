@@ -2752,7 +2752,7 @@ namespace SoftwareEngineeringProject
                     }
                     else
                     {
-                        System.Windows.Forms.MessageBox.Show("Please make sure to have the bigger date first, then the smaler");
+                        System.Windows.Forms.MessageBox.Show("Please make sure to have the bigger date first, then the smaller");
                     }
                 }
                 else
@@ -2824,7 +2824,7 @@ namespace SoftwareEngineeringProject
                     }
                     else
                     {
-                        System.Windows.Forms.MessageBox.Show("Please make sure to have the bigger date first, then the smaler");
+                        System.Windows.Forms.MessageBox.Show("Please make sure to have the bigger date first, then the smaller");
                     }
                 }
                 else
