@@ -16,10 +16,10 @@ namespace SoftwareEngineeringProject
         {
             //uncomment this information before release. 
 
-            //string dblocations = "";
-            //dblocations = System.IO.File.ReadAllText(@"DBlocation.txt");
-            //dblocations = dblocations.Replace(@"\\", @"\");
-            //AppDomain.CurrentDomain.SetData("DataDirectory", ""+dblocations); 
+            string dblocations = "";
+            dblocations = System.IO.File.ReadAllText(@"DBlocation.txt");
+            dblocations = dblocations.Replace(@"\\", @"\");
+            AppDomain.CurrentDomain.SetData("DataDirectory", "" + dblocations); 
 
 
             Application.EnableVisualStyles();

@@ -83,6 +83,7 @@ namespace SoftwareEngineeringProject
         {
             int index=-1;
             string id = "";
+            checkschedule();
             if (index != -2 && listView1.SelectedIndices.Count>0)
             {
                 index = listView1.SelectedIndices[0];
@@ -1671,8 +1672,8 @@ namespace SoftwareEngineeringProject
                         h *= 60;
                         m2 = int.Parse(mm2);
                         m2 += h;
-
-                        System.Windows.Forms.MessageBox.Show("" + c.Tuesday.ToString() + "=Available time " + m+"-"+m2 + "=todays scheduled. Alternative: " + m);
+                        //confirm the conversion from AM PM form of scheduled into minutes of day
+                        System.Windows.Forms.MessageBox.Show("" + c.Tuesday.ToString() + "=Available time " + m+"-"+m2 + "=todays scheduled. Alternative: ");
                     }
                     if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
                     {
@@ -1699,8 +1700,7 @@ namespace SoftwareEngineeringProject
         //Add page
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            //if(radioButton1.Checked)
-            //checkschedule();
+            if(radioButton1.Checked)
             search = false;
             listView1.Visible = true;
             comboBox1.Items.Clear();
