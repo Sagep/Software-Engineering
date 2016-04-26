@@ -44,5 +44,16 @@ namespace SoftwareEngineeringProject.Properties {
                 return ((string)(this["ScheduledConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=mavtester.database.windows.net;Initial Catalog=Scheduled2;User ID=Mav" +
+            "s4life;Password=Mavericks1")]
+        public string Scheduled2ConnectionString {
+            get {
+                return ((string)(this["Scheduled2ConnectionString"]));
+            }
+        }
     }
 }

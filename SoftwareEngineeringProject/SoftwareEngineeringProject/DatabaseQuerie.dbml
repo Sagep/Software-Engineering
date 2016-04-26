@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Scheduled" Class="DatabaseQuerieDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Scheduled.mdf;Integrated Security=True" SettingsObjectName="SoftwareEngineeringProject.Properties.Settings" SettingsPropertyName="ScheduledConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Scheduled2" Class="DatabaseQuerieDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=mavtester.database.windows.net;Initial Catalog=Scheduled2;User ID=Mavs4life" SettingsObjectName="SoftwareEngineeringProject.Properties.Settings" SettingsPropertyName="Scheduled2ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Users" Member="Users">
     <Type Name="User">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -23,20 +23,9 @@
       <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.AllTimeMain" Member="AllTimeMains">
-    <Type Name="AllTimeMain">
-      <Column Name="Sunday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Monday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Tuesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Wednesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Thursday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Friday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Saturday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.AllTimeMontrose" Member="AllTimeMontroses">
-    <Type Name="AllTimeMontrose">
+  <Table Name="dbo.FinalsMontrose" Member="FinalsMontroses">
+    <Type Name="FinalsMontrose">
+      <Column Name="Dates" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Sunday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Monday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Tuesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
@@ -60,9 +49,20 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.FinalsMontrose" Member="FinalsMontroses">
-    <Type Name="FinalsMontrose">
-      <Column Name="Dates" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+  <Table Name="dbo.AllTimeMontrose" Member="AllTimeMontroses">
+    <Type Name="AllTimeMontrose">
+      <Column Name="Sunday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Monday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Tuesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Wednesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Thursday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Friday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Saturday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AllTimeMain" Member="AllTimeMains">
+    <Type Name="AllTimeMain">
       <Column Name="Sunday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Monday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Tuesday" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />

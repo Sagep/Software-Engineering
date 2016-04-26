@@ -22,7 +22,7 @@ namespace SoftwareEngineeringProject
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Scheduled")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Scheduled2")]
 	public partial class DatabaseQuerieDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -36,22 +36,22 @@ namespace SoftwareEngineeringProject
     partial void InsertSaved(Saved instance);
     partial void UpdateSaved(Saved instance);
     partial void DeleteSaved(Saved instance);
-    partial void InsertAllTimeMain(AllTimeMain instance);
-    partial void UpdateAllTimeMain(AllTimeMain instance);
-    partial void DeleteAllTimeMain(AllTimeMain instance);
-    partial void InsertAllTimeMontrose(AllTimeMontrose instance);
-    partial void UpdateAllTimeMontrose(AllTimeMontrose instance);
-    partial void DeleteAllTimeMontrose(AllTimeMontrose instance);
-    partial void InsertFinalsMain(FinalsMain instance);
-    partial void UpdateFinalsMain(FinalsMain instance);
-    partial void DeleteFinalsMain(FinalsMain instance);
     partial void InsertFinalsMontrose(FinalsMontrose instance);
     partial void UpdateFinalsMontrose(FinalsMontrose instance);
     partial void DeleteFinalsMontrose(FinalsMontrose instance);
+    partial void InsertFinalsMain(FinalsMain instance);
+    partial void UpdateFinalsMain(FinalsMain instance);
+    partial void DeleteFinalsMain(FinalsMain instance);
+    partial void InsertAllTimeMontrose(AllTimeMontrose instance);
+    partial void UpdateAllTimeMontrose(AllTimeMontrose instance);
+    partial void DeleteAllTimeMontrose(AllTimeMontrose instance);
+    partial void InsertAllTimeMain(AllTimeMain instance);
+    partial void UpdateAllTimeMain(AllTimeMain instance);
+    partial void DeleteAllTimeMain(AllTimeMain instance);
     #endregion
 		
 		public DatabaseQuerieDataContext() : 
-				base(global::SoftwareEngineeringProject.Properties.Settings.Default.ScheduledConnectionString, mappingSource)
+				base(global::SoftwareEngineeringProject.Properties.Settings.Default.Scheduled2ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -96,19 +96,11 @@ namespace SoftwareEngineeringProject
 			}
 		}
 		
-		public System.Data.Linq.Table<AllTimeMain> AllTimeMains
+		public System.Data.Linq.Table<FinalsMontrose> FinalsMontroses
 		{
 			get
 			{
-				return this.GetTable<AllTimeMain>();
-			}
-		}
-		
-		public System.Data.Linq.Table<AllTimeMontrose> AllTimeMontroses
-		{
-			get
-			{
-				return this.GetTable<AllTimeMontrose>();
+				return this.GetTable<FinalsMontrose>();
 			}
 		}
 		
@@ -120,11 +112,19 @@ namespace SoftwareEngineeringProject
 			}
 		}
 		
-		public System.Data.Linq.Table<FinalsMontrose> FinalsMontroses
+		public System.Data.Linq.Table<AllTimeMontrose> AllTimeMontroses
 		{
 			get
 			{
-				return this.GetTable<FinalsMontrose>();
+				return this.GetTable<AllTimeMontrose>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AllTimeMain> AllTimeMains
+		{
+			get
+			{
+				return this.GetTable<AllTimeMain>();
 			}
 		}
 	}
@@ -565,11 +565,13 @@ namespace SoftwareEngineeringProject
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AllTimeMain")]
-	public partial class AllTimeMain : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FinalsMontrose")]
+	public partial class FinalsMontrose : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Dates;
 		
 		private string _Sunday;
 		
@@ -591,6 +593,8 @@ namespace SoftwareEngineeringProject
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
+    partial void OnDatesChanging(string value);
+    partial void OnDatesChanged();
     partial void OnSundayChanging(string value);
     partial void OnSundayChanged();
     partial void OnMondayChanging(string value);
@@ -609,239 +613,29 @@ namespace SoftwareEngineeringProject
     partial void OnIdChanged();
     #endregion
 		
-		public AllTimeMain()
+		public FinalsMontrose()
 		{
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sunday", DbType="VarChar(50)")]
-		public string Sunday
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dates", DbType="VarChar(50)")]
+		public string Dates
 		{
 			get
 			{
-				return this._Sunday;
+				return this._Dates;
 			}
 			set
 			{
-				if ((this._Sunday != value))
+				if ((this._Dates != value))
 				{
-					this.OnSundayChanging(value);
+					this.OnDatesChanging(value);
 					this.SendPropertyChanging();
-					this._Sunday = value;
-					this.SendPropertyChanged("Sunday");
-					this.OnSundayChanged();
+					this._Dates = value;
+					this.SendPropertyChanged("Dates");
+					this.OnDatesChanged();
 				}
 			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Monday", DbType="VarChar(50)")]
-		public string Monday
-		{
-			get
-			{
-				return this._Monday;
-			}
-			set
-			{
-				if ((this._Monday != value))
-				{
-					this.OnMondayChanging(value);
-					this.SendPropertyChanging();
-					this._Monday = value;
-					this.SendPropertyChanged("Monday");
-					this.OnMondayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tuesday", DbType="VarChar(50)")]
-		public string Tuesday
-		{
-			get
-			{
-				return this._Tuesday;
-			}
-			set
-			{
-				if ((this._Tuesday != value))
-				{
-					this.OnTuesdayChanging(value);
-					this.SendPropertyChanging();
-					this._Tuesday = value;
-					this.SendPropertyChanged("Tuesday");
-					this.OnTuesdayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Wednesday", DbType="VarChar(50)")]
-		public string Wednesday
-		{
-			get
-			{
-				return this._Wednesday;
-			}
-			set
-			{
-				if ((this._Wednesday != value))
-				{
-					this.OnWednesdayChanging(value);
-					this.SendPropertyChanging();
-					this._Wednesday = value;
-					this.SendPropertyChanged("Wednesday");
-					this.OnWednesdayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thursday", DbType="VarChar(50)")]
-		public string Thursday
-		{
-			get
-			{
-				return this._Thursday;
-			}
-			set
-			{
-				if ((this._Thursday != value))
-				{
-					this.OnThursdayChanging(value);
-					this.SendPropertyChanging();
-					this._Thursday = value;
-					this.SendPropertyChanged("Thursday");
-					this.OnThursdayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Friday", DbType="VarChar(50)")]
-		public string Friday
-		{
-			get
-			{
-				return this._Friday;
-			}
-			set
-			{
-				if ((this._Friday != value))
-				{
-					this.OnFridayChanging(value);
-					this.SendPropertyChanging();
-					this._Friday = value;
-					this.SendPropertyChanged("Friday");
-					this.OnFridayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Saturday", DbType="VarChar(50)")]
-		public string Saturday
-		{
-			get
-			{
-				return this._Saturday;
-			}
-			set
-			{
-				if ((this._Saturday != value))
-				{
-					this.OnSaturdayChanging(value);
-					this.SendPropertyChanging();
-					this._Saturday = value;
-					this.SendPropertyChanged("Saturday");
-					this.OnSaturdayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AllTimeMontrose")]
-	public partial class AllTimeMontrose : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Sunday;
-		
-		private string _Monday;
-		
-		private string _Tuesday;
-		
-		private string _Wednesday;
-		
-		private string _Thursday;
-		
-		private string _Friday;
-		
-		private string _Saturday;
-		
-		private int _Id;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSundayChanging(string value);
-    partial void OnSundayChanged();
-    partial void OnMondayChanging(string value);
-    partial void OnMondayChanged();
-    partial void OnTuesdayChanging(string value);
-    partial void OnTuesdayChanged();
-    partial void OnWednesdayChanging(string value);
-    partial void OnWednesdayChanged();
-    partial void OnThursdayChanging(string value);
-    partial void OnThursdayChanged();
-    partial void OnFridayChanging(string value);
-    partial void OnFridayChanged();
-    partial void OnSaturdayChanging(string value);
-    partial void OnSaturdayChanged();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    #endregion
-		
-		public AllTimeMontrose()
-		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sunday", DbType="VarChar(50)")]
@@ -1279,13 +1073,11 @@ namespace SoftwareEngineeringProject
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FinalsMontrose")]
-	public partial class FinalsMontrose : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AllTimeMontrose")]
+	public partial class AllTimeMontrose : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Dates;
 		
 		private string _Sunday;
 		
@@ -1307,8 +1099,6 @@ namespace SoftwareEngineeringProject
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnDatesChanging(string value);
-    partial void OnDatesChanged();
     partial void OnSundayChanging(string value);
     partial void OnSundayChanged();
     partial void OnMondayChanging(string value);
@@ -1327,29 +1117,239 @@ namespace SoftwareEngineeringProject
     partial void OnIdChanged();
     #endregion
 		
-		public FinalsMontrose()
+		public AllTimeMontrose()
 		{
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dates", DbType="VarChar(50)")]
-		public string Dates
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sunday", DbType="VarChar(50)")]
+		public string Sunday
 		{
 			get
 			{
-				return this._Dates;
+				return this._Sunday;
 			}
 			set
 			{
-				if ((this._Dates != value))
+				if ((this._Sunday != value))
 				{
-					this.OnDatesChanging(value);
+					this.OnSundayChanging(value);
 					this.SendPropertyChanging();
-					this._Dates = value;
-					this.SendPropertyChanged("Dates");
-					this.OnDatesChanged();
+					this._Sunday = value;
+					this.SendPropertyChanged("Sunday");
+					this.OnSundayChanged();
 				}
 			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Monday", DbType="VarChar(50)")]
+		public string Monday
+		{
+			get
+			{
+				return this._Monday;
+			}
+			set
+			{
+				if ((this._Monday != value))
+				{
+					this.OnMondayChanging(value);
+					this.SendPropertyChanging();
+					this._Monday = value;
+					this.SendPropertyChanged("Monday");
+					this.OnMondayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tuesday", DbType="VarChar(50)")]
+		public string Tuesday
+		{
+			get
+			{
+				return this._Tuesday;
+			}
+			set
+			{
+				if ((this._Tuesday != value))
+				{
+					this.OnTuesdayChanging(value);
+					this.SendPropertyChanging();
+					this._Tuesday = value;
+					this.SendPropertyChanged("Tuesday");
+					this.OnTuesdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Wednesday", DbType="VarChar(50)")]
+		public string Wednesday
+		{
+			get
+			{
+				return this._Wednesday;
+			}
+			set
+			{
+				if ((this._Wednesday != value))
+				{
+					this.OnWednesdayChanging(value);
+					this.SendPropertyChanging();
+					this._Wednesday = value;
+					this.SendPropertyChanged("Wednesday");
+					this.OnWednesdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thursday", DbType="VarChar(50)")]
+		public string Thursday
+		{
+			get
+			{
+				return this._Thursday;
+			}
+			set
+			{
+				if ((this._Thursday != value))
+				{
+					this.OnThursdayChanging(value);
+					this.SendPropertyChanging();
+					this._Thursday = value;
+					this.SendPropertyChanged("Thursday");
+					this.OnThursdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Friday", DbType="VarChar(50)")]
+		public string Friday
+		{
+			get
+			{
+				return this._Friday;
+			}
+			set
+			{
+				if ((this._Friday != value))
+				{
+					this.OnFridayChanging(value);
+					this.SendPropertyChanging();
+					this._Friday = value;
+					this.SendPropertyChanged("Friday");
+					this.OnFridayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Saturday", DbType="VarChar(50)")]
+		public string Saturday
+		{
+			get
+			{
+				return this._Saturday;
+			}
+			set
+			{
+				if ((this._Saturday != value))
+				{
+					this.OnSaturdayChanging(value);
+					this.SendPropertyChanging();
+					this._Saturday = value;
+					this.SendPropertyChanged("Saturday");
+					this.OnSaturdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AllTimeMain")]
+	public partial class AllTimeMain : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Sunday;
+		
+		private string _Monday;
+		
+		private string _Tuesday;
+		
+		private string _Wednesday;
+		
+		private string _Thursday;
+		
+		private string _Friday;
+		
+		private string _Saturday;
+		
+		private int _Id;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSundayChanging(string value);
+    partial void OnSundayChanged();
+    partial void OnMondayChanging(string value);
+    partial void OnMondayChanged();
+    partial void OnTuesdayChanging(string value);
+    partial void OnTuesdayChanged();
+    partial void OnWednesdayChanging(string value);
+    partial void OnWednesdayChanged();
+    partial void OnThursdayChanging(string value);
+    partial void OnThursdayChanged();
+    partial void OnFridayChanging(string value);
+    partial void OnFridayChanged();
+    partial void OnSaturdayChanging(string value);
+    partial void OnSaturdayChanged();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    #endregion
+		
+		public AllTimeMain()
+		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sunday", DbType="VarChar(50)")]
