@@ -26,6 +26,7 @@ namespace SoftwareEngineeringProject
         //start page
         private void Form1_Load(object sender, EventArgs e)
         {
+            dateTimePicker1.Value = DateTime.Today;
             comboBox1.SelectedIndex = 0;
             button3.Visible = false;
             button4.Visible = false;
@@ -83,13 +84,16 @@ namespace SoftwareEngineeringProject
         {
             int index=-1;
             string id = "";
-            checkschedule();
             if (index != -2 && listView1.SelectedIndices.Count>0)
             {
                 index = listView1.SelectedIndices[0];
                 id = listView1.SelectedItems[0].Text;
             }
 
+            if(radioButton1.Checked)
+            {
+               // checkschedule();
+            }
 
             //refresh users
             if (radioButton3.Checked)
@@ -1582,7 +1586,114 @@ namespace SoftwareEngineeringProject
             }
         }
 
-        //get selected dates times and compair them to scheduled
+        /*get selected dates times and compair them to scheduled
+         (Checkschedule gets the date selected (EXE tuesday)
+         Getschedule gets the times converted to INT
+         */
+
+        private void getschedule(string daysscheduled, string currentdate)
+        {
+            string hh = "";
+            string mm = "";
+            string tt = "";
+            string hh2 = "";
+            string mm2 = "";
+            string tt2 = "";
+            int save = 0;
+            int h = 0;
+            int m = 0;
+            int m2 = 0;
+            for (int i = save; i < daysscheduled.Length; i++)
+                if (daysscheduled[i] != ':')
+                    hh += daysscheduled[i];
+                else
+                {
+                    save = i + 1;
+                    break;
+                }
+            for (int i = save; i < daysscheduled.Length; i++)
+                if (daysscheduled[i] != ' ')
+                    mm += daysscheduled[i];
+                else
+                {
+                    save = i + 1;
+                    break;
+                }
+            for (int i = save; i < daysscheduled.Length; i++)
+                if (daysscheduled[i] != '-')
+                    tt += daysscheduled[i];
+                else
+                {
+                    save = i + 1;
+                    break;
+                }
+            for (int i = save; i < daysscheduled.Length; i++)
+                if (daysscheduled[i] != ':')
+                    hh2 += daysscheduled[i];
+                else
+                {
+                    save = i + 1;
+                    break;
+                }
+            for (int i = save; i < daysscheduled.Length; i++)
+                if (daysscheduled[i] != ' ')
+                    mm2 += daysscheduled[i];
+                else
+                {
+                    save = i + 1;
+                    break;
+                }
+            for (int i = save; i < daysscheduled.Length; i++)
+                tt2 += daysscheduled[i];
+
+            h = int.Parse(hh);
+            if (tt == "PM")
+                h += 12;
+            h *= 60;
+            m = int.Parse(mm);
+            m += h;
+
+            h = 0;
+            h = int.Parse(hh2);
+            if (tt2 == "PM")
+                h += 12;
+            h *= 60;
+            m2 = int.Parse(mm2);
+            m2 += h;
+
+            //TestStartAndStopTime
+            int starttime = m;
+            int stoptime = m2;
+            //--------------------
+
+            save = 0;
+            hh = "";
+            hh2 = "";
+
+            string daytime = currentdate;
+
+            for (int i = 0; i < daytime.Length; i++)
+            {
+                if (daytime[i] != '-')
+                    hh += daytime[i];
+                else
+                {
+                    save = i + 1;
+                    break;
+                }
+            }
+            for (int i = save; i < daytime.Length; i++)
+            {
+                hh2 += daytime[i];
+            }
+
+            //DayStartAndStopTime
+            int daystart = int.Parse(hh);
+            int dayend = int.Parse(hh2);
+            //----------------------
+            System.Windows.Forms.MessageBox.Show("" + daystart + "-" + dayend + "=Available time " + starttime + "-" + stoptime + "=todays scheduled. Alternative: ");
+        }
+
         private void checkschedule()
         {
             var query1 = from c in db.AllTimeMains
@@ -1597,106 +1708,38 @@ namespace SoftwareEngineeringProject
                 {
                     if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
                     {
-                        System.Windows.Forms.MessageBox.Show("" + c.Sunday.ToString() + "=Available time " + d.TestTime + "=todays scheduled.");
+                        getschedule(d.TestTime.ToString(), c.Sunday.ToString());
                     }
                     if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
                     {
-                        System.Windows.Forms.MessageBox.Show("" + c.Monday.ToString() + "=Available time " + d.TestTime + "=todays scheduled");
+                        getschedule(d.TestTime.ToString(), c.Monday.ToString());
                     }
                     if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
                     {
-                        string hh = "";
-                        string mm = "";
-                        string tt = "";
-                        string hh2 = "";
-                        string mm2 = "";
-                        string tt2 = "";
-                        int save = 0;
-                        int h = 0;
-                        int m = 0;
-                        int m2 = 0;
-                        for (int i = save; i < d.TestTime.Length; i++)
-                            if (d.TestTime[i] != ':')
-                                hh += d.TestTime[i];
-                            else
-                            {
-                                save = i+1;
-                                break;
-                            }
-                        for (int i = save; i < d.TestTime.Length; i++)
-                            if (d.TestTime[i] != ' ')
-                                mm += d.TestTime[i];
-                            else
-                            {
-                                save = i + 1;
-                                break;
-                            }
-                        for (int i = save; i < d.TestTime.Length; i++)
-                            if (d.TestTime[i] != '-')
-                                tt += d.TestTime[i];
-                            else
-                            {
-                                save = i + 1;
-                                break;
-                            }
-                        for (int i = save; i < d.TestTime.Length; i++)
-                            if (d.TestTime[i] != ':')
-                                hh2 += d.TestTime[i];
-                            else
-                            {
-                                save = i + 1;
-                                break;
-                            }
-                        for (int i = save; i < d.TestTime.Length; i++)
-                            if (d.TestTime[i] != ' ')
-                                mm2 += d.TestTime[i];
-                            else
-                            {
-                                save = i + 1;
-                                break;
-                            }
-                        for (int i = save; i < d.TestTime.Length; i++)
-                            tt2+=d.TestTime[i];
-                        
-                        h = int.Parse(hh);
-                        if (tt == "PM")
-                            h += 12;
-                        h *= 60;
-                        m = int.Parse(mm);
-                        m += h;
-
-                        h = 0;
-                        h = int.Parse(hh2);
-                        if (tt2 == "PM")
-                            h += 12;
-                        h *= 60;
-                        m2 = int.Parse(mm2);
-                        m2 += h;
-                        //confirm the conversion from AM PM form of scheduled into minutes of day
-                        System.Windows.Forms.MessageBox.Show("" + c.Tuesday.ToString() + "=Available time " + m+"-"+m2 + "=todays scheduled. Alternative: ");
+                        getschedule(d.TestTime.ToString(), c.Tuesday.ToString());
                     }
                     if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
                     {
-                        System.Windows.Forms.MessageBox.Show("" + c.Wednesday.ToString() + "=Available time " + d.TestTime + "=todays scheduled");
+                        getschedule(d.TestTime.ToString(), c.Wednesday.ToString());
                     }
                     if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
                     {
-                        System.Windows.Forms.MessageBox.Show("" + c.Thursday.ToString() + "=Available time " + d.TestTime + "=todays scheduled");
+                        getschedule(d.TestTime.ToString(), c.Thursday.ToString());
                     }
                     if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
                     {
-                        System.Windows.Forms.MessageBox.Show("" + c.Friday.ToString() + "=Available time " + d.TestTime + "=todays scheduled");
+                        getschedule(d.TestTime.ToString(), c.Friday.ToString());
                     }
                     if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
                     {
-                        System.Windows.Forms.MessageBox.Show("" + c.Saturday.ToString() + "=Available time " + d.TestTime + "=todays scheduled");
+                        getschedule(d.TestTime.ToString(), c.Saturday.ToString());
                     }
                 }
             }
 
 
         }
-
+        
         //Add page
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
