@@ -2586,9 +2586,6 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_107C28CB_DC6A_4CC3_8445_DD9133318A17_</td><td>Microsoft SQL Server 2012 Express SP2 LocalDB (x64).prq</td><td/><td/><td/></row>
-		<row><td>_32D22D9E_0A55_431C_A436_1F06C05CBEE0_</td><td>Microsoft SQL Server Compact 4.0 (x86).prq</td><td/><td/><td/></row>
-		<row><td>_F28A0BEB_33E9_4CB5_A766_3597402890F6_</td><td>Microsoft SQL Server 2012 Express SP2 LocalDB (x86).prq</td><td/><td/><td/></row>
 	</table>
 
 	<table name="ISSetupType">

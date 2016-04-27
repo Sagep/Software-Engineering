@@ -2732,7 +2732,7 @@ namespace SoftwareEngineeringProject
                 }
             }
             //-----------------------Changing MainFinals Dates---------------
-            if(!checkBox8.Checked && comboBox1.SelectedIndex.ToString()=="1")
+            if(!checkBox8.Checked && comboBox1.SelectedIndex.ToString()=="1" && radioButton3.Checked)
             {
 
                 int hours2min = 0;
