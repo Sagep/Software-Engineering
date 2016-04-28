@@ -10,3 +10,4 @@ C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\S
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\SoftwareEngineeringProject.csproj.GenerateResource.Cache
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\MavPlanner.exe
 C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\MavPlanner.pdb
+C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\SoftwareEngineeringProject.csprojResolveAssemblyReference.cache
