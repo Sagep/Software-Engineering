@@ -263,7 +263,7 @@ namespace SoftwareEngineeringProject
             {
                 if (radioButton1.Checked)
                 {
-                    var query = from c in db.AllTimeMains
+                    var query = from c in db.FinalsMains
                                 select c;
                     int start = 0;
                     int stop = 0;
@@ -542,9 +542,72 @@ namespace SoftwareEngineeringProject
             else if (comboBox1.SelectedIndex.ToString() == "0")
             {
                 button1.Enabled = false;
+                
             }
-            else if ((comboBox1.SelectedIndex.ToString() == "1" || comboBox1.SelectedIndex.ToString() == "2") && radioButton3.Checked)
+            else if ((comboBox1.SelectedIndex.ToString() == "1")&& radioButton3.Checked)
             {
+                checkBox8.Visible = false;
+                checkBox8.Checked = false;
+                listView1.Visible = false;
+                button1.Enabled = true;
+                button1.Visible = true;
+                button3.Visible = false;
+                button4.Visible = false;
+                button6.Visible = false;
+                button8.Visible = false;
+                if (comboBox1.SelectedIndex.ToString() == "1")
+                    Finalsdatesmain();
+                else
+                    Finalsdatesmontrose();
+                dateTimePicker4.Visible = true;
+                dateTimePicker5.Visible = true;
+                dateTimePicker3.Visible = true;
+                dateTimePicker2.Visible = true;
+
+                dateTimePicker1.Visible = false;
+                dateTimePicker2.Enabled = true;
+                dateTimePicker3.Enabled = true;
+                label1.Visible = true;
+                label2.Visible = true;
+                label1.Enabled = true;
+                label2.Enabled = true;
+                label3.Visible = true;
+                label4.Visible = true;
+                label5.Visible = true;
+                label6.Visible = true;
+                label7.Visible = true;
+                label8.Visible = true;
+                label9.Visible = true;
+                label10.Visible = true;
+                label11.Visible = true;
+                label12.Visible = true;
+                datesscheduled();
+                checkBox1.Visible = true;
+                label8.Visible = true;
+                label9.Visible = true;
+                label10.Visible = true;
+                label11.Visible = true;
+                label12.Visible = true;
+                checkBox2.Visible = true;
+                checkBox3.Visible = true;
+                checkBox4.Visible = true;
+                checkBox5.Visible = true;
+                checkBox6.Visible = true;
+                checkBox7.Visible = true;
+
+                checkBox1.Enabled = true;
+                checkBox2.Enabled = true;
+                checkBox3.Enabled = true;
+                checkBox4.Enabled = true;
+                checkBox5.Enabled = true;
+                checkBox6.Enabled = true;
+                checkBox7.Enabled = true;
+
+                checkBox8.Visible = false;
+            }
+            else if ((comboBox1.SelectedIndex.ToString() == "2") && radioButton3.Checked)
+            {
+                checkBox8.Visible = true;
                 checkBox8.Checked = true;
                 listView1.Visible = false;
                 button1.Enabled = true;
@@ -939,7 +1002,7 @@ namespace SoftwareEngineeringProject
             {
                 label5.Text = "CBT/PBT";
                 checkBox8.Checked = true;
-                var query = from c in db.AllTimeMains
+                var query = from c in db.FinalsMains
                             select c;
                 string temp = "";
                 int start = 0;
@@ -1696,7 +1759,7 @@ namespace SoftwareEngineeringProject
 
         private void checkschedule()
         {
-            var query1 = from c in db.AllTimeMains
+            var query1 = from c in db.FinalsMains
                         select c;
             var query2 = from c in db.Saveds
                          where c.TestDate.ToString()==dateTimePicker1.Value.ToString("MM/dd/yyy")
@@ -1915,7 +1978,7 @@ namespace SoftwareEngineeringProject
                     listView1.Items.Clear();
                 if (radioButton1.Checked)
                 {
-                    var query = from c in db.AllTimeMains
+                    var query = from c in db.FinalsMains
                                 select c;
                     int start = 0;
                     int stop = 0;
@@ -2613,7 +2676,7 @@ namespace SoftwareEngineeringProject
 
                 if (checkBox8.Checked && (totalhoursofday % 60 == 0 || totalhoursofday % 60 == 15 || totalhoursofday % 60 == 30 || totalhoursofday % 60 == 45))
                 {
-                    var query = from c in db.AllTimeMains
+                    var query = from c in db.FinalsMains
                                 select c;
                     foreach (var c in query)
                     {
@@ -3128,7 +3191,7 @@ MessageBoxIcon.Information);
         //Admin page check if "All Time"
         private void checkBox8_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBox8.Checked)
+            if(checkBox8.Checked&&comboBox1.SelectedIndex.ToString()=="2")
             {
                 label1.Enabled = false;
                 label2.Enabled = false;
