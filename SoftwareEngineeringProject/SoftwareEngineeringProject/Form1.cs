@@ -21,7 +21,8 @@ namespace SoftwareEngineeringProject
         {
             InitializeComponent();
         }
-        DatabaseQuerieDataContext db = new DatabaseQuerieDataContext();
+     //   DatabaseQuerieDataContext db = new DatabaseQuerieDataContext();
+        Scheduled3DataSet db = new Scheduled3DataSet();
 
         //start page
         private void Form1_Load(object sender, EventArgs e)
@@ -101,7 +102,7 @@ namespace SoftwareEngineeringProject
                 listView1.Items.Clear();
                 if (comboBox1.SelectedIndex == 0)
                 {
-                    var query = from c in db.Users
+                    var query = from c in db.User
                                 select c;
 
                     foreach (var q in query)
@@ -121,7 +122,7 @@ namespace SoftwareEngineeringProject
                 listView1.Items.Clear();
                 if (comboBox1.SelectedIndex == 0)
                 {
-                    var query = from c in db.Saveds
+                    var query = from c in db.Saved
                                 select c;
                     foreach (var q in query)
                     {
@@ -145,7 +146,7 @@ namespace SoftwareEngineeringProject
                 }
                 if (comboBox1.SelectedIndex == 1)
                 {
-                    var query = from c in db.Saveds
+                    var query = from c in db.Saved
                                 where c.CBT_PBT == "CBT"
                                 select c;
 
@@ -172,7 +173,7 @@ namespace SoftwareEngineeringProject
                 }
                 if (comboBox1.SelectedIndex == 2)
                 {
-                    var query = from c in db.Saveds
+                    var query = from c in db.Saved
                                 where c.CBT_PBT == "PBT"
                                 select c;
 
@@ -199,7 +200,7 @@ namespace SoftwareEngineeringProject
                 }
                 if (comboBox1.SelectedIndex == 3)
                 {
-                    var query = from c in db.Saveds
+                    var query = from c in db.Saved
                                 where c.CBT_PBT == "Montrose"
                                 select c;
 
@@ -229,7 +230,7 @@ namespace SoftwareEngineeringProject
             {
                 listView1.Items.Clear();
                 string searchinput=textBox1.Text;
-                var query = from c in db.Saveds
+                var query = from c in db.Saved
                             where c.StudentName==searchinput || c.Reporter==searchinput || c.Instructor==searchinput || c.Class==searchinput
                                 select c;
 
@@ -263,7 +264,7 @@ namespace SoftwareEngineeringProject
             {
                 if (radioButton1.Checked)
                 {
-                    var query = from c in db.FinalsMains
+                    var query = from c in db.FinalsMain
                                 select c;
                     int start = 0;
                     int stop = 0;
@@ -491,7 +492,7 @@ namespace SoftwareEngineeringProject
             {
                 listView1.Visible = true;
                 listView1.Items.Clear();
-                var query = from c in db.Users
+                var query = from c in db.User
                             select c;
 
                 foreach (var q in query)
@@ -667,7 +668,7 @@ namespace SoftwareEngineeringProject
             {
                 if (radioButton1.Checked)
                 {
-                    var query = from c in db.AllTimeMontroses
+                    var query = from c in db.AllTimeMontrose
                                 select c;
                     int start = 0;
                     int stop = 0;
@@ -894,7 +895,7 @@ namespace SoftwareEngineeringProject
             }
             if(comboBox1.SelectedIndex.ToString()=="1" && radioButton2.Checked)
             {
-                var query = from c in db.Saveds
+                var query = from c in db.Saved
                             where c.CBT_PBT=="CBT"
                             select c;
 
@@ -919,7 +920,7 @@ namespace SoftwareEngineeringProject
             }
             if (comboBox1.SelectedIndex.ToString() == "0" && radioButton2.Checked)
             {
-                var query = from c in db.Saveds
+                var query = from c in db.Saved
                             select c;
 
                 foreach (var q in query)
@@ -943,7 +944,7 @@ namespace SoftwareEngineeringProject
             }
             if (comboBox1.SelectedIndex.ToString() == "2" && radioButton2.Checked)
             {
-                var query = from c in db.Saveds
+                var query = from c in db.Saved
                             where c.CBT_PBT == "PBT"
                             select c;
 
@@ -970,7 +971,7 @@ namespace SoftwareEngineeringProject
             }
             if (comboBox1.SelectedIndex.ToString() == "3" && radioButton2.Checked)
             {
-                var query = from c in db.Saveds
+                var query = from c in db.Saved
                             where c.CBT_PBT == "Montrose"
                             select c;
 
@@ -1002,7 +1003,7 @@ namespace SoftwareEngineeringProject
             {
                 label5.Text = "CBT/PBT";
                 checkBox8.Checked = true;
-                var query = from c in db.FinalsMains
+                var query = from c in db.FinalsMain
                             select c;
                 string temp = "";
                 int start = 0;
@@ -1327,7 +1328,7 @@ namespace SoftwareEngineeringProject
                 label5.Text = "Montrose";
                 checkBox8.Checked = true;
 
-                var query = from c in db.AllTimeMontroses
+                var query = from c in db.AllTimeMontrose
                             select c;
                 string temp = "";
                 int start = 0;
@@ -1759,9 +1760,9 @@ namespace SoftwareEngineeringProject
 
         private void checkschedule()
         {
-            var query1 = from c in db.FinalsMains
+            var query1 = from c in db.FinalsMain
                         select c;
-            var query2 = from c in db.Saveds
+            var query2 = from c in db.Saved
                          where c.TestDate.ToString()==dateTimePicker1.Value.ToString("MM/dd/yyy")
                          select c;
 
@@ -1873,7 +1874,7 @@ namespace SoftwareEngineeringProject
             listView1.Columns.Add("Date Created", 100);
             listView1.Columns.Add("ID", 75);
 
-            var query = from c in db.Saveds
+            var query = from c in db.Saved
                         select c;
 
             foreach (var q in query)
@@ -1952,7 +1953,7 @@ namespace SoftwareEngineeringProject
                 listView1.Columns.Add("Admin", 50);
                 listView1.Items.Clear();
             }
-            var query = from c in db.Users
+            var query = from c in db.User
                         select c;
 
             foreach (var q in query)
@@ -1978,7 +1979,7 @@ namespace SoftwareEngineeringProject
                     listView1.Items.Clear();
                 if (radioButton1.Checked)
                 {
-                    var query = from c in db.FinalsMains
+                    var query = from c in db.FinalsMain
                                 select c;
                     int start = 0;
                     int stop = 0;
@@ -2205,7 +2206,7 @@ namespace SoftwareEngineeringProject
             if (comboBox1.SelectedIndex.ToString() == "1" && radioButton2.Checked)
             {
                 listView1.Items.Clear();
-                var query = from c in db.Saveds
+                var query = from c in db.Saved
                             where c.CBT_PBT == "CBT"
                             select c;
 
@@ -2231,7 +2232,7 @@ namespace SoftwareEngineeringProject
             if (comboBox1.SelectedIndex.ToString() == "0" && radioButton2.Checked)
             {
                 listView1.Items.Clear();
-                var query = from c in db.Saveds
+                var query = from c in db.Saved
                             select c;
 
                 foreach (var q in query)
@@ -2256,7 +2257,7 @@ namespace SoftwareEngineeringProject
             if (comboBox1.SelectedIndex.ToString() == "2" && radioButton2.Checked)
             {
                 listView1.Items.Clear();
-                var query = from c in db.Saveds
+                var query = from c in db.Saved
                             where c.CBT_PBT == "PBT"
                             select c;
 
@@ -2284,7 +2285,7 @@ namespace SoftwareEngineeringProject
             if (comboBox1.SelectedIndex.ToString() == "3" && radioButton2.Checked)
             {
                 listView1.Items.Clear();
-                var query = from c in db.Saveds
+                var query = from c in db.Saved
                             where c.CBT_PBT == "Montrose"
                             select c;
 
@@ -2312,7 +2313,7 @@ namespace SoftwareEngineeringProject
                     listView1.Items.Clear();
                 if (radioButton1.Checked)
                 {
-                    var query = from c in db.AllTimeMontroses
+                    var query = from c in db.AllTimeMontrose
                                 select c;
                     int start = 0;
                     int stop = 0;
@@ -2612,6 +2613,7 @@ namespace SoftwareEngineeringProject
                         int tempid = int.Parse(thisDay.ToString("MMddyyy"));
                         tempid+=int.Parse(thisDay.ToString("hhmmss"));
 
+                        Scheduled3DataSet.SavedRow rowadd = Scheduled3DataSet.
                         Saved rowadd = new Saved()
                         {
                             StudentName=frm.first+" "+frm.last,
@@ -2625,7 +2627,7 @@ namespace SoftwareEngineeringProject
                             Id=tempid,
                             Status="Active"
                         };
-                        db.Saveds.InsertOnSubmit(rowadd);
+                        db.Saved.InsertOnSubmit(rowadd);
                         try
                         {
                             db.SubmitChanges();
@@ -2676,7 +2678,7 @@ namespace SoftwareEngineeringProject
 
                 if (checkBox8.Checked && (totalhoursofday % 60 == 0 || totalhoursofday % 60 == 15 || totalhoursofday % 60 == 30 || totalhoursofday % 60 == 45))
                 {
-                    var query = from c in db.FinalsMains
+                    var query = from c in db.FinalsMain
                                 select c;
                     foreach (var c in query)
                     {
@@ -2752,7 +2754,7 @@ namespace SoftwareEngineeringProject
 
                 if (checkBox8.Checked && (totalhoursofday % 60 == 0 || totalhoursofday % 60 == 15 || totalhoursofday % 60 == 30 || totalhoursofday % 60 == 45))
                 {
-                    var query = from c in db.AllTimeMontroses
+                    var query = from c in db.AllTimeMontrose
                                 select c;
                     foreach (var c in query)
                     {
@@ -2830,7 +2832,7 @@ namespace SoftwareEngineeringProject
                 {
                     if (dateTimePicker2.Value < dateTimePicker3.Value)
                     {
-                        var query = from c in db.FinalsMains
+                        var query = from c in db.FinalsMain
                                     select c;
                         foreach(var c in query)
                         {
@@ -2902,7 +2904,7 @@ namespace SoftwareEngineeringProject
                 {
                     if (dateTimePicker2.Value < dateTimePicker3.Value)
                     {
-                        var query = from c in db.FinalsMontroses
+                        var query = from c in db.FinalsMontrose
                                     select c;
                         foreach (var c in query)
                         {
@@ -2953,7 +2955,7 @@ namespace SoftwareEngineeringProject
                 deleted +="ID: "+ item.SubItems[8].Text+"\n\n"+item.SubItems[0].Text + " " + item.SubItems[1].Text + " " + item.SubItems[2].Text + "\n" + item.SubItems[3].Text + " " + item.SubItems[4].Text + " " + item.SubItems[5].Text;
             }
 
-            var query = from c in db.Saveds
+            var query = from c in db.Saved
                         where c.Id.ToString()==price.ToString()
                         select c;
 
@@ -3006,19 +3008,19 @@ MessageBoxIcon.Information);
 
                         if (dr == DialogResult.Yes)
                         {
-                            var query = from c in db.Users
+                            var query = from c in db.User
                                         where c.Id.ToString() == selecteduser.ToString()
                                         select c;
                             foreach (var q in query)
                             {
-                                db.Users.DeleteOnSubmit(q);
+                                db.User.DeleteOnSubmit(q);
                                 db.SubmitChanges();
                             }
                             listView1.Items.Clear();
 
 
                             //refresh page
-                            query = from c in db.Users
+                            query = from c in db.User
                                     select c;
                             foreach (var q in query)
                             {
@@ -3040,7 +3042,7 @@ MessageBoxIcon.Information);
             search = true;
             listView1.Items.Clear();
             string searchinput=textBox1.Text;
-            var query = from c in db.Saveds
+            var query = from c in db.Saved
                         where c.StudentName==searchinput || c.Reporter==searchinput || c.Instructor==searchinput || c.Class==searchinput
                             select c;
 
@@ -3086,7 +3088,7 @@ MessageBoxIcon.Information);
                     admin=adminft
                 };
 
-                db.Users.InsertOnSubmit(addemp);
+                db.User.InsertOnSubmit(addemp);
                 try
                 {
                     db.SubmitChanges();
@@ -3137,7 +3139,7 @@ MessageBoxIcon.Information);
         private void Finalsdatesmain()
         {
             string firsttestdate = "", secondtestdate="";
-            var query = from c in db.FinalsMains
+            var query = from c in db.FinalsMain
                         select c;
             foreach(var c in query)
             {
@@ -3164,7 +3166,7 @@ MessageBoxIcon.Information);
         private void Finalsdatesmontrose()
         {
             string firsttestdate = "", secondtestdate = "";
-            var query = from c in db.FinalsMontroses
+            var query = from c in db.FinalsMontrose
                         select c;
             foreach (var c in query)
             {
@@ -3245,7 +3247,7 @@ MessageBoxIcon.Information);
 
                 if(comboBox1.SelectedIndex.ToString()=="2")
                 {
-                    var query = from c in db.FinalsMontroses
+                    var query = from c in db.FinalsMontrose
                                 select c;
                     string starttime = "";
                     string stoptime = "";
@@ -3277,7 +3279,7 @@ MessageBoxIcon.Information);
                 }
                 if (comboBox1.SelectedIndex.ToString() == "1")
                 {
-                    var query = from c in db.FinalsMains
+                    var query = from c in db.FinalsMain
                                 select c;
                     string starttime = "";
                     string stoptime = "";
