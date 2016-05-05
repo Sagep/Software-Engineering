@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -67,7 +68,28 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.scheduled3DataSet = new SoftwareEngineeringProject.Scheduled3DataSet();
+            this.allTimeMainBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.allTimeMainTableAdapter = new SoftwareEngineeringProject.Scheduled3DataSetTableAdapters.AllTimeMainTableAdapter();
+            this.tableAdapterManager = new SoftwareEngineeringProject.Scheduled3DataSetTableAdapters.TableAdapterManager();
+            this.allTimeMontroseBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.allTimeMontroseTableAdapter = new SoftwareEngineeringProject.Scheduled3DataSetTableAdapters.AllTimeMontroseTableAdapter();
+            this.finalsMainBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.finalsMainTableAdapter = new SoftwareEngineeringProject.Scheduled3DataSetTableAdapters.FinalsMainTableAdapter();
+            this.finalsMontroseBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.finalsMontroseTableAdapter = new SoftwareEngineeringProject.Scheduled3DataSetTableAdapters.FinalsMontroseTableAdapter();
+            this.savedBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.savedTableAdapter = new SoftwareEngineeringProject.Scheduled3DataSetTableAdapters.SavedTableAdapter();
+            this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.userTableAdapter = new SoftwareEngineeringProject.Scheduled3DataSetTableAdapters.UserTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scheduled3DataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.allTimeMainBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.allTimeMontroseBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.finalsMainBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.finalsMontroseBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.savedBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -219,6 +241,7 @@
             this.listView1.Size = new System.Drawing.Size(1207, 500);
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.VirtualListSize = 2000;
             // 
             // label1
             // 
@@ -481,6 +504,76 @@
             this.label12.TabIndex = 41;
             this.label12.Text = "12:00 AM - 2:00 AM";
             // 
+            // scheduled3DataSet
+            // 
+            this.scheduled3DataSet.DataSetName = "Scheduled3DataSet";
+            this.scheduled3DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // allTimeMainBindingSource
+            // 
+            this.allTimeMainBindingSource.DataMember = "AllTimeMain";
+            this.allTimeMainBindingSource.DataSource = this.scheduled3DataSet;
+            // 
+            // allTimeMainTableAdapter
+            // 
+            this.allTimeMainTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.AllTimeMainTableAdapter = this.allTimeMainTableAdapter;
+            this.tableAdapterManager.AllTimeMontroseTableAdapter = null;
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.FinalsMainTableAdapter = null;
+            this.tableAdapterManager.FinalsMontroseTableAdapter = null;
+            this.tableAdapterManager.SavedTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = SoftwareEngineeringProject.Scheduled3DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UserTableAdapter = null;
+            // 
+            // allTimeMontroseBindingSource
+            // 
+            this.allTimeMontroseBindingSource.DataMember = "AllTimeMontrose";
+            this.allTimeMontroseBindingSource.DataSource = this.scheduled3DataSet;
+            // 
+            // allTimeMontroseTableAdapter
+            // 
+            this.allTimeMontroseTableAdapter.ClearBeforeFill = true;
+            // 
+            // finalsMainBindingSource
+            // 
+            this.finalsMainBindingSource.DataMember = "FinalsMain";
+            this.finalsMainBindingSource.DataSource = this.scheduled3DataSet;
+            // 
+            // finalsMainTableAdapter
+            // 
+            this.finalsMainTableAdapter.ClearBeforeFill = true;
+            // 
+            // finalsMontroseBindingSource
+            // 
+            this.finalsMontroseBindingSource.DataMember = "FinalsMontrose";
+            this.finalsMontroseBindingSource.DataSource = this.scheduled3DataSet;
+            // 
+            // finalsMontroseTableAdapter
+            // 
+            this.finalsMontroseTableAdapter.ClearBeforeFill = true;
+            // 
+            // savedBindingSource
+            // 
+            this.savedBindingSource.DataMember = "Saved";
+            this.savedBindingSource.DataSource = this.scheduled3DataSet;
+            // 
+            // savedTableAdapter
+            // 
+            this.savedTableAdapter.ClearBeforeFill = true;
+            // 
+            // userBindingSource
+            // 
+            this.userBindingSource.DataMember = "User";
+            this.userBindingSource.DataSource = this.scheduled3DataSet;
+            // 
+            // userTableAdapter
+            // 
+            this.userTableAdapter.ClearBeforeFill = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -533,6 +626,13 @@
             this.Text = "MavPlanner";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scheduled3DataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.allTimeMainBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.allTimeMontroseBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.finalsMainBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.finalsMontroseBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.savedBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -578,6 +678,20 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        private Scheduled3DataSet scheduled3DataSet;
+        private System.Windows.Forms.BindingSource allTimeMainBindingSource;
+        private Scheduled3DataSetTableAdapters.AllTimeMainTableAdapter allTimeMainTableAdapter;
+        private Scheduled3DataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.BindingSource allTimeMontroseBindingSource;
+        private Scheduled3DataSetTableAdapters.AllTimeMontroseTableAdapter allTimeMontroseTableAdapter;
+        private System.Windows.Forms.BindingSource finalsMainBindingSource;
+        private Scheduled3DataSetTableAdapters.FinalsMainTableAdapter finalsMainTableAdapter;
+        private System.Windows.Forms.BindingSource finalsMontroseBindingSource;
+        private Scheduled3DataSetTableAdapters.FinalsMontroseTableAdapter finalsMontroseTableAdapter;
+        private System.Windows.Forms.BindingSource savedBindingSource;
+        private Scheduled3DataSetTableAdapters.SavedTableAdapter savedTableAdapter;
+        private System.Windows.Forms.BindingSource userBindingSource;
+        private Scheduled3DataSetTableAdapters.UserTableAdapter userTableAdapter;
 
     }
 }

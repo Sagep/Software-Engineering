@@ -14,6 +14,13 @@ namespace SoftwareEngineeringProject
         [STAThread]
         static void Main()
         {
+            
+            string dblocations = "";
+            dblocations = System.IO.File.ReadAllText(@"C:\\ProgramData\\Mavplanner\\DBlocation.txt");
+            dblocations = dblocations.Replace(@"\\", @"\");
+            AppDomain.CurrentDomain.SetData("DataDirectory", "" + dblocations); 
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

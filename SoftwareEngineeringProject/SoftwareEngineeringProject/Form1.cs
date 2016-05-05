@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Linq;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.Linq;
 
 //testing VS
 namespace SoftwareEngineeringProject
@@ -21,12 +23,18 @@ namespace SoftwareEngineeringProject
         {
             InitializeComponent();
         }
-     //   DatabaseQuerieDataContext db = new DatabaseQuerieDataContext();
-        Scheduled3DataSet db = new Scheduled3DataSet();
 
-        //start page
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'scheduled3DataSet.User' table. You can move, or remove it, as needed.
+            this.userTableAdapter.Fill(this.scheduled3DataSet.User);
+            // TODO: This line of code loads data into the 'scheduled3DataSet.Saved' table. You can move, or remove it, as needed.
+            this.savedTableAdapter.Fill(this.scheduled3DataSet.Saved);
+            // TODO: This line of code loads data into the 'scheduled3DataSet.FinalsMontrose' table. You can move, or remove it, as needed.
+            this.finalsMontroseTableAdapter.Fill(this.scheduled3DataSet.FinalsMontrose);
+            // TODO: This line of code loads data into the 'scheduled3DataSet.FinalsMain' table. You can move, or remove it, as needed.
+            this.finalsMainTableAdapter.Fill(this.scheduled3DataSet.FinalsMain);
+
             dateTimePicker1.Value = DateTime.Today;
             comboBox1.SelectedIndex = 0;
             button3.Visible = false;
@@ -91,9 +99,20 @@ namespace SoftwareEngineeringProject
                 id = listView1.SelectedItems[0].Text;
             }
 
-            if(radioButton1.Checked)
+            if(radioButton1.Checked && comboBox1.SelectedIndex.ToString()=="1")
             {
-               // checkschedule();
+               //checkschedule("CBT", "Finals");
+               populatefinalsdates();
+            }
+            else if (radioButton1.Checked && comboBox1.SelectedIndex.ToString() == "2")
+            {
+                //checkschedule("PBT", "Finals");
+                populatefinalsdates();
+            }
+            else if(radioButton1.Checked && comboBox1.SelectedIndex.ToString()=="3")
+            {
+                //checkschedule("Montrose", "Montrose");
+                populatemontrosesdates(10);
             }
 
             //refresh users
@@ -102,10 +121,7 @@ namespace SoftwareEngineeringProject
                 listView1.Items.Clear();
                 if (comboBox1.SelectedIndex == 0)
                 {
-                    var query = from c in db.User
-                                select c;
-
-                    foreach (var q in query)
+                    foreach (var q in userTableAdapter.GetData())
                     {
                         arr[0] = q.Id.ToString();
                         arr[1] = q.name.ToString();
@@ -122,9 +138,7 @@ namespace SoftwareEngineeringProject
                 listView1.Items.Clear();
                 if (comboBox1.SelectedIndex == 0)
                 {
-                    var query = from c in db.Saved
-                                select c;
-                    foreach (var q in query)
+                    foreach (var q in savedTableAdapter.GetData())
                     {
                         if (q.Status != "Canceled" && dateTimePicker1.Value.ToString("MM/dd/yyyy") == q.TestDate.ToString())
                         {
@@ -146,7 +160,7 @@ namespace SoftwareEngineeringProject
                 }
                 if (comboBox1.SelectedIndex == 1)
                 {
-                    var query = from c in db.Saved
+                    var query = from c in savedTableAdapter.GetData()
                                 where c.CBT_PBT == "CBT"
                                 select c;
 
@@ -173,7 +187,7 @@ namespace SoftwareEngineeringProject
                 }
                 if (comboBox1.SelectedIndex == 2)
                 {
-                    var query = from c in db.Saved
+                    var query = from c in savedTableAdapter.GetData()
                                 where c.CBT_PBT == "PBT"
                                 select c;
 
@@ -200,7 +214,7 @@ namespace SoftwareEngineeringProject
                 }
                 if (comboBox1.SelectedIndex == 3)
                 {
-                    var query = from c in db.Saved
+                    var query = from c in savedTableAdapter.GetData()
                                 where c.CBT_PBT == "Montrose"
                                 select c;
 
@@ -230,7 +244,7 @@ namespace SoftwareEngineeringProject
             {
                 listView1.Items.Clear();
                 string searchinput=textBox1.Text;
-                var query = from c in db.Saved
+                var query = from c in savedTableAdapter.GetData()
                             where c.StudentName==searchinput || c.Reporter==searchinput || c.Instructor==searchinput || c.Class==searchinput
                                 select c;
 
@@ -264,7 +278,7 @@ namespace SoftwareEngineeringProject
             {
                 if (radioButton1.Checked)
                 {
-                    var query = from c in db.FinalsMain
+                    var query = from c in finalsMainTableAdapter.GetData()
                                 select c;
                     int start = 0;
                     int stop = 0;
@@ -492,7 +506,7 @@ namespace SoftwareEngineeringProject
             {
                 listView1.Visible = true;
                 listView1.Items.Clear();
-                var query = from c in db.User
+                var query = from c in userTableAdapter.GetData()
                             select c;
 
                 foreach (var q in query)
@@ -668,7 +682,7 @@ namespace SoftwareEngineeringProject
             {
                 if (radioButton1.Checked)
                 {
-                    var query = from c in db.AllTimeMontrose
+                    var query = from c in finalsMontroseTableAdapter.GetData()
                                 select c;
                     int start = 0;
                     int stop = 0;
@@ -895,7 +909,7 @@ namespace SoftwareEngineeringProject
             }
             if(comboBox1.SelectedIndex.ToString()=="1" && radioButton2.Checked)
             {
-                var query = from c in db.Saved
+                var query = from c in savedTableAdapter.GetData()
                             where c.CBT_PBT=="CBT"
                             select c;
 
@@ -920,7 +934,7 @@ namespace SoftwareEngineeringProject
             }
             if (comboBox1.SelectedIndex.ToString() == "0" && radioButton2.Checked)
             {
-                var query = from c in db.Saved
+                var query = from c in savedTableAdapter.GetData()
                             select c;
 
                 foreach (var q in query)
@@ -944,7 +958,7 @@ namespace SoftwareEngineeringProject
             }
             if (comboBox1.SelectedIndex.ToString() == "2" && radioButton2.Checked)
             {
-                var query = from c in db.Saved
+                var query = from c in savedTableAdapter.GetData()
                             where c.CBT_PBT == "PBT"
                             select c;
 
@@ -971,7 +985,7 @@ namespace SoftwareEngineeringProject
             }
             if (comboBox1.SelectedIndex.ToString() == "3" && radioButton2.Checked)
             {
-                var query = from c in db.Saved
+                var query = from c in savedTableAdapter.GetData()
                             where c.CBT_PBT == "Montrose"
                             select c;
 
@@ -996,6 +1010,570 @@ namespace SoftwareEngineeringProject
 
         }
 
+        //prints the information in the list
+        private void populatefinalsdates()
+        {
+            listView1.Items.Clear();
+            var query = from c in finalsMainTableAdapter.GetData()
+                        select c;
+            int start = 0;
+            int stop = 0;
+            foreach (var c in query)
+            {
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
+                {
+                    if (c.Sunday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Sunday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
+                {
+                    if (c.Monday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Monday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
+                {
+                    if (c.Tuesday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Tuesday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
+                {
+                    if (c.Wednesday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Wednesday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
+                {
+                    if (c.Thursday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Thursday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
+                {
+                    if (c.Friday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Friday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
+                {
+                    if (c.Saturday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Saturday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+            }
+            stop = stop - start;
+            DateTime testing123 = new DateTime();
+
+
+            //-----------------------------------------------------------------------------------------
+            //----------This gets The tests and separates individual times(EXE startstop)--------------
+            //-----------------------------------------------------------------------------------------
+            int scheduledts=0;
+            int scheduledtst=0;
+            int gothroughs=0;
+
+            var querysaved =
+                from c in savedTableAdapter.GetData()
+                where c.TestDate.ToString() == dateTimePicker1.Value.ToString("MM/dd/yyy") /*&& c.CBT_PBT == cbttest*/
+                select c;
+
+            int[] scheduledstart= new int[querysaved.Count()];
+            int[] scheduledstop = new int[querysaved.Count()];
+            int[] gothrough = new int[querysaved.Count()];
+
+            int posss = 0;
+            foreach(var time in querysaved)
+            {
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref scheduledtst, ref  gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
+                {
+                    getschedule(time.TestTime, ref  scheduledts, ref scheduledtst, ref  gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref scheduledtst, ref  gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref scheduledtst, ref gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref  scheduledtst, ref  gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref scheduledtst, ref gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref scheduledtst, ref gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                posss += 1;
+            }
+            //-----------------------------------------------------------------------------------------
+            int seats = 25;
+            int starttracker = start; ;
+            if (stop != 0)
+                for (int i = 0; i <= stop; i += 15)
+                {
+                    if (i == 0)
+                    {
+                        testing123 = testing123.AddMinutes(start);
+                        foreach(var c in scheduledstart)
+                        {
+                            if (c == start)
+                                seats -= 1;
+                        }
+                    }
+                    else
+                    {
+                        start += 15;
+                        int screech = 0;
+                        int trydis = 0;
+                        foreach (var c in scheduledstart)
+                        {
+                            trydis = c;
+                            if(trydis==start)
+                            {
+                                seats -= 1;
+                            }
+                            else
+                            {                               
+                                while(trydis<=scheduledstop[screech])
+                                {
+                                    if (trydis == start)
+                                        seats -= 1;
+                                    if (trydis > start)
+                                        break;
+                                    trydis += 15;
+                                }
+                            }
+                            screech += 1;
+                        }
+                        testing123 = testing123.AddMinutes(15);
+                    }
+                    arr[0] = ""+seats+"/25";
+                    arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
+                    arr[2] = testing123.ToString("hh:mm tt");
+                    string seatsgraph = "";
+                    for (int s = seats*2; s > 0; s -= 2)
+                        seatsgraph += '*';
+
+                    arr[3] = seatsgraph;
+                    itm = new ListViewItem(arr);
+                    listView1.Items.Add(itm);
+                    seats = 25;
+                }
+        }
+
+        private void populatemontrosesdates(int seats)
+        {
+            listView1.Items.Clear();
+            var query = from c in finalsMontroseTableAdapter.GetData()
+                        select c;
+            int start = 0;
+            int stop = 0;
+            foreach (var c in query)
+            {
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
+                {
+                    if (c.Sunday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Sunday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
+                {
+                    if (c.Monday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Monday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
+                {
+                    if (c.Tuesday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Tuesday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
+                {
+                    if (c.Wednesday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Wednesday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
+                {
+                    if (c.Thursday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Thursday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
+                {
+                    if (c.Friday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Friday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
+                {
+                    if (c.Saturday.ToString() != "OFF")//--------------
+                    {
+                        int go = 0;
+                        int store = 0;
+                        string temp = c.Saturday.ToString();//---------
+                        string total = "";
+                        for (go = 0; go < temp.Length; go++)
+                        {
+                            if (temp[go] != '-')
+                                total += temp[go];
+                            else
+                            {
+                                store = go;
+                                break;
+                            }
+                        }
+                        start = int.Parse(total);
+
+                        total = "";
+                        for (go = store + 1; go < temp.Length; go++)
+                        {
+                            total += temp[go];
+                        }
+                        stop = int.Parse(total);
+                    }
+                }
+            }
+            stop = stop - start;
+            DateTime testing123 = new DateTime();
+            if (stop != 0)
+                for (int i = 0; i <= stop; i += 15)
+                {
+                    if (i == 0)
+                    {
+                        testing123 = testing123.AddMinutes(start);
+                    }
+                    else
+                    {
+                        testing123 = testing123.AddMinutes(15);
+                    }
+                    arr[0] = "" + seats + "/25";
+                    arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
+                    arr[2] = testing123.ToString("hh:mm tt");
+                    itm = new ListViewItem(arr);
+                    listView1.Items.Add(itm);
+                }
+        }
+
         //admin schedulable dates load(alltime)
         private void datesscheduled()
         {
@@ -1003,7 +1581,7 @@ namespace SoftwareEngineeringProject
             {
                 label5.Text = "CBT/PBT";
                 checkBox8.Checked = true;
-                var query = from c in db.FinalsMain
+                var query = from c in finalsMainTableAdapter.GetData()
                             select c;
                 string temp = "";
                 int start = 0;
@@ -1328,7 +1906,7 @@ namespace SoftwareEngineeringProject
                 label5.Text = "Montrose";
                 checkBox8.Checked = true;
 
-                var query = from c in db.AllTimeMontrose
+                var query = from c in finalsMontroseTableAdapter.GetData()
                             select c;
                 string temp = "";
                 int start = 0;
@@ -1655,7 +2233,7 @@ namespace SoftwareEngineeringProject
          Getschedule gets the times converted to INT
          */
 
-        private void getschedule(string daysscheduled, string currentdate)
+        private void getschedule(string daysscheduled, ref int starttestss, ref int stoptestss, ref int gothroughs)
         {
             string hh = "";
             string mm = "";
@@ -1711,7 +2289,7 @@ namespace SoftwareEngineeringProject
                 tt2 += daysscheduled[i];
 
             h = int.Parse(hh);
-            if (tt == "PM")
+            if (tt == "PM"&&h!=12)
                 h += 12;
             h *= 60;
             m = int.Parse(mm);
@@ -1719,7 +2297,7 @@ namespace SoftwareEngineeringProject
 
             h = 0;
             h = int.Parse(hh2);
-            if (tt2 == "PM")
+            if (tt2 == "PM"&&h!=12)
                 h += 12;
             h *= 60;
             m2 = int.Parse(mm2);
@@ -1729,82 +2307,49 @@ namespace SoftwareEngineeringProject
             int starttime = m;
             int stoptime = m2;
             //--------------------
+            /*
+                        save = 0;
+                        hh = "";
+                        hh2 = "";
 
-            save = 0;
-            hh = "";
-            hh2 = "";
+                        string daytime = currentdate;
 
-            string daytime = currentdate;
+                        for (int i = 0; i < daytime.Length; i++)
+                        {
+                            if (daytime[i] != '-')
+                                hh += daytime[i];
+                            else
+                            {
+                                save = i + 1;
+                                break;
+                            }
+                        }
+                        for (int i = save; i < daytime.Length; i++)
+                        {
+                            hh2 += daytime[i];
+                        }
 
-            for (int i = 0; i < daytime.Length; i++)
-            {
-                if (daytime[i] != '-')
-                    hh += daytime[i];
-                else
-                {
-                    save = i + 1;
-                    break;
-                }
-            }
-            for (int i = save; i < daytime.Length; i++)
-            {
-                hh2 += daytime[i];
-            }
-
-            //DayStartAndStopTime
-            int daystart = int.Parse(hh);
-            int dayend = int.Parse(hh2);
-            //----------------------
-            System.Windows.Forms.MessageBox.Show("" + daystart + "-" + dayend + "=Available time " + starttime + "-" + stoptime + "=todays scheduled. Alternative: ");
+                        //DayStartAndStopTime
+                        int daystart = int.Parse(hh);
+                        int dayend = int.Parse(hh2);
+                        //----------------------
+             */
+            gothroughs = calculateseats(starttime, stoptime);
+            starttestss = m;
+            stoptestss = m2;
         }
 
-        private void checkschedule()
+        private int calculateseats(int teststart, int teststop)
         {
-            var query1 = from c in db.FinalsMain
-                        select c;
-            var query2 = from c in db.Saved
-                         where c.TestDate.ToString()==dateTimePicker1.Value.ToString("MM/dd/yyy")
-                         select c;
-
-            foreach(var c in query1)
-            {
-                foreach(var d in query2)
-                {
-                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
-                    {
-                        getschedule(d.TestTime.ToString(), c.Sunday.ToString());
-                    }
-                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
-                    {
-                        getschedule(d.TestTime.ToString(), c.Monday.ToString());
-                    }
-                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
-                    {
-                        getschedule(d.TestTime.ToString(), c.Tuesday.ToString());
-                    }
-                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
-                    {
-                        getschedule(d.TestTime.ToString(), c.Wednesday.ToString());
-                    }
-                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
-                    {
-                        getschedule(d.TestTime.ToString(), c.Thursday.ToString());
-                    }
-                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
-                    {
-                        getschedule(d.TestTime.ToString(), c.Friday.ToString());
-                    }
-                    if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
-                    {
-                        getschedule(d.TestTime.ToString(), c.Saturday.ToString());
-                    }
-                }
-            }
-
-
+            int fifteenminuteintervals = 0;
+            fifteenminuteintervals = (teststop - teststart) / 15;
+            return fifteenminuteintervals;
         }
+
+
         
         //Add page
+
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if(radioButton1.Checked)
@@ -1835,6 +2380,7 @@ namespace SoftwareEngineeringProject
             listView1.Columns.Add("Seats", 100);
             listView1.Columns.Add("Date", 70);
             listView1.Columns.Add("Time", 70);
+            listView1.Columns.Add("Seats", 500);
         }
       
         //Edit-View Page
@@ -1874,7 +2420,7 @@ namespace SoftwareEngineeringProject
             listView1.Columns.Add("Date Created", 100);
             listView1.Columns.Add("ID", 75);
 
-            var query = from c in db.Saved
+            var query = from c in savedTableAdapter.GetData()
                         select c;
 
             foreach (var q in query)
@@ -1953,7 +2499,7 @@ namespace SoftwareEngineeringProject
                 listView1.Columns.Add("Admin", 50);
                 listView1.Items.Clear();
             }
-            var query = from c in db.User
+            var query = from c in userTableAdapter.GetData()
                         select c;
 
             foreach (var q in query)
@@ -1979,7 +2525,7 @@ namespace SoftwareEngineeringProject
                     listView1.Items.Clear();
                 if (radioButton1.Checked)
                 {
-                    var query = from c in db.FinalsMain
+                    var query = from c in finalsMainTableAdapter.GetData()
                                 select c;
                     int start = 0;
                     int stop = 0;
@@ -2206,7 +2752,7 @@ namespace SoftwareEngineeringProject
             if (comboBox1.SelectedIndex.ToString() == "1" && radioButton2.Checked)
             {
                 listView1.Items.Clear();
-                var query = from c in db.Saved
+                var query = from c in savedTableAdapter.GetData()
                             where c.CBT_PBT == "CBT"
                             select c;
 
@@ -2232,7 +2778,7 @@ namespace SoftwareEngineeringProject
             if (comboBox1.SelectedIndex.ToString() == "0" && radioButton2.Checked)
             {
                 listView1.Items.Clear();
-                var query = from c in db.Saved
+                var query = from c in savedTableAdapter.GetData()
                             select c;
 
                 foreach (var q in query)
@@ -2257,7 +2803,7 @@ namespace SoftwareEngineeringProject
             if (comboBox1.SelectedIndex.ToString() == "2" && radioButton2.Checked)
             {
                 listView1.Items.Clear();
-                var query = from c in db.Saved
+                var query = from c in savedTableAdapter.GetData()
                             where c.CBT_PBT == "PBT"
                             select c;
 
@@ -2285,7 +2831,7 @@ namespace SoftwareEngineeringProject
             if (comboBox1.SelectedIndex.ToString() == "3" && radioButton2.Checked)
             {
                 listView1.Items.Clear();
-                var query = from c in db.Saved
+                var query = from c in savedTableAdapter.GetData()
                             where c.CBT_PBT == "Montrose"
                             select c;
 
@@ -2313,7 +2859,7 @@ namespace SoftwareEngineeringProject
                     listView1.Items.Clear();
                 if (radioButton1.Checked)
                 {
-                    var query = from c in db.AllTimeMontrose
+                    var query = from c in finalsMontroseTableAdapter.GetData()
                                 select c;
                     int start = 0;
                     int stop = 0;
@@ -2612,32 +3158,7 @@ namespace SoftwareEngineeringProject
 
                         int tempid = int.Parse(thisDay.ToString("MMddyyy"));
                         tempid+=int.Parse(thisDay.ToString("hhmmss"));
-
-                        Scheduled3DataSet.SavedRow rowadd = Scheduled3DataSet.
-                        Saved rowadd = new Saved()
-                        {
-                            StudentName=frm.first+" "+frm.last,
-                            Class=frm.classs,
-                            Instructor=frm.instructor,
-                            TestDate=date,
-                            Reporter="Test",
-                            DateCreated=thisDay.ToString("MM/dd/yyyy"),
-                            CBT_PBT=cbtpbttest,
-                            TestTime=temp.ToString("hh:mm tt")+"-"+until.ToString("hh:mm tt"),
-                            Id=tempid,
-                            Status="Active"
-                        };
-                        db.Saved.InsertOnSubmit(rowadd);
-                        try
-                        {
-                            db.SubmitChanges();
-                            System.Windows.Forms.MessageBox.Show("Successfully Added Scheduled Test");
-                        }
-                        catch
-                        {
-                            System.Windows.Forms.MessageBox.Show("Sorry, there seems to be an issue. Please contact your local administrator. Error:DB add");
-                        }
-
+                        savedTableAdapter.Insert(frm.first+" "+frm.last, frm.classs, frm.instructor, date, temp.ToString("hh:mm tt")+"-"+until.ToString("hh:mm tt"),cbtpbttest, "Test", thisDay.ToString("MM/dd/yyyy"),"ACTIVE");
                     }
                 }
                 else
@@ -2645,7 +3166,7 @@ namespace SoftwareEngineeringProject
                     System.Windows.Forms.MessageBox.Show("Please select a time frame.");
                 }
             }
-            //-----------------------Changing available dates-----------------------
+            //-----------------------Changing available Time-----------------------
             else if(radioButton3.Checked && comboBox1.SelectedIndex.ToString()=="1")
             {
                 int hours2min = 0;
@@ -2678,10 +3199,15 @@ namespace SoftwareEngineeringProject
 
                 if (checkBox8.Checked && (totalhoursofday % 60 == 0 || totalhoursofday % 60 == 15 || totalhoursofday % 60 == 30 || totalhoursofday % 60 == 45))
                 {
-                    var query = from c in db.FinalsMain
+                    var query = from c in finalsMainTableAdapter.GetData()
                                 select c;
+                    DataRow newb;
+                    newb = finalsMainTableAdapter.GetData().NewRow();
                     foreach (var c in query)
                     {
+                        c.Dates = dateTimePicker2.Value.ToString("MM/dd/yyyy") +
+    "-" + dateTimePicker3.Value.ToString("MM/dd/yyyy");
+
                         if (checkBox1.Checked)
                             c.Sunday = starttimeofday + "-" + endtimeofday;
                         else c.Sunday = "OFF";
@@ -2703,17 +3229,11 @@ namespace SoftwareEngineeringProject
                         if (checkBox2.Checked)
                             c.Saturday = starttimeofday + "-" + endtimeofday;
                         else c.Saturday = "OFF";
+                        newb = c;
                     }
-                    try
-                    {
-                        db.SubmitChanges();
-                        System.Windows.Forms.MessageBox.Show("Successfully changed the hours for every day");
-                    }
-                    catch
-                    {
-                        System.Windows.Forms.MessageBox.Show("Sorry, there seems to be an issue. Please contact your local administrator. Error:DB Change AlltimeMain");
-                    }
+                    finalsMainTableAdapter.Update(newb);
                     datesscheduled();
+                    System.Windows.Forms.MessageBox.Show("Updated available Test times");
                 }
                 else if (checkBox8.Checked)
                 {
@@ -2721,7 +3241,7 @@ namespace SoftwareEngineeringProject
                 }
 
             }
-            //-----------------------Changing available dates-----------------------
+            //-----------------------Changing available Times-----------------------
             else if (radioButton3.Checked && comboBox1.SelectedIndex.ToString() == "2")
             {
                 int hours2min = 0;
@@ -2754,10 +3274,15 @@ namespace SoftwareEngineeringProject
 
                 if (checkBox8.Checked && (totalhoursofday % 60 == 0 || totalhoursofday % 60 == 15 || totalhoursofday % 60 == 30 || totalhoursofday % 60 == 45))
                 {
-                    var query = from c in db.AllTimeMontrose
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------need to update this
+                    var query = from c in allTimeMontroseTableAdapter.GetData()
                                 select c;
+                    DataRow newb;
+                    newb = allTimeMontroseTableAdapter.GetData().NewRow();
                     foreach (var c in query)
                     {
+//                        c.Dates = dateTimePicker2.Value.ToString("MM/dd/yyyy") +
+//"-" + dateTimePicker3.Value.ToString("MM/dd/yyyy");
                         if (checkBox1.Checked)
                             c.Sunday = starttimeofday + "-" + endtimeofday;
                         else c.Sunday = "OFF";
@@ -2779,165 +3304,49 @@ namespace SoftwareEngineeringProject
                         if (checkBox2.Checked)
                             c.Saturday = starttimeofday + "-" + endtimeofday;
                         else c.Saturday = "OFF";
+                        newb = c;
                     }
-                    try
-                    {
-                        db.SubmitChanges();
-                        System.Windows.Forms.MessageBox.Show("Successfully changed the hours for every day");
-                    }
-                    catch
-                    {
-                        System.Windows.Forms.MessageBox.Show("Sorry, there seems to be an issue. Please contact your local administrator. Error:DB Change AlltimeMain");
-                    }
+                    allTimeMontroseTableAdapter.Update(newb);
                     datesscheduled();
+                    System.Windows.Forms.MessageBox.Show("Updated available Test times");
                 }
-                else if (checkBox8.Checked)
+                if (!checkBox8.Checked && (totalhoursofday % 60 == 0 || totalhoursofday % 60 == 15 || totalhoursofday % 60 == 30 || totalhoursofday % 60 == 45))
                 {
-                    System.Windows.Forms.MessageBox.Show("Error: Please select a time of day in intervals of 15 minutes.");
-                }
-            }
-            //-----------------------Changing MainFinals Dates---------------
-            if(!checkBox8.Checked && comboBox1.SelectedIndex.ToString()=="1" && radioButton3.Checked)
-            {
-
-                int hours2min = 0;
-                hours2min = int.Parse(dateTimePicker4.Value.ToString("hh"));
-                if (dateTimePicker4.Value.ToString("tt") == "PM")
-                {
-                    hours2min += 12;
-                }
-
-                hours2min *= 60;
-                hours2min += int.Parse(dateTimePicker4.Value.ToString("mm"));
-                //---------------------------
-                int starttimeofday = hours2min;
-                //---------------------------
-
-                hours2min = 0;
-                hours2min = int.Parse(dateTimePicker5.Value.ToString("hh"));
-                if (dateTimePicker5.Value.ToString("tt") == "PM")
-                {
-                    hours2min += 12;
-                }
-
-                hours2min *= 60;
-                hours2min += int.Parse(dateTimePicker5.Value.ToString("mm"));
-                //---------------------------
-                int endtimeofday = hours2min;
-                //---------------------------
-
-                int totalhoursofday = endtimeofday - starttimeofday;
-
-                if (dateTimePicker2.Value >= DateTime.Now.AddDays(-1) && dateTimePicker3.Value > DateTime.Now.AddDays(-1))
-                {
-                    if (dateTimePicker2.Value < dateTimePicker3.Value)
+                    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------need to update this
+                    var query = from c in finalsMontroseTableAdapter.GetData()
+                                select c;
+                    DataRow newb;
+                    newb = finalsMontroseTableAdapter.GetData().NewRow();
+                    foreach (var c in query)
                     {
-                        var query = from c in db.FinalsMain
-                                    select c;
-                        foreach(var c in query)
-                        {
-                            c.Dates = dateTimePicker2.Value.ToString("MM/dd/yyyy") + 
-                                "-" + dateTimePicker3.Value.ToString("MM/dd/yyyy");
-                            c.Sunday = "OFF";
+                                                c.Dates = dateTimePicker2.Value.ToString("MM/dd/yyyy") +
+                        "-" + dateTimePicker3.Value.ToString("MM/dd/yyyy");
+                        if (checkBox1.Checked)
+                            c.Sunday = starttimeofday + "-" + endtimeofday;
+                        else c.Sunday = "OFF";
+                        if (checkBox6.Checked)
                             c.Monday = starttimeofday + "-" + endtimeofday;
+                        else c.Monday = "OFF";
+                        if (checkBox5.Checked)
                             c.Tuesday = starttimeofday + "-" + endtimeofday;
+                        else c.Tuesday = "OFF";
+                        if (checkBox7.Checked)
                             c.Wednesday = starttimeofday + "-" + endtimeofday;
+                        else c.Wednesday = "OFF";
+                        if (checkBox4.Checked)
                             c.Thursday = starttimeofday + "-" + endtimeofday;
+                        else c.Thursday = "OFF";
+                        if (checkBox3.Checked)
                             c.Friday = starttimeofday + "-" + endtimeofday;
-                            c.Saturday = "OFF";
-
-                            System.Windows.Forms.MessageBox.Show("We have successfully changed the Dates and times for Finals");
-                        }
-                        try
-                        {
-                            db.SubmitChanges();
-                        }
-                        catch
-                        {
-                            System.Windows.Forms.MessageBox.Show("Error: Issue Changing finals dates. \nPlease try again or contact your network administrator.");
-                        }
-                        Finalsdatesmain();
+                        else c.Friday = "OFF";
+                        if (checkBox2.Checked)
+                            c.Saturday = starttimeofday + "-" + endtimeofday;
+                        else c.Saturday = "OFF";
+                        newb = c;
                     }
-                    else
-                    {
-                        System.Windows.Forms.MessageBox.Show("Please make sure to have the bigger date first, then the smaller");
-                    }
-                }
-                else
-                {
-                    System.Windows.Forms.MessageBox.Show("Please select a date equal or greater than today.");
-                }
-            }
-            //-----------------------Changing MontroseFinals Dates--------------
-            if (!checkBox8.Checked && comboBox1.SelectedIndex.ToString() == "2")
-            {
-
-                int hours2min = 0;
-                hours2min = int.Parse(dateTimePicker4.Value.ToString("hh"));
-                if (dateTimePicker4.Value.ToString("tt") == "PM")
-                {
-                    hours2min += 12;
-                }
-
-                hours2min *= 60;
-                hours2min += int.Parse(dateTimePicker4.Value.ToString("mm"));
-                //---------------------------
-                int starttimeofday = hours2min;
-                //---------------------------
-
-                hours2min = 0;
-                hours2min = int.Parse(dateTimePicker5.Value.ToString("hh"));
-                if (dateTimePicker5.Value.ToString("tt") == "PM")
-                {
-                    hours2min += 12;
-                }
-
-                hours2min *= 60;
-                hours2min += int.Parse(dateTimePicker5.Value.ToString("mm"));
-                //---------------------------
-                int endtimeofday = hours2min;
-                //---------------------------
-
-                int totalhoursofday = endtimeofday - starttimeofday;
-
-                if (dateTimePicker2.Value >= DateTime.Now.AddDays(-1) && dateTimePicker3.Value > DateTime.Now.AddDays(-1))
-                {
-                    if (dateTimePicker2.Value < dateTimePicker3.Value)
-                    {
-                        var query = from c in db.FinalsMontrose
-                                    select c;
-                        foreach (var c in query)
-                        {
-                            c.Dates = dateTimePicker2.Value.ToString("MM/dd/yyyy") +
-                                "-" + dateTimePicker3.Value.ToString("MM/dd/yyyy");
-                            c.Sunday = "OFF";
-                            c.Monday = starttimeofday + "-" + endtimeofday;
-                            c.Tuesday = starttimeofday + "-" + endtimeofday;
-                            c.Wednesday = starttimeofday + "-" + endtimeofday;
-                            c.Thursday = starttimeofday + "-" + endtimeofday;
-                            c.Friday = starttimeofday + "-" + endtimeofday;
-                            c.Saturday = "OFF";
-
-                            System.Windows.Forms.MessageBox.Show("We have successfully changed the Dates and times for Finals");
-                        }
-                        try
-                        {
-                            db.SubmitChanges();
-                        }
-                        catch
-                        {
-                            System.Windows.Forms.MessageBox.Show("Error: Issue Changing finals dates. \nPlease try again or contact your network administrator.");
-                        }
-                        Finalsdatesmain();
-                    }
-                    else
-                    {
-                        System.Windows.Forms.MessageBox.Show("Please make sure to have the bigger date first, then the smaller");
-                    }
-                }
-                else
-                {
-                    System.Windows.Forms.MessageBox.Show("Please select a date equal or greater than today.");
+                    finalsMontroseTableAdapter.Update(newb);
+                    datesscheduled();
+                    System.Windows.Forms.MessageBox.Show("Updated available Test times");
                 }
             }
         }
@@ -2955,7 +3364,7 @@ namespace SoftwareEngineeringProject
                 deleted +="ID: "+ item.SubItems[8].Text+"\n\n"+item.SubItems[0].Text + " " + item.SubItems[1].Text + " " + item.SubItems[2].Text + "\n" + item.SubItems[3].Text + " " + item.SubItems[4].Text + " " + item.SubItems[5].Text;
             }
 
-            var query = from c in db.Saved
+            var query = from c in savedTableAdapter.GetData()
                         where c.Id.ToString()==price.ToString()
                         select c;
 
@@ -2967,7 +3376,7 @@ MessageBoxIcon.Information);
                 foreach (var q in query)
                 {
                     q.Status = "Canceled";
-                    db.SubmitChanges();
+                    savedTableAdapter.Delete(q.Id);
                     listView1.Items.Clear();
                     if (q.Status != "Canceled" && dateTimePicker1.Value.ToString("MM/dd/yyyy") == q.TestDate.ToString())
                     {
@@ -3008,19 +3417,18 @@ MessageBoxIcon.Information);
 
                         if (dr == DialogResult.Yes)
                         {
-                            var query = from c in db.User
+                            var query = from c in userTableAdapter.GetData()
                                         where c.Id.ToString() == selecteduser.ToString()
                                         select c;
                             foreach (var q in query)
                             {
-                                db.User.DeleteOnSubmit(q);
-                                db.SubmitChanges();
+                                userTableAdapter.Delete(q.Id);
                             }
                             listView1.Items.Clear();
 
 
                             //refresh page
-                            query = from c in db.User
+                            query = from c in userTableAdapter.GetData()
                                     select c;
                             foreach (var q in query)
                             {
@@ -3042,7 +3450,7 @@ MessageBoxIcon.Information);
             search = true;
             listView1.Items.Clear();
             string searchinput=textBox1.Text;
-            var query = from c in db.Saved
+            var query = from c in savedTableAdapter.GetData()
                         where c.StudentName==searchinput || c.Reporter==searchinput || c.Instructor==searchinput || c.Class==searchinput
                             select c;
 
@@ -3078,27 +3486,7 @@ MessageBoxIcon.Information);
                 DateTime thisDay = DateTime.Now;
                 int tempid = int.Parse(thisDay.ToString("MMddyyy"));
                 tempid += int.Parse(thisDay.ToString("hhmmss"));
-
-                User addemp = new User()
-                {
-                    username=frm.username,
-                    name=frm.employee,
-                    dateadded = thisDay.ToString("MM/dd/yyyy"),
-                    Id=tempid,
-                    admin=adminft
-                };
-
-                db.User.InsertOnSubmit(addemp);
-                try
-                {
-                    db.SubmitChanges();
-                    System.Windows.Forms.MessageBox.Show("User Added:\nUsername: " + frm.username + "\nEmployee name: " + frm.employee + "\nAdmin: " + adminft);
-                }
-                catch
-                {
-                    System.Windows.Forms.MessageBox.Show("Sorry, there seems to be an issue. Please contact your local administrator. Error:DB add");
-                }
-                 
+                userTableAdapter.Insert(frm.username, adminft, thisDay.ToString("MM/dd/yyyy"), frm.employee);              
             }
         }
 
@@ -3139,7 +3527,7 @@ MessageBoxIcon.Information);
         private void Finalsdatesmain()
         {
             string firsttestdate = "", secondtestdate="";
-            var query = from c in db.FinalsMain
+            var query = from c in finalsMainTableAdapter.GetData()
                         select c;
             foreach(var c in query)
             {
@@ -3166,7 +3554,7 @@ MessageBoxIcon.Information);
         private void Finalsdatesmontrose()
         {
             string firsttestdate = "", secondtestdate = "";
-            var query = from c in db.FinalsMontrose
+            var query = from c in finalsMontroseTableAdapter.GetData()
                         select c;
             foreach (var c in query)
             {
@@ -3247,7 +3635,7 @@ MessageBoxIcon.Information);
 
                 if(comboBox1.SelectedIndex.ToString()=="2")
                 {
-                    var query = from c in db.FinalsMontrose
+                    var query = from c in finalsMontroseTableAdapter.GetData()
                                 select c;
                     string starttime = "";
                     string stoptime = "";
@@ -3279,7 +3667,7 @@ MessageBoxIcon.Information);
                 }
                 if (comboBox1.SelectedIndex.ToString() == "1")
                 {
-                    var query = from c in db.FinalsMain
+                    var query = from c in finalsMainTableAdapter.GetData()
                                 select c;
                     string starttime = "";
                     string stoptime = "";

@@ -343,7 +343,11 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{520B2E34-F5FC-46E8-AFD7-C15AA7DFC7CB}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>MavPlanner.exe</td><td>{6416DDCB-19D7-4D1A-8476-606D3FA33DF7}</td><td>INSTALLDIR</td><td>2</td><td/><td>mavplanner.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{20826492-502C-4884-9CCF-E55236DC393A}</td><td>AppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{BDDD0CD0-DBEF-40EE-A4DE-01BD7198310D}</td><td>CommonAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{6423707F-018C-4BE6-AB9A-4166671B3A5B}</td><td>MAVPLANNER1</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT4</td><td>{47A414B0-F1EC-4662-8603-DE5223D2F771}</td><td>MAVPLANNER1</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>MavPlanner.exe</td><td>{75F97BD6-8C2C-4289-AEE8-E358D941094B}</td><td>INSTALLDIR</td><td>2</td><td/><td>mavplanner.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -918,12 +922,12 @@
 		<row><td>CustomerInformation</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>(Not SERIALNUMVALRETURN) OR (SERIALNUMVALRETURN=SERIALNUMVALSUCCESSRETVAL)</td><td>3</td></row>
 		<row><td>CustomerInformation</td><td>Next</td><td>[ALLUSERS]</td><td>1</td><td>ApplicationUsers = "AllUsers" And Privileged</td><td>1</td></row>
 		<row><td>CustomerInformation</td><td>Next</td><td>[ALLUSERS]</td><td>{}</td><td>ApplicationUsers = "OnlyCurrentUser" And Privileged</td><td>2</td></row>
-		<row><td>DatabaseFolder</td><td>Back</td><td>NewDialog</td><td>CustomerInformation</td><td>1</td><td>1</td></row>
+		<row><td>DatabaseFolder</td><td>Back</td><td>NewDialog</td><td>DestinationFolder</td><td>NOT Installed</td><td>1</td></row>
 		<row><td>DatabaseFolder</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>DatabaseFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DatabaseFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>DATABASEDIR</td><td>1</td><td>2</td></row>
-		<row><td>DatabaseFolder</td><td>Next</td><td>NewDialog</td><td>SetupType</td><td>1</td><td>1</td></row>
-		<row><td>DestinationFolder</td><td>Back</td><td>NewDialog</td><td>LicenseAgreement</td><td>NOT Installed</td><td>0</td></row>
+		<row><td>DatabaseFolder</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>1</td><td>1</td></row>
+		<row><td>DestinationFolder</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>NOT Installed</td><td>0</td></row>
 		<row><td>DestinationFolder</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>INSTALLDIR</td><td>1</td><td>2</td></row>
@@ -940,7 +944,7 @@
 		<row><td>InstallChangeFolder</td><td>Up</td><td>DirectoryListUp</td><td>0</td><td>1</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Back</td><td>NewDialog</td><td>SplashBitmap</td><td>Display_IsBitmapDlg</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
-		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>LicenseAgreement</td><td>1</td><td>0</td></row>
+		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>DestinationFolder</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>DoAction</td><td>ISPrint</td><td>1</td><td>0</td></row>
@@ -1052,8 +1056,16 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>AppDataFolder</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>CommonAppDataFolder</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT2</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 		<row><td>INSTALLDIR</td><td>MavPlanner.exe</td></row>
+		<row><td>MAVPLANNER1</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>MAVPLANNER1</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1149,12 +1161,14 @@
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
-		<row><td>MAVPLANNER</td><td>MAVPLANNER_SSPANDJEM</td><td>MAVPLA~1|MavPlanner</td><td/><td>0</td><td/></row>
-		<row><td>MAVPLANNER_SSPANDJEM</td><td>ProgramFilesFolder</td><td>MAVPLA~1|MavPlanner-SSPandJEM</td><td/><td>0</td><td/></row>
+		<row><td>MAVPLANNER</td><td>MAVPLANNER2</td><td>MAVPLA~1|MavPlanner</td><td/><td>0</td><td/></row>
+		<row><td>MAVPLANNER1</td><td>CommonAppDataFolder</td><td>MAVPLA~1|Mavplanner</td><td/><td>0</td><td/></row>
+		<row><td>MAVPLANNER2</td><td>ProgramFilesFolder</td><td>MAVPLA~1|Mavplanner</td><td/><td>0</td><td/></row>
 		<row><td>MAVPLANNER_SSPANDJMEM</td><td>ProgramFilesFolder</td><td>MAVPLA~1|MavPlanner-SSPandJMEM</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>MAVPLANNER_SSPANDJMEM</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
-		<row><td>MY_PRODUCT_NAME1</td><td>MAVPLANNER_SSPANDJEM</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
+		<row><td>MY_PRODUCT_NAME1</td><td>MAVPLANNER2</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
+		<row><td>NEW_FOLDER_1</td><td>TARGETDIR</td><td>NEW_FOLDER_1</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
 		<row><td>PrimaryVolumePath</td><td>TARGETDIR</td><td>.:Primar~1|PrimaryVolumePath</td><td/><td>0</td><td/></row>
@@ -1869,6 +1883,10 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 		<row><td>AlwaysInstall</td><td>MavPlanner.exe</td></row>
 	</table>
 
@@ -1884,10 +1902,8 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>dblocation.txt</td><td>ISX_DEFAULTCOMPONENT</td><td>DBLOCA~1.TXT|DBlocation.txt</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\DBlocation.txt</td><td>1</td><td/></row>
-		<row><td>mavplanner.exe</td><td>MavPlanner.exe</td><td>MAVPLA~1.EXE|MavPlanner.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\MavPlanner.exe</td><td>1</td><td/></row>
-		<row><td>scheduled.mdf</td><td>ISX_DEFAULTCOMPONENT</td><td>SCHEDU~1.MDF|Scheduled.mdf</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\Scheduled.mdf</td><td>1</td><td/></row>
-		<row><td>scheduled_log.ldf</td><td>ISX_DEFAULTCOMPONENT</td><td>SCHEDU~1.LDF|Scheduled_log.ldf</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\Scheduled_log.ldf</td><td>1</td><td/></row>
+		<row><td>dblocation.txt1</td><td>ISX_DEFAULTCOMPONENT4</td><td>DBLOCA~1.TXT|DBlocation.txt</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Release\DBlocation.txt</td><td>1</td><td/></row>
+		<row><td>mavplanner.exe</td><td>MavPlanner.exe</td><td>MAVPLA~1.EXE|MavPlanner.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Release\MavPlanner.exe</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2030,7 +2046,11 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_056456FE_803E_4574_8485_9D3A3FD3BEAF_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>MavPlanner.exe</td><td/><td/><td>_AE6D0925_C13D_47A7_8C90_0A87CD4260FB_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_E247A14A_1466_4E92_87DD_D169AC281C92_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_471DD7E7_0E35_4A7C_BC94_409B0B057F03_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_0DEB640D_F8AD_4162_85CB_D0762F188EFC_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT4</td><td/><td/><td>_280D375A_D0F3_4412_8AD5_B9008E31B59E_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>MavPlanner.exe</td><td/><td/><td>_35BA4C23_AD88_445F_A84A_B652B2BD1567_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2619,7 +2639,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>MavPlanner-SSPandJEM</td><td>0</td><td/><td>1243904365</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>MavPlanner-SSPandJEM</td><td>0</td><td/><td>581185334</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>1243873645</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1243873645</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40CLIENT</td><td>1033</td><td>Microsoft .NET Framework 4.0 Client Package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1243888045</td></row>
@@ -3437,6 +3457,7 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>LAUNCH~1.EXE|Launch MavPlanner.exe</td><td>0</td><td/><td>1243916717</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>LAUNCH~1.EXE|Launch MavPlanner.exe</td><td>0</td><td/><td>1243928141</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>LAUNCH~1.TXT|Launch DBlocation.txt</td><td>0</td><td/><td>1243884755</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>LAUNCH~1.EXE|Launch MavPlanner.exe</td><td>0</td><td/><td>581209942</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>1243873645</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>1243873645</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>1243873645</td></row>
@@ -3725,8 +3746,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1243873645</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1243873645</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>1243873645</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MavPlanner-SSPandJEM.com</td><td>0</td><td/><td>1243904365</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>MavPlanner-SSPandJEM</td><td>0</td><td/><td>1243904365</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MavPlanner-SSPandJEM.com</td><td>0</td><td/><td>581185334</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>MavPlanner-SSPandJEM</td><td>0</td><td/><td>581185334</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>LAUNCH~1.EXE|Launch MavPlanner.exe</td><td>0</td><td/><td>1243886029</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>LAUNCH~1.EXE|Launch MavPlanner.exe</td><td>0</td><td/><td>1243914451</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>1243873645</td></row>
@@ -3846,6 +3867,7 @@
 		<row><td>MavPlanner.exe1_8F6E279ABF5942CAB143BBDE18051B5A.exe</td><td/><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\MavPlanner.exe</td><td>0</td></row>
 		<row><td>MavPlanner.exe1_B31E099AE9534DD28D85A9ADD4293DC8.exe</td><td/><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\MavPlanner.exe</td><td>0</td></row>
 		<row><td>MavPlanner.exe_896C42D2502640CC9AE27F70CD663E34.exe</td><td/><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Debug\MavPlanner.exe</td><td>0</td></row>
+		<row><td>MavPlanner.exe_CEFAB2B507744D1F9BB758A932A5440C.exe</td><td/><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\bin\Release\MavPlanner.exe</td><td>0</td></row>
 		<row><td>MavPlanner.exe_E98A756A53EB4D74B0BEA2636F230F53.exe</td><td/><td>C:\Users\Sage\Documents\GitHub\Software-Engineering\SoftwareEngineeringProject\SoftwareEngineeringProject\obj\Release\MavPlanner.exe</td><td>0</td></row>
 	</table>
 
@@ -4037,7 +4059,6 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 	<table name="LaunchCondition">
 		<col key="yes" def="s255">Condition</col>
 		<col def="l255">Description</col>
-		<row><td>(Not Version9X) And (Not ((VersionNT&gt;=400 And VersionNT&lt;=600) Or (VersionNT=601 And MsiNTProductType&gt;1) Or (VersionNT&gt;=602 And VersionNT&lt;=603)))</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_OS##</td></row>
 		<row><td>DOTNETVERSION40CLIENT&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40CLIENT##</td></row>
 		<row><td>DOTNETVERSION40FULL&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40FULL##</td></row>
 		<row><td>DOTNETVERSION45FULL&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL##</td></row>
@@ -4521,8 +4542,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>MavPlanner.exe</td><td>mavpla_1_mavplanner</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>MavPlanner.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MavPlanner.exe_896C42D2502640CC9AE27F70CD663E34.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>MavPlanner.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>MavPlanner.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MavPlanner.exe1_8F6E279ABF5942CAB143BBDE18051B5A.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>MavPlanner.exe</td><td>mavpla_1_mavplanner</td><td>##IDS_SHORTCUT_DISPLAY_NAME4##</td><td>MavPlanner.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MavPlanner.exe_CEFAB2B507744D1F9BB758A932A5440C.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
