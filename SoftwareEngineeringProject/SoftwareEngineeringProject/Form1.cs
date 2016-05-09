@@ -2345,11 +2345,8 @@ namespace SoftwareEngineeringProject
             fifteenminuteintervals = (teststop - teststart) / 15;
             return fifteenminuteintervals;
         }
-
-
-        
+       
         //Add page
-
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if(radioButton1.Checked)
