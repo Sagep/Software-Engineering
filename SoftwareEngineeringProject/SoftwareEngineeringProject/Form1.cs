@@ -34,6 +34,44 @@ namespace SoftwareEngineeringProject
             // TODO: This line of code loads data into the 'scheduled3DataSet.FinalsMain' table. You can move, or remove it, as needed.
             this.finalsMainTableAdapter.Fill(this.scheduled3DataSet.FinalsMain);
 
+
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            string defaultUN = "SAGESPC\\Sage";
+            defaultUN = defaultUN.Replace(@"\\", @"\");
+
+
+            var query = from c in userTableAdapter.GetData()
+                        select c;
+
+            string available = "";
+            available = available.Replace(@"\\", @"\");
+
+            int i = 0;
+            foreach (var d in query)
+            {
+                string temp = "";
+                temp = "AD\\" + d.username;
+                temp = temp.Replace(@"\\", @"\");
+
+                if (userName == temp || userName == defaultUN)
+                {
+                    if (d.admin == "Y" || userName == defaultUN)
+                        radioButton3.Visible = true;
+                    else
+                        radioButton3.Visible = false;
+                }
+                else
+                {
+                    if (query.Count() - 1 == i)
+                    {
+                        System.Windows.Forms.MessageBox.Show("Unauthorized user. Please contact your local administrator");
+                        this.Close();
+                    }
+                }
+                i++;
+            }
+
+
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dateTimePicker1.Value = DateTime.Today;
@@ -738,7 +776,7 @@ namespace SoftwareEngineeringProject
             }
             //-----------------------------------------------------------------------------------------
             int seats = 25;
-            int starttracker = start; ;
+            int starttracker = start;
             if (stop != 0)
                 for (int i = 0; i <= stop; i += 15)
                 {
@@ -2257,7 +2295,21 @@ namespace SoftwareEngineeringProject
 
                         int tempid = int.Parse(thisDay.ToString("MMddyyy"));
                         tempid += int.Parse(thisDay.ToString("hhmmss"));
-                        savedTableAdapter.Insert(frm.first + " " + frm.last, frm.classs, frm.instructor, date, temp.ToString("hh:mm tt") + "-" + until.ToString("hh:mm tt"), cbtpbttest, "Test", thisDay.ToString("MM/dd/yyyy"), "ACTIVE");
+                        string reporter1 = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                        int i = 0;
+                        string reporter = "";
+                        for ( i = 0; i < reporter1.Length; i++)
+                        {
+                            if(reporter1[i]=='\\')
+                            {
+                                break;
+                            }
+                        }
+                        for (i+=1; i < reporter1.Length; i++)
+                        {
+                            reporter += reporter1[i];
+                        }
+                            savedTableAdapter.Insert(frm.first + " " + frm.last, frm.classs, frm.instructor, date, temp.ToString("hh:mm tt") + "-" + until.ToString("hh:mm tt"), cbtpbttest, reporter, thisDay.ToString("MM/dd/yyyy"), "ACTIVE");
                     }
                 }
                 else
