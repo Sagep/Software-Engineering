@@ -46,19 +46,21 @@ namespace SoftwareEngineeringProject
             string available = "";
             available = available.Replace(@"\\", @"\");
 
+            string temp = "";
+            temp = "AD\\";
+            temp = temp.Replace(@"\\", @"\");
+
             int i = 0;
             foreach (var d in query)
             {
-                string temp = "";
-                temp = "AD\\" + d.username;
-                temp = temp.Replace(@"\\", @"\");
-
+                temp += d.username;
                 if (userName == temp || userName == defaultUN)
                 {
                     if (d.admin == "Y" || userName == defaultUN)
                         radioButton3.Visible = true;
                     else
                         radioButton3.Visible = false;
+                    break;
                 }
                 else
                 {
@@ -68,6 +70,8 @@ namespace SoftwareEngineeringProject
                         this.Close();
                     }
                 }
+                temp = "AD\\";
+                temp = temp.Replace(@"\\", @"\");
                 i++;
             }
 
@@ -1121,7 +1125,7 @@ namespace SoftwareEngineeringProject
                 posss += 1;
             }
             //-----------------------------------------------------------------------------------------
-            int seats = 25;
+            int seats =18;
             int starttracker = start; ;
             if (stop != 0)
                 for (int i = 0; i <= stop; i += 15)
@@ -1163,7 +1167,7 @@ namespace SoftwareEngineeringProject
                         testing123 = testing123.AddMinutes(15);
                     }
 
-                    arr[0] = "" + seats + "/25";
+                    arr[0] = "" + seats + "/18";
                     arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
                     arr[2] = testing123.ToString("hh:mm tt");
                     string seatsgraph = "";
@@ -1171,7 +1175,7 @@ namespace SoftwareEngineeringProject
                         seatsgraph += '*';
                     arr[3] = seatsgraph;
                     dataGridView1.Rows.Add(arr);
-                    seats = 25;
+                    seats = 18;
 
                 }
             if (scrollbarstay != 0 || dataGridView1.Rows.Count > 0)
