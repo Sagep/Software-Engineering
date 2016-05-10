@@ -43,7 +43,6 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
@@ -82,6 +81,7 @@
             this.savedTableAdapter = new SoftwareEngineeringProject.Scheduled3DataSetTableAdapters.SavedTableAdapter();
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userTableAdapter = new SoftwareEngineeringProject.Scheduled3DataSetTableAdapters.UserTableAdapter();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scheduled3DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.allTimeMainBindingSource)).BeginInit();
@@ -90,6 +90,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.finalsMontroseBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.savedBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -230,18 +231,6 @@
             this.button8.TabIndex = 16;
             this.button8.Text = "Early Close";
             this.button8.UseVisualStyleBackColor = true;
-            // 
-            // listView1
-            // 
-            this.listView1.AllowColumnReorder = true;
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(33, 128);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1207, 500);
-            this.listView1.TabIndex = 5;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.VirtualListSize = 2000;
             // 
             // label1
             // 
@@ -574,12 +563,28 @@
             // 
             this.userTableAdapter.ClearBeforeFill = true;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(32, 129);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(1207, 500);
+            this.dataGridView1.TabIndex = 42;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(1273, 680);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -613,7 +618,6 @@
             this.Controls.Add(this.radioButton3);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.dateTimePicker1);
@@ -633,6 +637,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.finalsMontroseBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.savedBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -653,7 +658,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label2;
@@ -692,6 +696,7 @@
         private Scheduled3DataSetTableAdapters.SavedTableAdapter savedTableAdapter;
         private System.Windows.Forms.BindingSource userBindingSource;
         private Scheduled3DataSetTableAdapters.UserTableAdapter userTableAdapter;
+        private System.Windows.Forms.DataGridView dataGridView1;
 
     }
 }

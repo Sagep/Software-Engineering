@@ -18,7 +18,6 @@ namespace SoftwareEngineeringProject
     {
         string[] arr = new string[10];
         bool search = false;
-        ListViewItem itm;
         public Form1()
         {
             InitializeComponent();
@@ -35,15 +34,14 @@ namespace SoftwareEngineeringProject
             // TODO: This line of code loads data into the 'scheduled3DataSet.FinalsMain' table. You can move, or remove it, as needed.
             this.finalsMainTableAdapter.Fill(this.scheduled3DataSet.FinalsMain);
 
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dateTimePicker1.Value = DateTime.Today;
             comboBox1.SelectedIndex = 0;
             button3.Visible = false;
             button4.Visible = false;
             button6.Visible = false;
             button8.Visible = false;
-            listView1.View = View.Details;
-            listView1.GridLines = true;
-            listView1.FullRowSelect = true;
 
 
             dateTimePicker4.Format = DateTimePickerFormat.Custom;
@@ -83,7 +81,7 @@ namespace SoftwareEngineeringProject
 
             //timer function (refresh rate)
             Timer timer = new Timer();
-            timer.Interval = (5 * 1000); // 10 secs
+            timer.Interval = (15 * 1000); // 15 secs
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
         }
@@ -91,34 +89,27 @@ namespace SoftwareEngineeringProject
         //DB refresh
         private void timer_Tick(object sender, EventArgs e) 
         {
-            int index=-1;
-            string id = "";
-            if (index != -2 && listView1.SelectedIndices.Count>0)
-            {
-                index = listView1.SelectedIndices[0];
-                id = listView1.SelectedItems[0].Text;
-            }
+            int scrollbarstay = dataGridView1.FirstDisplayedScrollingRowIndex;
+            int selectedindex = 0;
+            if (dataGridView1.SelectedRows.Count > 0)
+                selectedindex = dataGridView1.SelectedRows[0].Index;
+            dataGridView1.Rows.Clear();
 
             if(radioButton1.Checked && comboBox1.SelectedIndex.ToString()=="1")
             {
-               //checkschedule("CBT", "Finals");
-               populatefinalsdates();
+               populatefinalsdates("CBT");
             }
             else if (radioButton1.Checked && comboBox1.SelectedIndex.ToString() == "2")
             {
-                //checkschedule("PBT", "Finals");
-                populatefinalsdates();
+                populatefinalsdates("PBT");
             }
             else if(radioButton1.Checked && comboBox1.SelectedIndex.ToString()=="3")
             {
-                //checkschedule("Montrose", "Montrose");
-                populatemontrosesdates(10);
+                populatemontrosesdates();
             }
 
-            //refresh users
             if (radioButton3.Checked)
             {
-                listView1.Items.Clear();
                 if (comboBox1.SelectedIndex == 0)
                 {
                     foreach (var q in userTableAdapter.GetData())
@@ -128,14 +119,12 @@ namespace SoftwareEngineeringProject
                         arr[2] = q.username.ToString();
                         arr[3] = q.dateadded.ToString();
                         arr[4] = q.admin.ToString();
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
+                        dataGridView1.Rows.Add(arr);
                     }
                 }
             }
             else if (radioButton2.Checked && search == false)
             {
-                listView1.Items.Clear();
                 if (comboBox1.SelectedIndex == 0)
                 {
                     foreach (var q in savedTableAdapter.GetData())
@@ -151,10 +140,7 @@ namespace SoftwareEngineeringProject
                             arr[6] = q.Reporter.ToString();
                             arr[7] = q.DateCreated.ToString();
                             arr[8] = q.Id.ToString();
-
-
-                            itm = new ListViewItem(arr);
-                            listView1.Items.Add(itm);
+                            dataGridView1.Rows.Add(arr);
                         }
                     }
                 }
@@ -177,10 +163,7 @@ namespace SoftwareEngineeringProject
                             arr[6] = q.Reporter.ToString();
                             arr[7] = q.DateCreated.ToString();
                             arr[8] = q.Id.ToString();
-
-
-                            itm = new ListViewItem(arr);
-                            listView1.Items.Add(itm);
+                            dataGridView1.Rows.Add(arr);
                             //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
                         }
                     }
@@ -204,10 +187,7 @@ namespace SoftwareEngineeringProject
                             arr[6] = q.Reporter.ToString();
                             arr[7] = q.DateCreated.ToString();
                             arr[8] = q.Id.ToString();
-
-
-                            itm = new ListViewItem(arr);
-                            listView1.Items.Add(itm);
+                            dataGridView1.Rows.Add(arr);
                             //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
                         }
                     }
@@ -231,10 +211,7 @@ namespace SoftwareEngineeringProject
                             arr[6] = q.Reporter.ToString();
                             arr[7] = q.DateCreated.ToString();
                             arr[8] = q.Id.ToString();
-
-
-                            itm = new ListViewItem(arr);
-                            listView1.Items.Add(itm);
+                            dataGridView1.Rows.Add(arr);
                             //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
                         }
                     }
@@ -242,7 +219,7 @@ namespace SoftwareEngineeringProject
             }
             else if (radioButton2.Checked && search == true)
             {
-                listView1.Items.Clear();
+                dataGridView1.Rows.Clear();
                 string searchinput=textBox1.Text;
                 var query = from c in savedTableAdapter.GetData()
                             where c.StudentName==searchinput || c.Reporter==searchinput || c.Instructor==searchinput || c.Class==searchinput
@@ -259,267 +236,31 @@ namespace SoftwareEngineeringProject
                         arr[6] = q.Reporter.ToString();
                         arr[7] = q.DateCreated.ToString();
                         arr[8] = q.Id.ToString();
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
-                    }
+                        dataGridView1.Rows.Add(arr);
+                }
             }
-            if (index != -1 && listView1.Items.Count > index)
-                listView1.Items[index].Selected = true;
+
+            if (scrollbarstay != 0 || dataGridView1.Rows.Count > 0)
+                dataGridView1.FirstDisplayedScrollingRowIndex = scrollbarstay;
+            dataGridView1.Rows[selectedindex].Selected = true;
+            dataGridView1.Update();
         }
 
         //drop down
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {//First View
-            listView1.Items.Clear();
-            search = false;
-            string[] arr = new string[10];
-            ListViewItem itm;
             if (comboBox1.SelectedIndex.ToString() != "0" && comboBox1.SelectedIndex.ToString() == "1" || comboBox1.SelectedIndex.ToString() == "2")
             {
                 if (radioButton1.Checked)
                 {
-                    var query = from c in finalsMainTableAdapter.GetData()
-                                select c;
-                    int start = 0;
-                    int stop = 0;
-                    foreach (var c in query)
-                    {
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
-                        {
-                            if (c.Sunday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Sunday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
-                        {
-                            if (c.Monday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Monday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
-                        {
-                            if (c.Tuesday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Tuesday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
-                        {
-                            if (c.Wednesday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Wednesday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
-                        {
-                            if (c.Thursday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Thursday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
-                        {
-                            if (c.Friday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Friday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
-                        {
-                            if (c.Saturday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Saturday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                    }
-                    stop = stop - start;
-                    DateTime testing123 = new DateTime();
-                    if(stop!=0)
-                    for (int i = 0; i <= stop; i += 15)
-                    {
-                        if(i==0)
-                        {
-                            testing123 = testing123.AddMinutes(start);
-                        }
-                        else
-                        {
-                            testing123 = testing123.AddMinutes(15);
-                        }
-                        arr[0] = "25";
-                        arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
-                        arr[2] = testing123.ToString("hh:mm tt");
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
-                    }
+                    timer_Tick(sender, e);
+                    dataGridView1.Rows[0].Selected = true;
+                    dataGridView1.FirstDisplayedScrollingRowIndex = 0;
                 }
             }
             if (comboBox1.SelectedIndex.ToString() == "0" && radioButton3.Checked)
             {
-                listView1.Visible = true;
-                listView1.Items.Clear();
-                var query = from c in userTableAdapter.GetData()
-                            select c;
-
-                foreach (var q in query)
-                {
-                    arr[0] = q.Id.ToString();
-                    arr[1] = q.name.ToString();
-                    arr[2] = q.username.ToString();
-                    arr[3] = q.dateadded.ToString();
-                    arr[4] = q.admin.ToString();
-                    itm = new ListViewItem(arr);
-                    listView1.Items.Add(itm);
-                }
-
+                timer_Tick(sender, e);
                 button1.Visible = false;
                 button3.Visible = true;
                 button4.Visible = true;
@@ -563,7 +304,7 @@ namespace SoftwareEngineeringProject
             {
                 checkBox8.Visible = false;
                 checkBox8.Checked = false;
-                listView1.Visible = false;
+                dataGridView1.Visible=false;
                 button1.Enabled = true;
                 button1.Visible = true;
                 button3.Visible = false;
@@ -624,7 +365,7 @@ namespace SoftwareEngineeringProject
             {
                 checkBox8.Visible = true;
                 checkBox8.Checked = true;
-                listView1.Visible = false;
+                dataGridView1.Visible=false;
                 button1.Enabled = true;
                 button1.Visible = true;
                 button3.Visible = false;
@@ -675,345 +416,49 @@ namespace SoftwareEngineeringProject
             else
             {
                 button1.Enabled = true;
-                listView1.Visible = true;
+                dataGridView1.Visible=true;
                 dateTimePicker1.Visible = true;
             }
             if (comboBox1.SelectedIndex.ToString() == "3" && comboBox1.SelectedIndex.ToString() != "0")
             {
                 if (radioButton1.Checked)
                 {
-                    var query = from c in finalsMontroseTableAdapter.GetData()
-                                select c;
-                    int start = 0;
-                    int stop = 0;
-                    foreach (var c in query)
-                    {
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
-                        {
-                            if (c.Sunday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Sunday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
-                        {
-                            if (c.Monday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Monday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
-                        {
-                            if (c.Tuesday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Tuesday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
-                        {
-                            if (c.Wednesday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Wednesday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
-                        {
-                            if (c.Thursday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Thursday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
-                        {
-                            if (c.Friday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Friday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
-                        {
-                            if (c.Saturday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Saturday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                    }
-                    stop = stop - start;
-                    DateTime testing123 = new DateTime();
-                    if (stop != 0)
-                        for (int i = 0; i <= stop; i += 15)
-                        {
-                            if (i == 0)
-                            {
-                                testing123 = testing123.AddMinutes(start);
-                            }
-                            else
-                            {
-                                testing123 = testing123.AddMinutes(15);
-                            }
-                            arr[0] = "25";
-                            arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
-                            arr[2] = testing123.ToString("hh:mm tt");
-                            itm = new ListViewItem(arr);
-                            listView1.Items.Add(itm);
-                        }
+                    timer_Tick(sender, e);
+                    dataGridView1.Rows[0].Selected = true;
                 }
-
             }
             if(comboBox1.SelectedIndex.ToString()=="1" && radioButton2.Checked)
             {
-                var query = from c in savedTableAdapter.GetData()
-                            where c.CBT_PBT=="CBT"
-                            select c;
-
-                foreach (var q in query)
-                {
-                    if (q.Status != "Canceled" && dateTimePicker1.Value.ToString("MM/dd/yyyy") == q.TestDate.ToString())
-                    {
-                        arr[0] = q.StudentName.ToString();
-                        arr[1] = q.Class.ToString();
-                        arr[2] = q.Instructor.ToString();
-                        arr[3] = q.TestDate.ToString();
-                        arr[4] = q.TestTime.ToString();
-                        arr[5] = q.CBT_PBT.ToString();
-                        arr[6] = q.Reporter.ToString();
-                        arr[7] = q.DateCreated.ToString();
-                        arr[8] = q.Id.ToString();
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
-                    }
-                    //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
-                }
+                timer_Tick(sender, e);
+                dataGridView1.Rows[0].Selected = true;
             }
             if (comboBox1.SelectedIndex.ToString() == "0" && radioButton2.Checked)
             {
-                var query = from c in savedTableAdapter.GetData()
-                            select c;
-
-                foreach (var q in query)
-                {
-                    if (q.Status != "Canceled" && dateTimePicker1.Value.ToString("MM/dd/yyyy") == q.TestDate.ToString())
-                    {
-                        arr[0] = q.StudentName.ToString();
-                        arr[1] = q.Class.ToString();
-                        arr[2] = q.Instructor.ToString();
-                        arr[3] = q.TestDate.ToString();
-                        arr[4] = q.TestTime.ToString();
-                        arr[5] = q.CBT_PBT.ToString();
-                        arr[6] = q.Reporter.ToString();
-                        arr[7] = q.DateCreated.ToString();
-                        arr[8] = q.Id.ToString();
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
-                        //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
-                    }
-                }
+                timer_Tick(sender, e);
+                dataGridView1.Rows[0].Selected = true;
             }
             if (comboBox1.SelectedIndex.ToString() == "2" && radioButton2.Checked)
             {
-                var query = from c in savedTableAdapter.GetData()
-                            where c.CBT_PBT == "PBT"
-                            select c;
-
-                foreach (var q in query)
-                {
-                    if (q.Status != "Canceled" && dateTimePicker1.Value.ToString("MM/dd/yyyy") == q.TestDate.ToString())
-                    {
-                        arr[0] = q.StudentName.ToString();
-                        arr[1] = q.Class.ToString();
-                        arr[2] = q.Instructor.ToString();
-                        arr[3] = q.TestDate.ToString();
-                        arr[4] = q.TestTime.ToString();
-                        arr[5] = q.CBT_PBT.ToString();
-                        arr[6] = q.Reporter.ToString();
-                        arr[7] = q.DateCreated.ToString();
-                        arr[8] = q.Id.ToString();
-
-
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
-                        //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
-                    }
-                }
+                timer_Tick(sender, e);
+                dataGridView1.Rows[0].Selected = true;
             }
             if (comboBox1.SelectedIndex.ToString() == "3" && radioButton2.Checked)
             {
-                var query = from c in savedTableAdapter.GetData()
-                            where c.CBT_PBT == "Montrose"
-                            select c;
-
-                foreach (var q in query)
-                {
-                    arr[0] = q.StudentName.ToString();
-                    arr[1] = q.Class.ToString();
-                    arr[2] = q.Instructor.ToString();
-                    arr[3] = q.TestDate.ToString();
-                    arr[4] = q.TestTime.ToString();
-                    arr[5] = q.CBT_PBT.ToString();
-                    arr[6] = q.Reporter.ToString();
-                    arr[7] = q.DateCreated.ToString();
-                    arr[8] = q.Id.ToString();
-
-
-                    itm = new ListViewItem(arr);
-                    listView1.Items.Add(itm);
-                    //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
-                }
+                timer_Tick(sender, e);
+                dataGridView1.Rows[0].Selected = true;
             }
 
         }
 
         //prints the information in the list
-        private void populatefinalsdates()
+        private void populatefinalsdates(string cbtpbt)
         {
-            listView1.Items.Clear();
+            int scrollbarstay = dataGridView1.FirstDisplayedScrollingRowIndex;
+            int selectedindex = 0;
+            if (dataGridView1.SelectedRows.Count > 0)
+                selectedindex = dataGridView1.SelectedRows[0].Index;
+            dataGridView1.Rows.Clear();
+
             var query = from c in finalsMainTableAdapter.GetData()
                         select c;
             int start = 0;
@@ -1230,7 +675,7 @@ namespace SoftwareEngineeringProject
 
             var querysaved =
                 from c in savedTableAdapter.GetData()
-                where c.TestDate.ToString() == dateTimePicker1.Value.ToString("MM/dd/yyy") /*&& c.CBT_PBT == cbttest*/
+                where c.TestDate.ToString() == dateTimePicker1.Value.ToString("MM/dd/yyy") && c.CBT_PBT == cbtpbt
                 select c;
 
             int[] scheduledstart= new int[querysaved.Count()];
@@ -1333,24 +778,34 @@ namespace SoftwareEngineeringProject
                         }
                         testing123 = testing123.AddMinutes(15);
                     }
+
                     arr[0] = ""+seats+"/25";
                     arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
                     arr[2] = testing123.ToString("hh:mm tt");
                     string seatsgraph = "";
                     for (int s = seats*2; s > 0; s -= 2)
                         seatsgraph += '*';
-
                     arr[3] = seatsgraph;
-                    itm = new ListViewItem(arr);
-                    listView1.Items.Add(itm);
+                    dataGridView1.Rows.Add(arr);
                     seats = 25;
+
                 }
+            if (scrollbarstay != 0 || dataGridView1.Rows.Count > 0)
+                dataGridView1.FirstDisplayedScrollingRowIndex = scrollbarstay;
+            dataGridView1.Rows[selectedindex].Selected = true;
+            dataGridView1.Update();
+            dataGridView1.Refresh();
         }
 
-        private void populatemontrosesdates(int seats)
+        private void populatemontrosesdates()
         {
-            listView1.Items.Clear();
-            var query = from c in finalsMontroseTableAdapter.GetData()
+            int scrollbarstay = dataGridView1.FirstDisplayedScrollingRowIndex;
+            int selectedindex = 0;
+            if (dataGridView1.SelectedRows.Count > 0)
+                selectedindex = dataGridView1.SelectedRows[0].Index;
+            dataGridView1.Rows.Clear();
+
+            var query = from c in allTimeMontroseTableAdapter.GetData()
                         select c;
             int start = 0;
             int stop = 0;
@@ -1555,23 +1010,136 @@ namespace SoftwareEngineeringProject
             }
             stop = stop - start;
             DateTime testing123 = new DateTime();
+
+
+            //-----------------------------------------------------------------------------------------
+            //----------This gets The tests and separates individual times(EXE startstop)--------------
+            //-----------------------------------------------------------------------------------------
+            int scheduledts=0;
+            int scheduledtst=0;
+            int gothroughs=0;
+
+            var querysaved =
+                from c in savedTableAdapter.GetData()
+                where c.TestDate.ToString() == dateTimePicker1.Value.ToString("MM/dd/yyy") && c.CBT_PBT == "Montrose"
+                select c;
+
+            int[] scheduledstart= new int[querysaved.Count()];
+            int[] scheduledstop = new int[querysaved.Count()];
+            int[] gothrough = new int[querysaved.Count()];
+
+            int posss = 0;
+            foreach(var time in querysaved)
+            {
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref scheduledtst, ref  gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
+                {
+                    getschedule(time.TestTime, ref  scheduledts, ref scheduledtst, ref  gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref scheduledtst, ref  gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref scheduledtst, ref gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref  scheduledtst, ref  gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref scheduledtst, ref gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
+                {
+                    getschedule(time.TestTime, ref scheduledts, ref scheduledtst, ref gothroughs);
+                    scheduledstart[posss] = scheduledts;
+                    scheduledstop[posss] = scheduledtst;
+                    gothrough[posss] = gothroughs;
+                }
+                posss += 1;
+            }
+            //-----------------------------------------------------------------------------------------
+            int seats = 25;
+            int starttracker = start; ;
             if (stop != 0)
                 for (int i = 0; i <= stop; i += 15)
                 {
                     if (i == 0)
                     {
                         testing123 = testing123.AddMinutes(start);
+                        foreach(var c in scheduledstart)
+                        {
+                            if (c == start)
+                                seats -= 1;
+                        }
                     }
                     else
                     {
+                        start += 15;
+                        int screech = 0;
+                        int trydis = 0;
+                        foreach (var c in scheduledstart)
+                        {
+                            trydis = c;
+                            if(trydis==start)
+                            {
+                                seats -= 1;
+                            }
+                            else
+                            {                               
+                                while(trydis<=scheduledstop[screech])
+                                {
+                                    if (trydis == start)
+                                        seats -= 1;
+                                    if (trydis > start)
+                                        break;
+                                    trydis += 15;
+                                }
+                            }
+                            screech += 1;
+                        }
                         testing123 = testing123.AddMinutes(15);
                     }
-                    arr[0] = "" + seats + "/25";
+
+                    arr[0] = ""+seats+"/25";
                     arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
                     arr[2] = testing123.ToString("hh:mm tt");
-                    itm = new ListViewItem(arr);
-                    listView1.Items.Add(itm);
+                    string seatsgraph = "";
+                    for (int s = seats*2; s > 0; s -= 2)
+                        seatsgraph += '*';
+                    arr[3] = seatsgraph;
+                    dataGridView1.Rows.Add(arr);
+                    seats = 25;
+
                 }
+            if (scrollbarstay != 0 || dataGridView1.Rows.Count > 0)
+                dataGridView1.FirstDisplayedScrollingRowIndex = scrollbarstay;
+            dataGridView1.Rows[selectedindex].Selected = true;
+            dataGridView1.Update();
         }
 
         //admin schedulable dates load(alltime)
@@ -2345,16 +1913,13 @@ namespace SoftwareEngineeringProject
             fifteenminuteintervals = (teststop - teststart) / 15;
             return fifteenminuteintervals;
         }
-
-
         
         //Add page
-
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if(radioButton1.Checked)
             search = false;
-            listView1.Visible = true;
+            dataGridView1.Visible=true;
             comboBox1.Items.Clear();
             comboBox1.Items.Add("Select");
             comboBox1.Items.Add("Finals-CBT");
@@ -2375,12 +1940,11 @@ namespace SoftwareEngineeringProject
                 dateTimePicker5.Visible = false;
             }
             comboBox1.SelectedIndex = 0;
-            listView1.Columns.Clear();
-            listView1.Items.Clear();
-            listView1.Columns.Add("Seats", 100);
-            listView1.Columns.Add("Date", 70);
-            listView1.Columns.Add("Time", 70);
-            listView1.Columns.Add("Seats", 500);
+            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Add("newColumnName", "Seats");
+            dataGridView1.Columns.Add("newColumnName", "Date");
+            dataGridView1.Columns.Add("newColumnName", "Time");
+            dataGridView1.Columns.Add("newColumnName", "Seats");
         }
       
         //Edit-View Page
@@ -2395,7 +1959,7 @@ namespace SoftwareEngineeringProject
             if (!comboBox1.Visible||!button1.Visible||!button6.Visible)
             {
                 dateTimePicker1.Visible = true;
-                listView1.Visible = true;
+                dataGridView1.Visible=true;
                 comboBox1.Visible = true;
                 button1.Visible = false;
                 button3.Visible = false;
@@ -2406,19 +1970,16 @@ namespace SoftwareEngineeringProject
                 dateTimePicker5.Visible = false;
             }
             comboBox1.SelectedIndex = 0;
-            listView1.Columns.Clear();
-            listView1.Items.Clear();
-            //Add column header
-            listView1.Columns.Add("Name", 150);
-            listView1.Columns.Add("Class", 70);
-            listView1.Columns.Add("Instructor", 70);
-            listView1.Columns.Add("Date", 100);
-            listView1.Columns.Add("Time", 125);
-            //subject to change
-            listView1.Columns.Add("CBT-PBT-M", 70);
-            listView1.Columns.Add("Reporter", 70);
-            listView1.Columns.Add("Date Created", 100);
-            listView1.Columns.Add("ID", 75);
+            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Add("newColumnName", "Name");
+            dataGridView1.Columns.Add("newColumnName", "Class");
+            dataGridView1.Columns.Add("newColumnName", "Instructor");
+            dataGridView1.Columns.Add("newColumnName", "Date");
+            dataGridView1.Columns.Add("newColumnName", "Time");
+            dataGridView1.Columns.Add("newColumnName", "CBT-PBT-M");
+            dataGridView1.Columns.Add("newColumnName", "Reporter");
+            dataGridView1.Columns.Add("newColumnName", "Date Created");
+            dataGridView1.Columns.Add("newColumnName", "ID");
 
             var query = from c in savedTableAdapter.GetData()
                         select c;
@@ -2436,10 +1997,7 @@ namespace SoftwareEngineeringProject
                     arr[6] = q.Reporter.ToString();
                     arr[7] = q.DateCreated.ToString();
                     arr[8] = q.Id.ToString();
-
-
-                    itm = new ListViewItem(arr);
-                    listView1.Items.Add(itm);
+                    dataGridView1.Rows.Add(arr);
                     //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
                 }
             }
@@ -2486,18 +2044,18 @@ namespace SoftwareEngineeringProject
                 checkBox7.Visible = false; 
                 checkBox8.Visible = false;
             }
-            listView1.Columns.Clear();
             button1.Visible = false;
             comboBox1.SelectedIndex = comboBox1.Items.IndexOf("Users");
             button8.Visible = true;
             if (comboBox1.SelectedIndex.ToString() == "0")
             {
-                listView1.Columns.Add("ID", 50);
-                listView1.Columns.Add("Name:", 150);
-                listView1.Columns.Add("Username:", 70);
-                listView1.Columns.Add("Date Added", 100);
-                listView1.Columns.Add("Admin", 50);
-                listView1.Items.Clear();
+                dataGridView1.Columns.Clear();
+                dataGridView1.Columns.Add("newColumnName", "ID");
+                dataGridView1.Columns.Add("newColumnName", "Name:");
+                dataGridView1.Columns.Add("newColumnName", "Username");
+                dataGridView1.Columns.Add("newColumnName", "Date Added");
+                dataGridView1.Columns.Add("newColumnName", "Admin");
+                dataGridView1.Rows.Clear();
             }
             var query = from c in userTableAdapter.GetData()
                         select c;
@@ -2509,8 +2067,7 @@ namespace SoftwareEngineeringProject
                 arr[2] = q.username.ToString();
                 arr[3] = q.dateadded.ToString();
                 arr[4] = q.admin.ToString();
-                itm = new ListViewItem(arr);
-                listView1.Items.Add(itm);
+                dataGridView1.Rows.Add(arr);
             }
         }
         
@@ -2518,240 +2075,18 @@ namespace SoftwareEngineeringProject
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             string[] arr = new string[10];
-            ListViewItem itm;
             if (comboBox1.SelectedIndex.ToString() != "0" && comboBox1.SelectedIndex!=3 && comboBox1.SelectedIndex.ToString() == "1" || comboBox1.SelectedIndex.ToString() == "2")
             {
                 if (!radioButton3.Checked)
-                    listView1.Items.Clear();
+                    dataGridView1.Rows.Clear();
                 if (radioButton1.Checked)
                 {
-                    var query = from c in finalsMainTableAdapter.GetData()
-                                select c;
-                    int start = 0;
-                    int stop = 0;
-                    foreach (var c in query)
-                    {
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
-                        {
-                            if (c.Sunday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Sunday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
-                        {
-                            if (c.Monday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Monday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
-                        {
-                            if (c.Tuesday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Tuesday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
-                        {
-                            if (c.Wednesday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Wednesday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
-                        {
-                            if (c.Thursday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Thursday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
-                        {
-                            if (c.Friday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Friday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
-                        {
-                            if (c.Saturday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Saturday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                    }
-                    stop = stop - start;
-                    DateTime testing123 = new DateTime();
-                    if (stop != 0)
-                        for (int i = 0; i <= stop; i += 15)
-                        {
-                            if (i == 0)
-                            {
-                                testing123 = testing123.AddMinutes(start);
-                            }
-                            else
-                            {
-                                testing123 = testing123.AddMinutes(15);
-                            }
-                            arr[0] = "25";
-                            arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
-                            arr[2] = testing123.ToString("hh:mm tt");
-                            itm = new ListViewItem(arr);
-                            listView1.Items.Add(itm);
-                        }
+                    timer_Tick(sender, e);
                 }
             }
             if (comboBox1.SelectedIndex.ToString() == "1" && radioButton2.Checked)
             {
-                listView1.Items.Clear();
+                dataGridView1.Rows.Clear();
                 var query = from c in savedTableAdapter.GetData()
                             where c.CBT_PBT == "CBT"
                             select c;
@@ -2769,15 +2104,14 @@ namespace SoftwareEngineeringProject
                         arr[6] = q.Reporter.ToString();
                         arr[7] = q.DateCreated.ToString();
                         arr[8] = q.Id.ToString();
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
+                        dataGridView1.Rows.Add(arr);
                     }
                     //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
                 }
             }
             if (comboBox1.SelectedIndex.ToString() == "0" && radioButton2.Checked)
             {
-                listView1.Items.Clear();
+                dataGridView1.Rows.Clear();
                 var query = from c in savedTableAdapter.GetData()
                             select c;
 
@@ -2794,15 +2128,14 @@ namespace SoftwareEngineeringProject
                         arr[6] = q.Reporter.ToString();
                         arr[7] = q.DateCreated.ToString();
                         arr[8] = q.Id.ToString();
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
+                        dataGridView1.Rows.Add(arr);
                         //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
                     }
                 }
             }
             if (comboBox1.SelectedIndex.ToString() == "2" && radioButton2.Checked)
             {
-                listView1.Items.Clear();
+                dataGridView1.Rows.Clear();
                 var query = from c in savedTableAdapter.GetData()
                             where c.CBT_PBT == "PBT"
                             select c;
@@ -2820,17 +2153,14 @@ namespace SoftwareEngineeringProject
                         arr[6] = q.Reporter.ToString();
                         arr[7] = q.DateCreated.ToString();
                         arr[8] = q.Id.ToString();
-
-
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
+                        dataGridView1.Rows.Add(arr);
                         //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
                     }
                 }
             }
             if (comboBox1.SelectedIndex.ToString() == "3" && radioButton2.Checked)
             {
-                listView1.Items.Clear();
+                dataGridView1.Rows.Clear();
                 var query = from c in savedTableAdapter.GetData()
                             where c.CBT_PBT == "Montrose"
                             select c;
@@ -2846,242 +2176,16 @@ namespace SoftwareEngineeringProject
                     arr[6] = q.Reporter.ToString();
                     arr[7] = q.DateCreated.ToString();
                     arr[8] = q.Id.ToString();
-
-
-                    itm = new ListViewItem(arr);
-                    listView1.Items.Add(itm);
+                    dataGridView1.Rows.Add(arr);
                     //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
                 }
             }
             if(comboBox1.SelectedIndex==3)
             {
                 if (!radioButton3.Checked)
-                    listView1.Items.Clear();
+                    dataGridView1.Rows.Clear();
                 if (radioButton1.Checked)
-                {
-                    var query = from c in finalsMontroseTableAdapter.GetData()
-                                select c;
-                    int start = 0;
-                    int stop = 0;
-                    foreach (var c in query)
-                    {
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Sunday")
-                        {
-                            if (c.Sunday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Sunday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Monday")
-                        {
-                            if (c.Monday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Monday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Tuesday")
-                        {
-                            if (c.Tuesday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Tuesday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Wednesday")
-                        {
-                            if (c.Wednesday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Wednesday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Thursday")
-                        {
-                            if (c.Thursday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Thursday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Friday")
-                        {
-                            if (c.Friday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Friday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                        if (dateTimePicker1.Value.DayOfWeek.ToString() == "Saturday")
-                        {
-                            if (c.Saturday.ToString() != "OFF")//--------------
-                            {
-                                int go = 0;
-                                int store = 0;
-                                string temp = c.Saturday.ToString();//---------
-                                string total = "";
-                                for (go = 0; go < temp.Length; go++)
-                                {
-                                    if (temp[go] != '-')
-                                        total += temp[go];
-                                    else
-                                    {
-                                        store = go;
-                                        break;
-                                    }
-                                }
-                                start = int.Parse(total);
-
-                                total = "";
-                                for (go = store + 1; go < temp.Length; go++)
-                                {
-                                    total += temp[go];
-                                }
-                                stop = int.Parse(total);
-                            }
-                        }
-                    }
-                    stop = stop - start;
-                    DateTime testing123 = new DateTime();
-                    if (stop != 0)
-                        for (int i = 0; i <= stop; i += 15)
-                        {
-                            if (i == 0)
-                            {
-                                testing123 = testing123.AddMinutes(start);
-                            }
-                            else
-                            {
-                                testing123 = testing123.AddMinutes(15);
-                            }
-                            arr[0] = "25";
-                            arr[1] = dateTimePicker1.Value.ToString("MM/dd/yyyy");
-                            arr[2] = testing123.ToString("hh:mm tt");
-                            itm = new ListViewItem(arr);
-                            listView1.Items.Add(itm);
-                        }
-                }
+                    timer_Tick(sender, e);
             }
         }
 
@@ -3095,25 +2199,20 @@ namespace SoftwareEngineeringProject
             }
             else if(!radioButton3.Checked)
             {
-                if (listView1.SelectedItems.Count>0)
+                if (dataGridView1.SelectedRows.Count > 0)
                 {
                     Form2 frm = new Form2(this);
 
                     var result = frm.ShowDialog();
                     if (result == DialogResult.OK)
-                    {
-                        ListView.SelectedListViewItemCollection selectedtimestart =this.listView1.SelectedItems;
+                    {                     
                         string date = "";
                         string timestart = "";
 
                         DateTime temp=new DateTime();
+                        date = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+                        timestart = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
 
-                        foreach (ListViewItem item in selectedtimestart)
-                        {
-                            //temp.TimeOfDay = item.SubItems[1].Text;
-                            date += item.SubItems[1].Text;
-                            timestart += item.SubItems[2].Text;
-                        }
                         int inc = 0;
                         string hour="";
                         string minute="";
@@ -3354,15 +2453,13 @@ namespace SoftwareEngineeringProject
         //deleting Scheduled DB information.
         private void button6_Click(object sender, EventArgs e)
         {
-            ListView.SelectedListViewItemCollection breakfast = this.listView1.SelectedItems;
+
             string price ="";
             string deleted = "";
 
-            foreach (ListViewItem item in breakfast)
-            {
-                price += Double.Parse(item.SubItems[8].Text);
-                deleted +="ID: "+ item.SubItems[8].Text+"\n\n"+item.SubItems[0].Text + " " + item.SubItems[1].Text + " " + item.SubItems[2].Text + "\n" + item.SubItems[3].Text + " " + item.SubItems[4].Text + " " + item.SubItems[5].Text;
-            }
+                price += Double.Parse(dataGridView1.SelectedRows[0].Cells[8].Value.ToString());
+                deleted += "ID: " + dataGridView1.SelectedRows[0].Cells[8].Value.ToString() + "\n\n" + dataGridView1.SelectedRows[0].Cells[0].Value.ToString() + " " + dataGridView1.SelectedRows[0].Cells[1].Value.ToString() + " " + dataGridView1.SelectedRows[0].Cells[2].Value.ToString() + "\n" +
+                    dataGridView1.SelectedRows[0].Cells[3].Value.ToString() + " " + dataGridView1.SelectedRows[0].Cells[4].Value.ToString() + " " + dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
 
             var query = from c in savedTableAdapter.GetData()
                         where c.Id.ToString()==price.ToString()
@@ -3375,11 +2472,12 @@ MessageBoxIcon.Information);
             {         
                 foreach (var q in query)
                 {
-                    q.Status = "Canceled";
                     savedTableAdapter.Delete(q.Id);
-                    listView1.Items.Clear();
+                    dataGridView1.Rows.Clear();
                     if (q.Status != "Canceled" && dateTimePicker1.Value.ToString("MM/dd/yyyy") == q.TestDate.ToString())
                     {
+                        q.Status = "Canceled";
+
                         arr[0] = q.StudentName.ToString();
                         arr[1] = q.Class.ToString();
                         arr[2] = q.Instructor.ToString();
@@ -3389,11 +2487,9 @@ MessageBoxIcon.Information);
                         arr[6] = q.Reporter.ToString();
                         arr[7] = q.DateCreated.ToString();
                         arr[8] = q.Id.ToString();
+                        dataGridView1.Rows.Clear();
+                        dataGridView1.Rows.Add(arr);
 
-
-                        itm = new ListViewItem(arr);
-                        listView1.Items.Add(itm);
-                        //System.Windows.Forms.MessageBox.Show(q.CBT_PBT.ToString());
                     }
                 }
             }
@@ -3403,16 +2499,11 @@ MessageBoxIcon.Information);
         private void button4_Click(object sender, EventArgs e)
         {
             //delete selected
-            ListView.SelectedListViewItemCollection breakfast =
-            this.listView1.SelectedItems;
             string selecteduser = "";
             string deleted = "";
+            selecteduser += Double.Parse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+            deleted += "ID: " + dataGridView1.SelectedRows[0].Cells[0].Value.ToString() + "\n\nEmployee name: " + dataGridView1.SelectedRows[0].Cells[1].Value.ToString() + "\nUsername: " + dataGridView1.SelectedRows[0].Cells[2].Value.ToString() + " Admin: " + dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
 
-            foreach (ListViewItem item in breakfast)
-            {
-                selecteduser += Double.Parse(item.SubItems[0].Text);
-                deleted += "ID: " + item.SubItems[0].Text + "\n\nEmployee name: " + item.SubItems[1].Text + "\nUsername: " + item.SubItems[2].Text+" Admin: "+item.SubItems[4].Text;
-            }
                         DialogResult dr = MessageBox.Show("Are you sure you want to delete this?\n"+deleted, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                         if (dr == DialogResult.Yes)
@@ -3424,8 +2515,7 @@ MessageBoxIcon.Information);
                             {
                                 userTableAdapter.Delete(q.Id);
                             }
-                            listView1.Items.Clear();
-
+                            dataGridView1.Rows.Clear();
 
                             //refresh page
                             query = from c in userTableAdapter.GetData()
@@ -3437,8 +2527,7 @@ MessageBoxIcon.Information);
                                 arr[2] = q.username.ToString();
                                 arr[3] = q.dateadded.ToString();
                                 arr[4] = q.admin.ToString();
-                                itm = new ListViewItem(arr);
-                                listView1.Items.Add(itm);
+                                dataGridView1.Rows.Add(arr);
                             }
                         }
         }
@@ -3448,7 +2537,7 @@ MessageBoxIcon.Information);
         {
             radioButton2.Checked = true;
             search = true;
-            listView1.Items.Clear();
+            dataGridView1.Rows.Clear();
             string searchinput=textBox1.Text;
             var query = from c in savedTableAdapter.GetData()
                         where c.StudentName==searchinput || c.Reporter==searchinput || c.Instructor==searchinput || c.Class==searchinput
@@ -3465,10 +2554,7 @@ MessageBoxIcon.Information);
                 arr[6] = q.Reporter.ToString();
                 arr[7] = q.DateCreated.ToString();
                 arr[8] = q.Id.ToString();
-
-
-                itm = new ListViewItem(arr);
-                listView1.Items.Add(itm);
+                dataGridView1.Rows.Add(arr);
             }
         }
 
